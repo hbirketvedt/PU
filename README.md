@@ -1,6 +1,6 @@
-##Velkommen til oppgaven vår i PU!
+## Velkommen til oppgaven vår i PU!
 
-###For å kjøre programmet må man først installere firebase ved å kjøre kommandoen under i terminalen:
+### For å kjøre programmet må man først installere firebase ved å kjøre kommandoen under i terminalen:
 
 <pre><code>npm install firebase</code></pre>
 
