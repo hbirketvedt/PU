@@ -1,15 +1,15 @@
 import {useState, useEffect} from "react";
-import {db} from "../firebase_config";
+import {db} from "../../firebase_config";
 import {
     collection, getDocs, addDoc, updateDoc, doc, deleteDoc,
 } from "firebase/firestore";
-import Navbar from "./navbar";
+import Navbar from "../navbar/navbar";
 
 function Recipes() {
     const [newRecipeName, setNewRecipeName] = useState("");
     const [newRecipePrice, setNewRecipePrice] = useState(0);
-    const [refresh, setRefresh] = useState(false);
     const [recipes, setRecipes] = useState([]);
+    const [refresh, setRefresh] = useState(false);
     const recipesCollectionRef = collection(db, "recipes");
 
     useEffect(() => {
@@ -64,7 +64,6 @@ function Recipes() {
 
     return (
         <div>
-            <Navbar/>
             <div>
                 <input
                     placeholder={"Name"}

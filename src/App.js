@@ -1,10 +1,9 @@
-import Navbar from "./routes/navbar";
-import SplashPage from "./routes/splashPage";
+import SplashPage from "./components/dummy/splashPage";
+import "./css/app.scss"
 
 function App() {
     return (
         <div>
-            <Navbar/>
             <SplashPage/>
         </div>
     )
