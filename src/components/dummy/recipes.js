@@ -8,8 +8,8 @@ import Navbar from "./navbar";
 function Recipes() {
     const [newRecipeName, setNewRecipeName] = useState("");
     const [newRecipePrice, setNewRecipePrice] = useState(0);
-    const [refresh, setRefresh] = useState(false);
     const [recipes, setRecipes] = useState([]);
+    const [refresh, setRefresh] = useState(false);
     const recipesCollectionRef = collection(db, "recipes");
 
     useEffect(() => {
@@ -64,7 +64,6 @@ function Recipes() {
 
     return (
         <div>
-            <Navbar/>
             <div>
                 <input
                     placeholder={"Name"}
