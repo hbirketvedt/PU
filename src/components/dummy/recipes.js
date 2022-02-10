@@ -1,9 +1,9 @@
 import {useState, useEffect} from "react";
-import {db} from "../firebase_config";
+import {db} from "../../firebase_config";
 import {
     collection, getDocs, addDoc, updateDoc, doc, deleteDoc,
 } from "firebase/firestore";
-import Navbar from "./navbar";
+import Navbar from "../navbar/navbar";
 
 function Recipes() {
     const [newRecipeName, setNewRecipeName] = useState("");

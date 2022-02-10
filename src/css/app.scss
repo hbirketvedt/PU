@@ -40,6 +40,8 @@ mark {
   border-radius: var(--size-radius);
   border: 3px solid var(--color-shadow, currentColor);
   box-shadow: .5rem .5rem 0 var(--color-shadow, currentColor);
+  max-width: 20cm;
+  display: 'flex';  justifyContent:'center'; alignItems:'center'; ;
 
   &--inverted {
     --color-background: var(--color-dark);
@@ -59,25 +61,26 @@ mark {
 }
 
 
-.l-design-widht {
+.l-design-width {
   max-width: 40rem;
   padding: 1rem;
 }
 
 .input {
   position: relative;
+  padding: 10px;
 
   &__label {
     position: absolute;
-    left: 0;
+    left: 10px;
     top: 0;
-    padding: calc(var(--size-bezel) * 0.75) calc(var(--size-bezel) * .5);
+    //padding: calc(var(--size-bezel) * 0.75) calc(var(--size-bezel) * .5);
     margin: calc(var(--size-bezel) * 0.75 + 3px) calc(var(--size-bezel) * .5);
-    background: pink;
     white-space: nowrap;
     transform: translate(0, 0);
     transform-origin: 0 0;
     background: var(--color-background);
+    //background: transparent;
     transition: transform 120ms ease-in;
     font-weight: bold;
     line-height: 1.2;
@@ -93,7 +96,10 @@ mark {
     background: transparent;
     border-radius: var(--size-radius);
 
-    &:focus,
+    &:focus {
+      //background-color: black;
+    }
+
     &:not(:placeholder-shown) {
       & + .input__label {
         transform: translate(.25rem, -65%) scale(.8);
@@ -120,7 +126,17 @@ button {
     background: var(--color-background);
     font-weight: 200;
   }
+
+  &:hover {
+    background: #449999;
+    transition: all ease-in-out 0.2s;
+  }
 }
+
+//button:hover {
+//  background: #449999;
+//  transition: all ease-in-out 0.2s;
+//}
 
 button + button {
   margin-left: calc(var(--size-bezel) * 2);
@@ -143,6 +159,27 @@ button + button {
   border-radius: 100px;
 }
 
+a {
+  text-decoration: none;
+  color: #0e151d;
+  padding: 10px 20px;
+  border-radius: 5px;
+  background: #fff;
+  transition: all ease-in-out 0.2s;
+}
+
+nav a:hover {
+  background: #449999;
+  transition: all ease-in-out 0.2s;
+}
+
+nav .active {
+  background: #118593;
+  padding: 10px 20px;
+  border-radius: 5px;
+  color: #fff;
+}
+
 
 .newRecipe {
   background: white;
@@ -156,6 +193,19 @@ button + button {
   box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
 }
 
-
-
+.rowA {
+  display: flex;
+  flex: 1;
+  flex-direction: row;
+}
+.rowB {
+  display: flex;
+  flex: 2;
+  flex-direction: row;
+}
+.rowC {
+  display: flex;
+  flex: 3;
+  flex-direction: row;
+}
 
