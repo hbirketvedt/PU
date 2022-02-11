@@ -10,7 +10,7 @@ import ProfilePage from "./components/dummy/profilePage";
 import NewRecipe from "./components/newRecipe/newRecipe";
 import Navbar from "./components/navbar/navbar";
 import AddIngredients from "./components/newRecipe/addIngredients";
-import RecipePage from "./components/recipe/recipePage";
+import RecipeFeed from "./components/recipe/recipeFeed";
 
 const rootElement = document.getElementById("root");
 render(<BrowserRouter>
@@ -21,7 +21,7 @@ render(<BrowserRouter>
         <Route path="profilePage" element={<ProfilePage/>}/>
         <Route path="newRecipe" element={<NewRecipe/>}/>
         <Route path="ingredients" element={<AddIngredients/>}/>
-        <Route path="hamburger" element={<RecipePage/>}/>
+        <Route path="oppskrifter" element={<RecipeFeed/>}/>
         <Route path={"*"} element={<h1> 404: not found</h1>}/>
     </Routes>
 </BrowserRouter>, rootElement);

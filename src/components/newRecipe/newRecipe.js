@@ -3,11 +3,14 @@ import {db} from "../../firebase_config";
 import "../../css/app.scss"
 import {useForm} from "react-hook-form";
 import {useNavigate} from "react-router";
+import {getStorage, uploadBytes, ref} from "firebase/storage";
+import {useState} from "react";
 
 function NewRecipe() {
     const {register, handleSubmit, formState: {errors}} = useForm()
     const recipesCollectionRef = collection(db, "newRecipes");
     const navigate = useNavigate();
+    const [image, setImage] = useState(null)
 
     const submitData = async (data) => {
         navigate("/ingredients", {state: data})
@@ -46,8 +49,7 @@ function NewRecipe() {
                         className={"input__field"}/>
                     <span className={"input__label"}>Description</span>
                 </label>
-
-                <input type={"submit"}/>
+                <button type={"submit"}>Submit</button>
             </form>
         </div>
     )
