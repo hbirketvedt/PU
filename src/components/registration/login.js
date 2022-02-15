@@ -1,7 +1,30 @@
 import { useForm} from "react-hook-form";
 import { useNavigate } from "react-router";
+import { auth } from "../../firebase_config";
+import { signInWithEmailAndPassword } from "firebase/auth";
 
 function Login() {
+
+    /*
+    const [ input ] = useState();
+
+    const auth = getAuth();
+
+
+    signInWithEmailAndPassword(auth, email, password)
+
+    .then((userCredential) => {
+        console.log("Suksess!")
+        const user = userCredential.user;
+        // ...
+    })
+
+    .catch((error) => {
+        const errorCode = error.code;
+        const errorMessage = error.message;
+        console.log("Mislykket!")
+    }); */
+    
 
     const navigate = useNavigate();
 
