@@ -1,15 +1,48 @@
 import {addDoc, collection} from "firebase/firestore";
 import {db} from "../../firebase_config";
 import "../../css/app.scss"
-import {useForm} from "react-hook-form";
+import {useForm, Controller} from "react-hook-form";
 import {useNavigate} from "react-router";
 import {useState} from "react";
+import CreatableSelect from "react-select/creatable";
+import makeAnimated from 'react-select/animated';
+import Textarea from 'react-textarea-autosize';
+import Select from "react-select";
 
 function NewRecipe() {
-    const {register, handleSubmit, formState: {errors}} = useForm()
+    const [image, setImage] = useState(null)
+    const {register, handleSubmit, control} = useForm()
     const recipesCollectionRef = collection(db, "newRecipes");
     const navigate = useNavigate();
-    const [image, setImage] = useState(null)
+
+    /**
+     * Categories for category dropdown menu. Value is value passed from function, label is displayed label to user.
+     */
+    const categories = [
+        {value: "dinner", label: "Middag"},
+        {value: "lunch", label: "Lunch"},
+        {value: "breakfast", label: "Frokost"},
+    ]
+
+
+    /**
+     * Default value for ingredients in dropdown-list. Possible to type in custom ingredients as well.
+     */
+    const ingredients = [
+        {value: "Gulrøtter", label: "Gulrøtter"},
+        {value: "Kjøtt", label: "Kjøtt"},
+        {value: "Kylling", label: "Kylling"},
+        {value: "Lam", label: "Lam"},
+        {value: "Spinat", label: "Spinat"},
+        {value: "Løk", label: "Løk"},
+        {value: "Vann", label: "Vann"},
+        {value: "Egg", label: "Egg"},
+        {value: "Mel", label: "Mel"},
+        {value: "Epler", label: "Epler"},
+        {value: "Tomat", label: "Tomat"},
+        {value: "Salat", label: "Salat"},
+        {value: "Agurk", label: "Agurk"},
+    ]
 
     /**
      *
@@ -18,7 +51,27 @@ function NewRecipe() {
      * @return {Promise<void>}
      */
     const submitData = async (data) => {
-        navigate("/ingredients", {state: data})
+        // await addDoc(recipesCollectionRef, {
+        //     title: data.title,
+        //     timeEstimate: data.timeEstimate,
+        //     portions: data.portions,
+        //     ingredients: data.ingredients,
+        //     category: data.category,
+        //     description: data.description,
+        // });
+        // console.log(data.ingredients)
+        console.log()
+
+    }
+
+
+    /**
+     * Stores uploaded photo in image variable
+     */
+    const handleChosenImage = (e) => {
+        if (e.target.files[0]) {
+            setImage(e.target.files[0])
+        }
     }
 
 
@@ -29,20 +82,21 @@ function NewRecipe() {
                     submitData(data)
                 })}
             >
-                <h3>Oppskriftens navn: </h3>
+                <h3 className={"input__label"}>Oppskriftens navn: </h3>
                 <input
                     {...register("title", {
                         minLength: {
-                            value: 4,
-                            message: "Minimum title length is 4"
+                            value: 3,
+                            message: "Minimum title length is 3"
                         }
                     })}
+                    type={"text"}
                     className={"input__field"}
                 />
 
-                <h4>Tidsestimat: </h4>
+                <h5 className={"input__label"}>Tidsestimat: </h5>
                 <input
-                    {...register("time_estimate", {
+                    {...register("timeEstimate", {
                         minLength: {
                             value: 1,
                             message: "Minimum time estimate is 1"
@@ -50,16 +104,83 @@ function NewRecipe() {
                     })}
                     className={"input__field"}
                 />
+
+                <h5 className={"input__label"}>Antall Porsjoner: </h5>
                 <input
+                    {...register("portions", {
+                        required: "This is required",
+                        minLength: {
+                            value: 1,
+                            message: "Minimum title length is 1"
+                        }
+                    })}
+                    type={"number"}
+                    className={"input__field"}/>
+
+
+                <h5 className={"input__label"}>Legg til bilde</h5>
+                <input
+                    type={"file"}
+                    onChange={handleChosenImage}
+                    className={"input__field"}
+                />
+
+                <h5 className={"input__label"}>Ingredienser: </h5>
+                <Controller
+                    // Name specifies key in register
+                    name="ingredients"
+                    control={control}
+                    render={({field}) => <CreatableSelect
+                        {...field}
+                        // Options form const declared earlier
+                        options={ingredients}
+                        // Allow multiple choices
+                        isMulti
+                        // defines css
+                        className={"input__field"}
+                    />}
+                />
+
+                <h5 className={"input__label"}>Kategori: </h5>
+                <Controller
+                    // Name specifies key in register
+                    name="category"
+                    control={control}
+                    render={({field}) => <Select
+                        {...field}
+                        // Options form const declared earlier
+                        options={categories}
+                        // defines css
+                        className={"input__field"}
+                    />}
+                />
+
+
+                {/*<h5 className={"input__label"}>Kategori: </h5>*/}
+                {/*<Select*/}
+                {/*    {...register("category")}*/}
+                {/*    options={categories}*/}
+                {/*    className={"input__field"}*/}
+                {/*/>*/}
+
+                <h5 className={"input__label"}>Fremgangsmåte: </h5>
+                <Textarea
                     {...register("description", {
                         required: "This is required",
                         minLength: {
-                            value: 4,
-                            message: "Minimum title length is 4"
+                            value: 1,
+                            message: "Minimum title length is 1"
                         }
                     })}
-                    className={"input__field"}/>
-                <button type={"submit"}>Submit</button>
+                    type={"textarea"}
+                    className={"input__field__big"}/>
+
+
+                <button
+                    type={"submit"}
+                    className={"input__submit"}
+                >Publiser
+                </button>
             </form>
         </div>
     )

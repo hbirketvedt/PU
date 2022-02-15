@@ -115,48 +115,33 @@ mark {
   padding: 1rem;
 }
 
-//.input {
-//  position: relative;
-//  padding: 10px;
-//
-//  &__label {
-//    position: absolute;
-//    left: 10px;
-//    top: 0;
-//    //padding: calc(var(--size-bezel) * 0.75) calc(var(--size-bezel) * .5);
-//    margin: calc(var(--size-bezel) * 0.75 + 3px) calc(var(--size-bezel) * .5);
-//    white-space: nowrap;
-//    transform: translate(0, 0);
-//    transform-origin: 0 0;
-//    background: var(--color-background);
-//    //background: transparent;
-//    transition: transform 120ms ease-in;
-//    font-weight: bold;
-//    line-height: 1.2;
-//  }
-//
-//  &__field {
-//    box-sizing: border-box;
-//    display: block;
-//    width: 100%;
-//    border: 3px solid currentColor;
-//    padding: calc(var(--size-bezel) * 1.5) var(--size-bezel);
-//    color: currentColor;
-//    background: transparent;
-//    border-radius: var(--size-radius);
-//
-//    &:focus {
-//      //background-color: black;
-//    }
-//
-//    &:not(:placeholder-shown) {
-//      & + .input__label {
-//        transform: translate(.25rem, -65%) scale(.8);
-//        color: var(--color-accent);
-//      }
-//    }
-//  }
-//}
+.input {
+  &__label {
+    margin: 3mm auto;
+    margin-left: .5cm;
+    margin-top: 1cm;
+  }
+
+  &__field {
+    display: block;
+    width: 90%;
+    margin: 0 auto;
+
+    &__big {
+      display: block;
+      width: 90%;
+      margin: 0 auto;
+      min-height: 3cm;
+    }
+  }
+
+  &__submit {
+    display: block;
+    margin: .5cm auto;
+    width: 80%;
+  }
+
+}
 
 .card {
   background: #F4FBFF;
@@ -221,7 +206,6 @@ button + button {
 }
 
 
-
 .navbar {
   background-color: #118593;
   height: 50px;
@@ -255,7 +239,6 @@ link {
   margin: 100px;
   padding: 100px;
 }
-
 
 
 .newRecipe {
