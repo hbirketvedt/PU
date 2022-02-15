@@ -6,7 +6,7 @@ import {
 } from "react-router-dom";
 import App from "./App";
 import Recipes from "./components/dummy/recipes";
-import ProfilePage from "./components/dummy/profilePage";
+import ProfilePage from "./components/profile/profilePage";
 import NewRecipe from "./components/newRecipe/newRecipe";
 import Navbar from "./components/navbar/navbar";
 import AddIngredients from "./components/newRecipe/addIngredients";
