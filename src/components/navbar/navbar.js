@@ -6,7 +6,7 @@ function Navbar() {
             <nav >
                 <div>
                     <ul>
-                        <li className={"nav-li"}><NavLink to={"/"}>Home </NavLink></li>
+                        <li className={"nav-li"}><NavLink to={"/splashPage"}>Home </NavLink></li>
                         <li className={"nav-li"}><NavLink to='/recipes'>Recipes</NavLink></li>
                         <li className={"nav-li"}><NavLink to='/profilePage'>Profile Page</NavLink></li>
                         <li className={"nav-li"}><NavLink to='/newRecipe'>Add new recipe</NavLink></li>
