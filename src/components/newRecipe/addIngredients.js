@@ -5,18 +5,27 @@ import {addDoc, collection} from "firebase/firestore";
 import {db} from "../../firebase_config";
 
 
-function AddIngredients(props) {
+function AddIngredients() {
+    // Constants used in function
     const {register, handleSubmit, getValues, reset} = useForm()
     const [ingredients, setIngredients] = useState([])
     const {state} = useLocation()
     const recipesCollectionRef = collection(db, "newRecipes");
     const navigate = useNavigate()
 
+    /**
+     * Takes new ingredient value from input field and adds it to ingredients array. Removes old ingredient from
+     * input field.
+     */
     const handleAddIngredient = () => {
         setIngredients([...ingredients, getValues("ingredient")])
         reset()
     }
 
+    /**
+     * Uploads recipes stored in state and ingredients
+     * @return {Promise<void>}
+     */
     const handleSubmitRecipe = async () => {
         await addDoc(recipesCollectionRef, {
             title: state.title, description: state.description, ingredients: ingredients,
@@ -33,6 +42,7 @@ function AddIngredients(props) {
                 <form onSubmit={handleSubmit(data => {
                     handleAddIngredient()
                 })}>
+                    {/*input values are stored using useForm() hook */}
                     <input
                         placeholder={"ingredient"}
                         {...register("ingredient", {})}

@@ -3,7 +3,6 @@ import {db} from "../../firebase_config";
 import "../../css/app.scss"
 import {useForm} from "react-hook-form";
 import {useNavigate} from "react-router";
-import {getStorage, uploadBytes, ref} from "firebase/storage";
 import {useState} from "react";
 
 function NewRecipe() {
@@ -12,6 +11,12 @@ function NewRecipe() {
     const navigate = useNavigate();
     const [image, setImage] = useState(null)
 
+    /**
+     *
+     * @param data Passes title and description from input fields to /ingredients page. data variable is included from
+     * useForm() hook.
+     * @return {Promise<void>}
+     */
     const submitData = async (data) => {
         navigate("/ingredients", {state: data})
     }

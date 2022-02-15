@@ -5,12 +5,16 @@ import RecipeCard from "./recipeCard";
 
 
 function RecipeFeed() {
+    // Constants used in function
     const recipesCollectionRef = collection(db, "newRecipes");
     const [recipes, setRecipes] = useState([]);
 
 
+    /**
+     * Loads recipes from database. Empty dependency array ( [] at the end of useEffect)
+     * specifies that the function only runs once on load
+     */
     useEffect(() => {
-
         const loadRecipes = async () => {
             const data = await getDocs(recipesCollectionRef);
             const recipes = data.docs.map((doc) => ({...doc.data(), id: doc.id}));

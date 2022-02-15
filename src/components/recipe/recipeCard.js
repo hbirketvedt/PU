@@ -13,9 +13,12 @@ function RecipeCard(props) {
     const [title, setTitle] = useState(props.title)
     const [description, setDescription] = useState(props.description)
     const [ingredients, setIngredients] = useState(props.ingredients)
-    const starsRef = ref(getStorage(), `images/${props.imageUrl}`);
+    const imageRef = ref(getStorage(), `images/${props.imageUrl}`);
 
 
+    /**
+     * Old functions, don't delete
+     */
     // useEffect(() => {
     //     const loadRecipes = async () => {
     //         const data = await getDocs(recipesCollectionRef);
@@ -43,11 +46,16 @@ function RecipeCard(props) {
     //     });
     // }
     //
+
+    /**
+     * Loads correct url for image into url variable using relative path from variable imageRef. Include url in <img>
+     *     component (found in return statement) to load image to page.
+     */
     useEffect(() => {
             const handleDownload = async () => {
                 // Create a reference to the file we want to download
 
-                getDownloadURL(starsRef)
+                getDownloadURL(imageRef)
                     .then((url) => {
                         setUrl(url)
                     })
