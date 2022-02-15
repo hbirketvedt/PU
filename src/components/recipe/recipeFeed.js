@@ -25,8 +25,9 @@ function RecipeFeed() {
 
     return (
         <div>
-            <div className={"columns"}>
-                <div>
+            <div>
+                <h1>Oppskrifter</h1>
+                <div className={"columns"}>
                     {recipes.map((recipe) => {
                         return (
                             <div>

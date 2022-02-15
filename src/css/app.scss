@@ -24,6 +24,7 @@
 
 h1, h2, h3 {
   font-weight: 900;
+  text-align: center;
 }
 
 mark {
@@ -214,11 +215,21 @@ button + button {
 
 .nav-li {
   display: inline;
-  padding: 2px;
   border-radius: 100px;
+  border: 1000px pink;
+}
+
+
+
+.navbar {
+  background-color: #118593;
+  height: 50px;
+  justify-content: right;
 }
 
 a {
+  margin: 8px;
+  justify-content: right;
   text-decoration: none;
   color: #0e151d;
   padding: 10px 20px;
@@ -238,6 +249,12 @@ nav .active {
   border-radius: 5px;
   color: #fff;
 }
+
+link {
+  margin: 100px;
+  padding: 100px;
+}
+
 
 
 .newRecipe {
