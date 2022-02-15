@@ -29,31 +29,36 @@ function NewRecipe() {
                     submitData(data)
                 })}
             >
-                <label className={"input"}>
-                    {/*<span className={"input__label"}> {errors.title?.message}</span>*/}
-                    <input
-                        {...register("title", {
-                            minLength: {
-                                value: 4,
-                                message: "Minimum title length is 4"
-                            }
-                        })}
-                        className={"input__field"}/>
-                    <span className={"input__label"}>Title</span>
-                </label>
-                <label className={"input"}>
-                    {/*<span className={"input__label"}>{errors.description?.message}</span>*/}
-                    <input
-                        {...register("description", {
-                            required: "This is required",
-                            minLength: {
-                                value: 4,
-                                message: "Minimum title length is 4"
-                            }
-                        })}
-                        className={"input__field"}/>
-                    <span className={"input__label"}>Description</span>
-                </label>
+                <h3>Oppskriftens navn: </h3>
+                <input
+                    {...register("title", {
+                        minLength: {
+                            value: 4,
+                            message: "Minimum title length is 4"
+                        }
+                    })}
+                    className={"input__field"}
+                />
+
+                <h4>Tidsestimat: </h4>
+                <input
+                    {...register("time_estimate", {
+                        minLength: {
+                            value: 1,
+                            message: "Minimum time estimate is 1"
+                        }
+                    })}
+                    className={"input__field"}
+                />
+                <input
+                    {...register("description", {
+                        required: "This is required",
+                        minLength: {
+                            value: 4,
+                            message: "Minimum title length is 4"
+                        }
+                    })}
+                    className={"input__field"}/>
                 <button type={"submit"}>Submit</button>
             </form>
         </div>
