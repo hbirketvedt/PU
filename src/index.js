@@ -10,11 +10,11 @@ import ProfilePage from "./components/dummy/profilePage";
 import NewRecipe from "./components/newRecipe/newRecipe";
 import Navbar from "./components/navbar/navbar";
 import AddIngredients from "./components/newRecipe/addIngredients";
-import RecipeFeed from "./components/recipe/recipeFeed";
+import RecipeFeed from "./components/recipeFeed/recipeFeed";
 
 const rootElement = document.getElementById("root");
 render(<BrowserRouter>
-    <Navbar />
+    <Navbar/>
     <Routes>
         <Route path="/*" element={<App/>}/>
         <Route path="recipes" element={<Recipes/>}/>

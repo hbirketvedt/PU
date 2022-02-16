@@ -21,7 +21,7 @@ function UploadImage() {
     /**
      *
      * @param data Title and description props that are passed from newRecipe.js. Passed on to addIngredients.js
-     * so they can be uploaded to database when recipe is submitted.
+     * so they can be uploaded to database when recipeFeed is submitted.
      * @return {Promise<void>}
      */
     const submitData = async (data) => {

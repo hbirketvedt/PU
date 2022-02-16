@@ -22,10 +22,10 @@ function RecipeCard(props) {
     // useEffect(() => {
     //     const loadRecipes = async () => {
     //         const data = await getDocs(recipesCollectionRef);
-    //         const recipe = data.docs.find((doc) => doc.id === documentID).data();
-    //         setTitle(recipe.title)
-    //         setDescription(recipe.description)
-    //         setIngredients(recipe.ingredients)
+    //         const recipeFeed = data.docs.find((doc) => doc.id === documentID).data();
+    //         setTitle(recipeFeed.title)
+    //         setDescription(recipeFeed.description)
+    //         setIngredients(recipeFeed.ingredients)
     //     };
     //     loadRecipes();
     //     console.log("Database polled");

@@ -1,5 +1,3 @@
-import Navbar from "../navbar/navbar";
-
 
 function ProfilePage() {
     return (

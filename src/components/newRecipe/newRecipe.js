@@ -8,6 +8,7 @@ import CreatableSelect from "react-select/creatable";
 import makeAnimated from 'react-select/animated';
 import Textarea from 'react-textarea-autosize';
 import Select from "react-select";
+import {getStorage, ref, uploadBytes} from "firebase/storage";
 
 function NewRecipe() {
     const [image, setImage] = useState(null)
@@ -19,9 +20,9 @@ function NewRecipe() {
      * Categories for category dropdown menu. Value is value passed from function, label is displayed label to user.
      */
     const categories = [
-        {value: "dinner", label: "Middag"},
-        {value: "lunch", label: "Lunch"},
-        {value: "breakfast", label: "Frokost"},
+        {value: "Middag", label: "Middag"},
+        {value: "Lunch", label: "Lunch"},
+        {value: "Frokost", label: "Frokost"},
     ]
 
 
@@ -51,17 +52,38 @@ function NewRecipe() {
      * @return {Promise<void>}
      */
     const submitData = async (data) => {
-        // await addDoc(recipesCollectionRef, {
-        //     title: data.title,
-        //     timeEstimate: data.timeEstimate,
-        //     portions: data.portions,
-        //     ingredients: data.ingredients,
-        //     category: data.category,
-        //     description: data.description,
-        // });
-        // console.log(data.ingredients)
-        console.log()
+        const ingredients = []
+        let imageUrl = null
+        // ingredients are returned as an IterableIterator so loop is used to extract only ingredients and add them
+        // to collection
+        for (let ing of data.ingredients.entries()) {
+            ingredients.push(ing[1].value)
+        }
+        if (image != null) {
+            await uploadImage()
+            imageUrl = image.name
+        }
+        // Adds recipeFeed to doc. All fields are marked as required so all fields should be filled.
+        await addDoc(recipesCollectionRef, {
+            title: data.title,
+            timeEstimate: data.timeEstimate,
+            portions: data.portions,
+            ingredients: ingredients,
+            category: data.category.value,
+            description: data.description,
+            imageUrl: imageUrl
+        });
+        console.log("Recipe uploaded to database")
+        navigate("/")
+    }
 
+
+    const uploadImage = async () => {
+        const storage = getStorage();
+        const storageRef = ref(storage, `/images/${image.name}`);
+        uploadBytes(storageRef, image).then((snapshot) => {
+            console.log('Uploaded a blob or file!');
+        });
     }
 
 
@@ -85,6 +107,7 @@ function NewRecipe() {
                 <h3 className={"input__label"}>Oppskriftens navn: </h3>
                 <input
                     {...register("title", {
+                        required: "title is required",
                         minLength: {
                             value: 3,
                             message: "Minimum title length is 3"
@@ -97,6 +120,7 @@ function NewRecipe() {
                 <h5 className={"input__label"}>Tidsestimat: </h5>
                 <input
                     {...register("timeEstimate", {
+                        required: "Time estimate is required",
                         minLength: {
                             value: 1,
                             message: "Minimum time estimate is 1"
@@ -108,12 +132,9 @@ function NewRecipe() {
                 <h5 className={"input__label"}>Antall Porsjoner: </h5>
                 <input
                     {...register("portions", {
-                        required: "This is required",
-                        minLength: {
-                            value: 1,
-                            message: "Minimum title length is 1"
-                        }
-                    })}
+                        required: "Portion count is required"
+                    })
+                    }
                     type={"number"}
                     className={"input__field"}/>
 
@@ -139,6 +160,8 @@ function NewRecipe() {
                         // defines css
                         className={"input__field"}
                     />}
+                    rules={{required: true}}
+
                 />
 
                 <h5 className={"input__label"}>Kategori: </h5>
@@ -153,6 +176,8 @@ function NewRecipe() {
                         // defines css
                         className={"input__field"}
                     />}
+                    rules={{required: true}}
+
                 />
 
 
@@ -166,7 +191,7 @@ function NewRecipe() {
                 <h5 className={"input__label"}>Fremgangsmåte: </h5>
                 <Textarea
                     {...register("description", {
-                        required: "This is required",
+                        required: "Description is required",
                         minLength: {
                             value: 1,
                             message: "Minimum title length is 1"
@@ -174,8 +199,6 @@ function NewRecipe() {
                     })}
                     type={"textarea"}
                     className={"input__field__big"}/>
-
-
                 <button
                     type={"submit"}
                     className={"input__submit"}
