@@ -2,17 +2,15 @@ import {useEffect, useState} from "react";
 import {collection, getDocs} from "firebase/firestore";
 import {db} from "../../firebase_config";
 import {getDownloadURL, getStorage, ref, uploadBytes} from "firebase/storage";
+import {Card} from "react-bootstrap";
+import Button from "react-bootstrap/Button";
 
 
 function RecipeCard(props) {
-    const documentID = props.id
     // const documentID = "39AquvXple9d6XbFHuam"
-    const [image, setImage] = useState(null)
     const [url, setUrl] = useState("")
-    const recipesCollectionRef = collection(db, "newRecipes");
-    const [title, setTitle] = useState(props.title)
-    const [description, setDescription] = useState(props.description)
-    const [ingredients, setIngredients] = useState(props.ingredients)
+    const [title] = useState(props.title)
+    const [description] = useState(props.description)
     const imageRef = ref(getStorage(), `images/${props.imageUrl}`);
 
 
@@ -86,33 +84,33 @@ function RecipeCard(props) {
     )
 
     return (
-        <div className={"recipeCard"}>
-            <img
-                src={url}
-                alt={""}
-                className={"recipeCard__image"}
-            />
-            <h1 className={"recipeCard__h1"}>{title}</h1>
-            <h4 className={"recipeCard__h3"}>{description}</h4>
-            <h3 className={"recipeCard__h4"}>Ingredienser:</h3>
-            <ul className={"recipeCard__ul"}>
-                {ingredients.map((ingredient) => {
-                    return <li> {ingredient} </li>
-                })}
-            </ul>
+        <Card style={{width: '40rem', height: "25rem"}}>
+            <Card.Img style={{width: "100%", height: "20rem", objectFit: "cover"}} variant="top" src={url}/>
+            <Card.Body>
+                <Card.Title>{title}</Card.Title>
+                <Card.Subtitle> {description}</Card.Subtitle>
+                {/*<Card.Text>{ingredients.map((ingredient) => {*/}
+                {/*    return <li> {ingredient} </li>})}*/}
+                {/*</Card.Text>*/}
+            </Card.Body>
+        </Card>
 
-        </div>
-
-        // <div className={"card"}>
-        //     <h1>{title}</h1>
-        //     <h5> {description}</h5>
-        //     <ul>
-        //         <h2>Ingredienser</h2>
-        //         {ingredients.map(ingredient => {
+        // <div className={"recipeCard"}>
+        //     <img
+        //         src={url}
+        //         alt={""}
+        //         className={"recipeCard__image"}
+        //     />
+        //     <h1 className={"recipeCard__h1"}>{title}</h1>
+        //     <h4 className={"recipeCard__h3"}>{description}</h4>
+        //     <h3 className={"recipeCard__h4"}>Ingredienser:</h3>
+        //     <ul className={"recipeCard__ul"}>
+        //         {ingredients.map((ingredient) => {
         //             return <li> {ingredient} </li>
         //         })}
         //     </ul>
         // </div>
+
     )
 }
 

@@ -11,6 +11,7 @@ import NewRecipe from "./components/newRecipe/newRecipe";
 import Navbar from "./components/navbar/navbar";
 import AddIngredients from "./components/newRecipe/addIngredients";
 import RecipeFeed from "./components/recipeFeed/recipeFeed";
+import 'bootstrap/dist/css/bootstrap.min.css';
 
 const rootElement = document.getElementById("root");
 render(<BrowserRouter>

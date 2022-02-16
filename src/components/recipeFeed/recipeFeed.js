@@ -29,23 +29,19 @@ function RecipeFeed() {
 
     return (
         <div>
-            <div>
-                <h1>Oppskrifter</h1>
-                <div className={"columns"}>
-                    {recipes.map((recipe) => {
-                        return (
-                            <div>
-                                <RecipeCard
-                                    id={recipe.id}
-                                    title={recipe.title}
-                                    description={recipe.description}
-                                    ingredients={recipe.ingredients}
-                                    imageUrl={recipe.imageUrl}
-                                />
-                                <div className={"spacer"}></div>
-                            </div>)
-                    })}
-                </div>
+            <h1 className={"centered_text weighted__text"}>Oppskrifter</h1>
+            <div className={"center columns"}>
+                {recipes.map((recipe) => {
+                    return (
+                        <RecipeCard
+                            id={recipe.id}
+                            title={recipe.title}
+                            description={recipe.description}
+                            ingredients={recipe.ingredients}
+                            imageUrl={recipe.imageUrl}
+                            style={{margin: "10rem"}}
+                        />)
+                })}
             </div>
         </div>
     )
