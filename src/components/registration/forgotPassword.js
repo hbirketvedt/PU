@@ -2,17 +2,25 @@ import { auth } from "../../firebase_config";
 import { sendPasswordResetEmail } from "firebase/auth";
 import { Alert } from "react-bootstrap";
 import { useState} from "react";
- 
+import { useNavigate } from "react-router";
+
 
 function ForgotPassword() {
 
     const [ email, setEmail ] = useState("");
     const [ confirmedMsg, setConfirmedMsg] = useState(""); 
+    const navigate = useNavigate();
+
+
+    const goToLogin = async () => {
+        navigate("/login")
+    }
 
     const resetPassword = async () => {
         sendPasswordResetEmail(auth, email)
         .then(() => {
             setConfirmedMsg("Hurra!")
+            goToLogin();
         })
         .catch((error) => {
             setConfirmedMsg("Dette gikk ikke!");

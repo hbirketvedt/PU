@@ -1,7 +1,7 @@
 @import url('https://rsms.me/inter/inter.css');
 
 :root {
-  --color-light: white;
+  --color-light: #DCDCDC;
   --color-dark: #212121;
   --color-signal: #118593;
 
@@ -17,12 +17,17 @@
   font-family: 'Inter', sans-serif;
   font-size: calc(.6rem + .4vw);
   color: var(--color-text);
-  background: var(--color-background);
+  //background: var(--color-background);
+  background: white;
   font-weight: 300;
   padding: 0 calc(var(--size-bezel) * 3);
 }
 
-h1, h2, h3 {
+.centered_text {
+  text-align: center;
+}
+
+.weighted__text {
   font-weight: 900;
 }
 
@@ -33,33 +38,39 @@ mark {
   padding: 0 0.2em;
 }
 
-.card {
-  background: var(--color-background);
-  padding: calc(4 * var(--size-bezel));
-  margin-top: calc(4 * var(--size-bezel));
-  border-radius: var(--size-radius);
-  border: 3px solid var(--color-shadow, currentColor);
-  box-shadow: .5rem .5rem 0 var(--color-shadow, currentColor);
-  max-width: 20cm;
-  display: 'flex';  justifyContent:'center'; alignItems:'center'; ;
+.recipeCard {
+  background-color: #F8F8F8;
+  border: 1px solid #212121;
+  border-radius: 12px;
 
-  &--inverted {
-    --color-background: var(--color-dark);
-    color: var(--color-light);
-    --color-shadow: var(--color-accent);
+  &__image {
+    border-top-left-radius: 12px;
+    border-top-right-radius: 12px;
+    max-width: 100%;
   }
 
-  &--accent {
-    --color-background: var(--color-signal);
-    --color-accent: var(--color-light);
-    color: var(--color-dark);
+  &__h1 {
+    text-align: center;
   }
 
-  *:first-child {
-    margin-top: 0;
+  &__h3 {
+    padding-left: 30px;
   }
+
+  &__h4 {
+    padding-left: 30px;
+  }
+
+  &__ul {
+    list-style-type: none;
+    font-size: 20px;
+  }
+
 }
 
+.spacer {
+  padding: 12px;
+}
 
 .l-design-width {
   max-width: 40rem;
@@ -67,46 +78,45 @@ mark {
 }
 
 .input {
-  position: relative;
-  padding: 10px;
-
   &__label {
-    position: absolute;
-    left: 10px;
-    top: 0;
-    //padding: calc(var(--size-bezel) * 0.75) calc(var(--size-bezel) * .5);
-    margin: calc(var(--size-bezel) * 0.75 + 3px) calc(var(--size-bezel) * .5);
-    white-space: nowrap;
-    transform: translate(0, 0);
-    transform-origin: 0 0;
-    background: var(--color-background);
-    //background: transparent;
-    transition: transform 120ms ease-in;
-    font-weight: bold;
-    line-height: 1.2;
+    margin: 2mm auto;
+    margin-left: .5cm;
+    margin-top: 8mm;
   }
 
   &__field {
-    box-sizing: border-box;
     display: block;
-    width: 100%;
-    border: 3px solid currentColor;
-    padding: calc(var(--size-bezel) * 1.5) var(--size-bezel);
-    color: currentColor;
-    background: transparent;
-    border-radius: var(--size-radius);
+    width: 90%;
+    margin: 0 auto;
 
-    &:focus {
-      //background-color: black;
-    }
-
-    &:not(:placeholder-shown) {
-      & + .input__label {
-        transform: translate(.25rem, -65%) scale(.8);
-        color: var(--color-accent);
-      }
+    &__big {
+      display: block;
+      width: 90%;
+      margin: 0 auto;
+      min-height: 3cm;
     }
   }
+
+  &__submit {
+    display: block;
+    margin: .5cm auto;
+    width: 80%;
+  }
+
+}
+
+.card {
+  background: #F4FBFF;
+  border: 1px solid #212121;
+  border-radius: 12px;
+  width: 40%;
+  margin: 3rem;
+}
+
+.columns {
+  column-count: 2;
+  gap: 3rem;
+  align-items: center;
 }
 
 
@@ -133,44 +143,56 @@ button {
   }
 }
 
-//button:hover {
-//  background: #449999;
-//  transition: all ease-in-out 0.2s;
-//}
-
 button + button {
   margin-left: calc(var(--size-bezel) * 2);
 }
 
-.icon {
-  display: inline-block;
-  width: 1em;
-  height: 1em;
-  margin-right: .5em;
+.bottom__margin {
+  //margin-bottom: 2rem;
+  column-gap: 3rem;
+
 }
+
 
 .hidden {
   display: none;
 }
 
-.nav-li {
-  display: inline;
-  padding: 2px;
-  border-radius: 100px;
+
+.navbar__wrapper {
+  background-color: teal;
+  width: 100%;
+  justify-content: center;
+  height: 2cm;
+  display: flex;
+  align-items: center;
+  position: sticky;
+  top: 0;
 }
 
+
 a {
+  margin: 8px;
+  justify-content: right;
   text-decoration: none;
-  color: #0e151d;
   padding: 10px 20px;
   border-radius: 5px;
-  background: #fff;
+  background: var(--color-accent);
   transition: all ease-in-out 0.2s;
 }
+
+
+nav a {
+  color: white;
+  text-decoration: none;
+}
+
 
 nav a:hover {
   background: #449999;
   transition: all ease-in-out 0.2s;
+  color: #fff;
+
 }
 
 nav .active {
@@ -178,6 +200,13 @@ nav .active {
   padding: 10px 20px;
   border-radius: 5px;
   color: #fff;
+  text-underline-style: dotted;
+  //color: deeppink;
+}
+
+link {
+  margin: 100px;
+  padding: 100px;
 }
 
 
@@ -198,11 +227,13 @@ nav .active {
   flex: 1;
   flex-direction: row;
 }
+
 .rowB {
   display: flex;
   flex: 2;
   flex-direction: row;
 }
+
 .rowC {
   display: flex;
   flex: 3;
