@@ -18,7 +18,6 @@ render(<BrowserRouter>
     <Navbar/>
     <Routes>
         <Route path="/*" element={<App/>}/>
-        <Route path="recipes" element={<Recipes/>}/>
         <Route path="profilePage" element={<ProfilePage/>}/>
         <Route path="newRecipe" element={<NewRecipe/>}/>
         <Route path="ingredients" element={<AddIngredients/>}/>

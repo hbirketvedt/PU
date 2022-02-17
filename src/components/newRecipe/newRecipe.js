@@ -20,9 +20,9 @@ function NewRecipe() {
      * Categories for category dropdown menu. Value is value passed from function, label is displayed label to user.
      */
     const categories = [
-        {value: "Middag", label: "Middag"},
-        {value: "Lunch", label: "Lunch"},
         {value: "Frokost", label: "Frokost"},
+        {value: "Lunch", label: "Lunch"},
+        {value: "Middag", label: "Middag"},
     ]
 
 
@@ -46,9 +46,7 @@ function NewRecipe() {
     ]
 
     /**
-     *
-     * @param data Passes title and description from input fields to /ingredients page. data variable is included from
-     * useForm() hook.
+     * Uploads new recipe to firebase
      * @return {Promise<void>}
      */
     const submitData = async (data) => {
@@ -59,6 +57,7 @@ function NewRecipe() {
         for (let ing of data.ingredients.entries()) {
             ingredients.push(ing[1].value)
         }
+        // uploads image if present and sets imageUrl accordingly, which will be stored with recipe.
         if (image != null) {
             await uploadImage()
             imageUrl = image.name
@@ -77,7 +76,10 @@ function NewRecipe() {
         navigate("/")
     }
 
-
+    /**
+     * Uploads image to storage in firebase
+     * @return {Promise<void>}
+     */
     const uploadImage = async () => {
         const storage = getStorage();
         const storageRef = ref(storage, `/images/${image.name}`);
@@ -179,14 +181,6 @@ function NewRecipe() {
                     rules={{required: true}}
 
                 />
-
-
-                {/*<h5 className={"input__label"}>Kategori: </h5>*/}
-                {/*<Select*/}
-                {/*    {...register("category")}*/}
-                {/*    options={categories}*/}
-                {/*    className={"input__field"}*/}
-                {/*/>*/}
 
                 <h5 className={"input__label"}>Fremgangsmåte: </h5>
                 <Textarea
