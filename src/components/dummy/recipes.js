@@ -41,7 +41,7 @@ function Recipes() {
 
 
     /**
-     * Saves recipe when save button is pushed and refreshes page
+     * Saves recipeFeed when save button is pushed and refreshes page
      * @return {Promise<void>}
      */
     const saveRecipe = async () => {
@@ -52,8 +52,8 @@ function Recipes() {
     };
 
     /**
-     * Deletes recipe matching inputID
-     * @param id documentID of recipe to delete
+     * Deletes recipeFeed matching inputID
+     * @param id documentID of recipeFeed to delete
      * @return {Promise<void>}
      */
     const deleteRecipe = async (id) => {
@@ -100,7 +100,7 @@ function Recipes() {
                         </button>
                         {/*<h1>*/}
                         {/*  Ingredients:{" "}*/}
-                        {/*  {recipe.ingredients.map((ingredient) => {*/}
+                        {/*  {recipeFeed.ingredients.map((ingredient) => {*/}
                         {/*    return <div> {ingredient} </div>;*/}
                         {/*  })}*/}
                         {/*</h1>*/}

@@ -1,11 +1,7 @@
-import Navbar from "../navbar/navbar";
-
 
 function ProfilePage() {
     return (
-        <div>
-            This is a dummy for the profile page
-        </div>
+        <div>This is a dummy page for the profile page</div>
     )
 }
 
