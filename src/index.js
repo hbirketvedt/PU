@@ -2,8 +2,7 @@ import {render} from "react-dom";
 import {
     BrowserRouter,
     Routes,
-    Route,
-    useLocation
+    Route
 } from "react-router-dom";
 import App from "./App";
 import Recipes from "./components/dummy/recipes";
@@ -14,6 +13,7 @@ import AddIngredients from "./components/newRecipe/addIngredients";
 import RecipePage from "./components/recipe/recipePage";
 import SplashPage from "./components/dummy/splashPage";
 import Signup from "./components/registration/signup";
+import Login from "./components/registration/login";
 
 
 let handleNavbar = () => {
@@ -22,10 +22,14 @@ let handleNavbar = () => {
 
 
 const rootElement = document.getElementById("root");
-render(<BrowserRouter>
+render(
+<BrowserRouter>
+    <div></div>
     <Navbar/>
     <Routes>
         <Route path="/*" element={<App/>}></Route>
+        <Route path="login" element={<Login/>}></Route>
+        <Route path="signup" element={<Signup/>}></Route>
         <Route path="splashPage" element={<SplashPage/>}/>
         <Route path="recipes" element={<Recipes/>}/>
         <Route path="profilePage" element={<ProfilePage/>}/>

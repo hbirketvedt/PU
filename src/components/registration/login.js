@@ -1,31 +1,31 @@
-import { useForm} from "react-hook-form";
+import { useState} from "react";
 import { useNavigate } from "react-router";
 import { auth } from "../../firebase_config";
 import { signInWithEmailAndPassword } from "firebase/auth";
+import { Alert } from "react-bootstrap";
 
 function Login() {
 
-    /*
-    const [ input ] = useState();
+    const [ loginEmail, setLoginEmail ] = useState("");
+    const [ loginPassword, setLoginPassword ] = useState("");
+    const [ loginError, setLoginError] = useState(""); // bytt navn til loginError
 
-    const auth = getAuth();
-
-
-    signInWithEmailAndPassword(auth, email, password)
-
-    .then((userCredential) => {
-        console.log("Suksess!")
-        const user = userCredential.user;
-        // ...
-    })
-
-    .catch((error) => {
-        const errorCode = error.code;
-        const errorMessage = error.message;
-        console.log("Mislykket!")
-    }); */
+    const login = async () => {
+        try {
+            setLoginError("");
+            const user = await signInWithEmailAndPassword(auth, loginEmail, loginPassword);
+            console.log(user);
+            goToHome();
+        } catch (error) {
+            console.log(error.message);
+            if (error.message.includes("auth/invalid-email")) {
+                setLoginError("Ugyldig e-post!");
+            } else {
+                setLoginError("E-post eller passord er er feil!");
+            }
+        }
+    }
     
-
     const navigate = useNavigate();
 
     const goToHome = async () => {
@@ -39,15 +39,14 @@ function Login() {
     return(
         <div >
             <p>E-post:</p>
-            <input></input>
+            <input onChange={(event) => {setLoginEmail(event.target.value)}}/>
             <p>Passord:</p>
-            <input></input>
+            <input onChange={(event) => {setLoginPassword(event.target.value)}}/>
             <p></p>
-            <form onSubmit={goToHome}>
-                <button type="submit">
-                    Logg inn
-                </button>
-            </form>
+            {loginError && <Alert variant="danger">{loginError}</Alert>}
+            <button onClick={login}>
+                Logg inn
+            </button>
             <form>
                 <p> Har du ikke en konto?      
                     <span onClick={goToSignup}>
