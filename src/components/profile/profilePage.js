@@ -5,7 +5,7 @@ import {
 } from "firebase/firestore";
 import Navbar from "../navbar/navbar";
 import {getDownloadURL, getStorage, ref, uploadBytes} from "firebase/storage";
-import {Card, Button} from "react-bootstrap";
+import {Card, ListGroup, ListGroupItem} from "react-bootstrap";
 
 
 function ProfilePage() {
@@ -63,26 +63,28 @@ function ProfilePage() {
     }, []);
     
     return (
-        <div className={"card"}>
-            <h1>Brukerprofil</h1>
-            <h3>Brukernavn: {username}</h3>
-            <h3>Telefonnummer: {phonenumber}</h3>
-            <h3>Fornavn: {firstname}</h3>
-            <h3>Etternavn: {surname}</h3>
-            <h3>Alder: {age}</h3>
-            <h3>Bio: {bio}</h3>
-            {/*<Card style={{ width: '18rem' }}>
-                <Card.Img variant="top" src={url} className="profilePic"/>
+        <div>
+            <Card style={{ width: '19rem' }}>
+                <Card.Img variant="top" src={url} height="300px" width="300px" />
                 <Card.Body>
-                
+                    <Card.Text>
+                        {bio}
+                    </Card.Text>
                 </Card.Body>
-    </Card>*/}
-           <img
+                <ListGroup className="list-group-flush">
+                    <ListGroupItem>Brukernavn: {username}</ListGroupItem>
+                    <ListGroupItem>Telefonnummer: {phonenumber}</ListGroupItem>
+                    <ListGroupItem>Fornavn: {firstname}</ListGroupItem>
+                    <ListGroupItem>Etternavn: {surname}</ListGroupItem>
+                    <ListGroupItem>Alder: {age}</ListGroupItem>
+                </ListGroup>
+            </Card>
+           {/*<img
                 src={url}
                 alt={""}
                 className={"profilePic"}
-          />
-          </div> 
+          />*/}
+           </div>
     )
 }
 
