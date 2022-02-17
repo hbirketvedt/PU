@@ -1,0 +1,17 @@
+
+.columns {
+  column-count: 2;
+  gap: 3rem;
+  align-items: center;
+  break-inside: avoid-column;
+  overflow: hidden;
+  display: inline-block;
+}
+
+.h1 {
+  text-align: center;
+  font-weight: 900;
+  margin-top: 2rem;
+  margin-bottom: 3rem;
+  column-gap: 3rem;
+}

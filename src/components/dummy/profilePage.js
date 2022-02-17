@@ -1,7 +1,12 @@
+import RecipePage from "../recipePage/recipePage";
+
 
 function ProfilePage() {
+
+
+
     return (
-        <div>This is a dummy page for the profile page</div>
+        <RecipePage />
     )
 }
 

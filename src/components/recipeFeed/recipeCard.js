@@ -1,16 +1,15 @@
 import {useEffect, useState} from "react";
-import {collection, getDocs} from "firebase/firestore";
-import {db} from "../../firebase_config";
 import {getDownloadURL, getStorage, ref, uploadBytes} from "firebase/storage";
 import {Card} from "react-bootstrap";
-import Button from "react-bootstrap/Button";
-
+import "./recipeCard.scss"
 
 function RecipeCard(props) {
     // const documentID = "39AquvXple9d6XbFHuam"
     const [url, setUrl] = useState("")
     const [title] = useState(props.title)
+    const [timeEstimate] = useState(props.time)
     const [description] = useState(props.description)
+    const [portions] = useState(props.portions)
     const imageRef = ref(getStorage(), `images/${props.imageUrl}`);
 
 
@@ -84,32 +83,15 @@ function RecipeCard(props) {
     )
 
     return (
-        <Card style={{width: '40rem', height: "25rem"}}>
+        <Card className={"card"} style={{width: '40rem', height: "30rem"}}>
             <Card.Img style={{width: "100%", height: "20rem", objectFit: "cover"}} variant="top" src={url}/>
             <Card.Body>
                 <Card.Title>{title}</Card.Title>
                 <Card.Subtitle> {description}</Card.Subtitle>
-                {/*<Card.Text>{ingredients.map((ingredient) => {*/}
-                {/*    return <li> {ingredient} </li>})}*/}
-                {/*</Card.Text>*/}
+                <Card.Subtitle> { timeEstimate} timer</Card.Subtitle>
+                <Card.Subtitle> { portions } porsjoner </Card.Subtitle>
             </Card.Body>
         </Card>
-
-        // <div className={"recipeCard"}>
-        //     <img
-        //         src={url}
-        //         alt={""}
-        //         className={"recipeCard__image"}
-        //     />
-        //     <h1 className={"recipeCard__h1"}>{title}</h1>
-        //     <h4 className={"recipeCard__h3"}>{description}</h4>
-        //     <h3 className={"recipeCard__h4"}>Ingredienser:</h3>
-        //     <ul className={"recipeCard__ul"}>
-        //         {ingredients.map((ingredient) => {
-        //             return <li> {ingredient} </li>
-        //         })}
-        //     </ul>
-        // </div>
 
     )
 }

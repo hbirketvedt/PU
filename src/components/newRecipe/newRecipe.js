@@ -1,14 +1,13 @@
 import {addDoc, collection} from "firebase/firestore";
 import {db} from "../../firebase_config";
-import "../../css/app.scss"
 import {useForm, Controller} from "react-hook-form";
 import {useNavigate} from "react-router";
 import {useState} from "react";
 import CreatableSelect from "react-select/creatable";
-import makeAnimated from 'react-select/animated';
 import Textarea from 'react-textarea-autosize';
 import Select from "react-select";
 import {getStorage, ref, uploadBytes} from "firebase/storage";
+import "./newRecipe.scss"
 
 function NewRecipe() {
     const [image, setImage] = useState(null)
@@ -51,6 +50,12 @@ function NewRecipe() {
      */
     const submitData = async (data) => {
         const ingredients = []
+        const today = new Date()
+        // Month starts at 0
+        const month = today.getMonth() +1
+        // Adds date to string
+        const dateString = today.getFullYear()+ "." +month+ "." + today.getDate()+ "." + today.getHours()
+
         let imageUrl = null
         // ingredients are returned as an IterableIterator so loop is used to extract only ingredients and add them
         // to collection
@@ -70,8 +75,12 @@ function NewRecipe() {
             ingredients: ingredients,
             category: data.category.value,
             description: data.description,
-            imageUrl: imageUrl
+            imageUrl: imageUrl,
+            date: dateString
+
         });
+
+        console.log(dateString)
         console.log("Recipe uploaded to database")
         navigate("/")
     }
@@ -100,11 +109,13 @@ function NewRecipe() {
 
 
     return (
-        <div className={"card"}>
+
+        <div className={"center"}>
             <form
                 onSubmit={handleSubmit((data) => {
                     submitData(data)
                 })}
+                className={"newRecipe"}
             >
                 <h3 className={"input__label"}>Oppskriftens navn: </h3>
                 <input

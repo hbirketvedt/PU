@@ -23,49 +23,12 @@
   padding: 0 calc(var(--size-bezel) * 3);
 }
 
-.centered_text {
-  text-align: center;
-}
-
-.weighted__text {
-  font-weight: 900;
-}
 
 mark {
   background: var(--color-accent);
   color: var(--color-text);
   font-weight: bold;
   padding: 0 0.2em;
-}
-
-.recipeCard {
-  background-color: #F8F8F8;
-  border: 1px solid #212121;
-  border-radius: 12px;
-
-  &__image {
-    border-top-left-radius: 12px;
-    border-top-right-radius: 12px;
-    max-width: 100%;
-  }
-
-  &__h1 {
-    text-align: center;
-  }
-
-  &__h3 {
-    padding-left: 30px;
-  }
-
-  &__h4 {
-    padding-left: 30px;
-  }
-
-  &__ul {
-    list-style-type: none;
-    font-size: 20px;
-  }
-
 }
 
 .spacer {
@@ -77,81 +40,20 @@ mark {
   padding: 1rem;
 }
 
-.input {
-  &__label {
-    margin: 2mm auto;
-    margin-left: .5cm;
-    margin-top: 8mm;
-  }
 
-  &__field {
-    display: block;
-    width: 90%;
-    margin: 0 auto;
 
-    &__big {
-      display: block;
-      width: 90%;
-      margin: 0 auto;
-      min-height: 3cm;
-    }
-  }
 
-  &__submit {
-    display: block;
-    margin: .5cm auto;
-    width: 80%;
-  }
-
-}
-
-.card {
-  background: #F4FBFF;
-  border: 1px solid #212121;
-  border-radius: 12px;
-  width: 40%;
-  margin: 3rem;
-}
 
 .columns {
   column-count: 2;
   gap: 3rem;
   align-items: center;
+  break-inside: avoid-column;
+  overflow: hidden;
+  display: inline-block;
 }
 
 
-.button-group {
-  margin-top: calc(var(--size-bezel) * 2.5);
-}
-
-button {
-  color: currentColor;
-  padding: var(--size-bezel) calc(var(--size-bezel) * 2);
-  background: var(--color-accent);
-  border: none;
-  border-radius: var(--size-radius);
-  font-weight: 900;
-
-  &[type=reset] {
-    background: var(--color-background);
-    font-weight: 200;
-  }
-
-  &:hover {
-    background: #449999;
-    transition: all ease-in-out 0.2s;
-  }
-}
-
-button + button {
-  margin-left: calc(var(--size-bezel) * 2);
-}
-
-.bottom__margin {
-  //margin-bottom: 2rem;
-  column-gap: 3rem;
-
-}
 
 
 .hidden {
@@ -169,7 +71,6 @@ button + button {
   position: sticky;
   top: 0;
 }
-
 
 a {
   margin: 8px;
@@ -210,35 +111,6 @@ link {
 }
 
 
-.newRecipe {
-  background: white;
-  position: absolute;
-  left: 50%;
-  top: 50%;
-  transform: translate(-50%, -50%);
-  color: #36454f;
-  padding: 30px;
-  border-radius: 20px;
-  box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
-}
-
-.rowA {
-  display: flex;
-  flex: 1;
-  flex-direction: row;
-}
-
-.rowB {
-  display: flex;
-  flex: 2;
-  flex-direction: row;
-}
-
-.rowC {
-  display: flex;
-  flex: 3;
-  flex-direction: row;
-}
 
 
 
