@@ -6,7 +6,7 @@ function ProfilePage() {
 
 
     return (
-        <RecipePage />
+        <div>Hei</div>
     )
 }
 
