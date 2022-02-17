@@ -1,11 +1,10 @@
-//import Login from "./components/dummy/splashPage";
-import Login from "./components/registration/login";
+import FrontPage from "./components/registration/frontpage";
 import "./css/app.scss"
 
 function App() {
     return (
         <div>
-            <Login/>
+            <FrontPage/>
         </div>
     )
 }

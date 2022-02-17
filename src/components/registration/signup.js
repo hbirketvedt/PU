@@ -92,11 +92,10 @@ function Signup() {
         <div>
             <p>E-post:</p>
             <input onChange={(event) => {setRegisterEmail(event.target.value)}}/>
-            
             <p>Passord:</p>
-            <input onChange={(event) => {setRegisterPassword(event.target.value)}}/>
+            <input onChange={(event) => {setRegisterPassword(event.target.value)}} type="password"/>
             <p>Bekreft passord:</p>
-            <input onChange={(event) => {setRegisterPassword2(event.target.value)}}/>
+            <input onChange={(event) => {setRegisterPassword2(event.target.value)}} type="password"/>
             <p></p>
             <div >
                 <p>Profilbilde:</p>

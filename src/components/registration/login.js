@@ -35,13 +35,16 @@ function Login() {
     const goToSignup = async () => {
         navigate("/signup")
     } 
+    const goToForgotPassword = async () => {
+        navigate("/forgotPassword")
+    } 
 
     return(
         <div >
             <p>E-post:</p>
             <input onChange={(event) => {setLoginEmail(event.target.value)}}/>
             <p>Passord:</p>
-            <input onChange={(event) => {setLoginPassword(event.target.value)}}/>
+            <input onChange={(event) => {setLoginPassword(event.target.value)}} type="password"/>
             <p></p>
             {loginError && <Alert variant="danger">{loginError}</Alert>}
             <button onClick={login}>
@@ -53,6 +56,11 @@ function Login() {
                         <mark>Registrer deg</mark> 
                     </span>
                 </p>
+            </form>
+            <form>   
+                    <span onClick={goToForgotPassword}>
+                        <mark>Glemt passord?</mark> 
+                    </span>
             </form>
         </div>
     )
