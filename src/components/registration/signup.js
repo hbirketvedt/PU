@@ -21,8 +21,8 @@ function Signup() {
     const [ photo, setPhoto] = useState();
     const storage = getStorage();
 
+    
     const register = async () => {
-
         if (registerPassword !== registerPassword2) {
             setSignupError("Passordene samsvarer ikke!")
         } else if (firstName === "" || lastName === "") {
