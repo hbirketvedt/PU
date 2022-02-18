@@ -1,17 +1,20 @@
 import { Alert } from "react-bootstrap";
 import { useState} from "react";
-import {useNavigate} from "react-router";
+import { useNavigate } from "react-router";
 import { auth } from "../../firebase_config";
-import { createUserWithEmailAndPassword, onAuthStateChanged } from "firebase/auth";
+import { createUserWithEmailAndPassword } from "firebase/auth";
 import { getStorage, ref, uploadBytes } from "firebase/storage"
-
+import { doc, setDoc } from "firebase/firestore";
+import { db } from "../../firebase_config";
 
 function Signup() {
 
     const [ registerEmail, setRegisterEmail ] = useState("");
+    const [ firstName, setFirstName ] = useState("");
+    const [ lastName, setLastName ] = useState("");
     const [ registerPassword, setRegisterPassword ] = useState("");
     const [ registerPassword2, setRegisterPassword2 ] = useState("");
-    const [ signupError, setSignupError] = useState("");  
+    const [ signupError, setSignupError] = useState("");      
     const [ loading, setLoading] = useState(false);
     
     const [ photoURL, setPhotoURL ] = useState("https://sbcf.fr/wp-content/uploads/2018/03/sbcf-default-avatar.png");
@@ -22,14 +25,16 @@ function Signup() {
 
         if (registerPassword !== registerPassword2) {
             setSignupError("Passordene samsvarer ikke!")
-        }
-        else {
+        } else if (firstName === "" || lastName === "") {
+            setSignupError("Fornavn og etternavn må tildeles!")
+        } else {
             try {
                 setSignupError("");
                 setLoading(true);
                 const user = await createUserWithEmailAndPassword(auth, registerEmail, registerPassword);
                 const currentUser = auth.currentUser;
                 upload(photo, currentUser, setLoading);
+                console.log("User info uploaded to database")
                 goToHome();
 
             } catch (error) {
@@ -73,9 +78,26 @@ function Signup() {
 
     
     const upload = async (file, user, setLoading) => {
-        const fileRef = ref(storage, "profilePictures/" + user.uid + ".png");
-        const snapshot = await uploadBytes(fileRef, file);
-        
+        if (file === undefined) {
+            console.log("Null-verdi");
+            await setDoc(doc(db, "users", user.uid), {
+                email: registerEmail,
+                firstName: firstName,
+                lastName: lastName,
+                bio: "",
+                profilePictureURL: "default.png"
+            });
+        } else {
+            const fileRef = ref(storage, "profilePictures/" + user.uid + ".png");
+            const snapshot = await uploadBytes(fileRef, file);
+            await setDoc(doc(db, "users", user.uid), {
+                email: registerEmail,
+                firstName: firstName,
+                lastName: lastName,
+                bio: "",
+                profilePictureURL: user.uid
+            });
+        }
     } 
 
     const navigate = useNavigate();
@@ -92,6 +114,10 @@ function Signup() {
         <div>
             <p>E-post:</p>
             <input onChange={(event) => {setRegisterEmail(event.target.value)}}/>
+            <p>Fornavn:</p>
+            <input onChange={(event) => {setFirstName(event.target.value)}}/>
+            <p>Etternavn:</p>
+            <input onChange={(event) => {setLastName(event.target.value)}}/>
             <p>Passord:</p>
             <input onChange={(event) => {setRegisterPassword(event.target.value)}} type="password"/>
             <p>Bekreft passord:</p>
