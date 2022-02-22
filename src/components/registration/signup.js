@@ -134,7 +134,7 @@ function Signup() {
                 <div className="inner">
                     <p></p>
                     <form onSubmit={goToLogin}>
-                        <button type="submit">
+                        <button type="cancel">
                             Avbryt
                         </button>
                     </form>
