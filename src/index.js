@@ -6,7 +6,13 @@ import {
 } from "react-router-dom";
 import App from "./App";
 import Recipes from "./components/dummy/recipes";
-import ProfilePage from "./components/dummy/profilePage";
+import ProfilePage from "./components/profile/profilePage";
+import EditProfile from "./components/profile/editProfile";
+
+import ChangeProfilePicture from "./components/profile/changeProfilePicture";
+import ChangePassword from "./components/profile/changePassword";
+import ChangeBio from "./components/profile/changeBio";
+
 import NewRecipe from "./components/newRecipe/newRecipe";
 import Navbar from "./components/navbar/navbar";
 import SplashPage from "./components/dummy/splashPage";
@@ -15,10 +21,6 @@ import Login from "./components/registration/login";
 import ForgotPassword from "./components/registration/forgotPassword";
 import RecipeFeed from "./components/recipeFeed/recipeFeed";
 import ProtectedRoutes from "./ProtectedRoutes";
-
-let handleNavbar = () => {
-    return <Navbar/>
-}
 
 
 const rootElement = document.getElementById("root");
@@ -32,6 +34,10 @@ render(
         <Route path="forgotPassword" element={<ForgotPassword/>}/>
         <Route path="splashPage" element={<SplashPage/>}/>
         <Route path="recipes" element={<Recipes/>}/>
+        <Route path="editProfile" element={<EditProfile/>}/>
+        <Route path="changeBio" element={<ChangeBio/>}/>
+        <Route path="changePassword" element={<ChangePassword/>}/>
+        <Route path="changeProfilePicture" element={<ChangeProfilePicture/>}/>
         <Route path="oppskrifter" element={<RecipeFeed/>}/>
         <Route path={"*"} element={<h1> 404: not found</h1>}/>
         <Route element={<ProtectedRoutes />}>
