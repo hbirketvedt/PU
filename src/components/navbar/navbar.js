@@ -8,8 +8,8 @@ function Navbar() {
             <nav>
                 <div>
                     <ul>
-                        <NavLink to={"/"}>Home </NavLink>
-                        <NavLink to='/profilePage'>Profile Page</NavLink>
+                        <NavLink to={"/"} id={"home"}>Home </NavLink>
+                        <NavLink to='/profilePage' id={"profilePage"}>Profile Page</NavLink>
                         <NavLink to='/newRecipe'>Add new recipe</NavLink>
                         <NavLink to='/oppskrifter'>Oppskrifter</NavLink>
                     </ul>

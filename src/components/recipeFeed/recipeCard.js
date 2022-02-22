@@ -1,5 +1,5 @@
 import {useEffect, useState} from "react";
-import {getDownloadURL, getStorage, ref, uploadBytes} from "firebase/storage";
+import {getDownloadURL, getStorage, ref} from "firebase/storage";
 import {Card} from "react-bootstrap";
 import "./recipeCard.scss"
 
@@ -8,7 +8,6 @@ function RecipeCard(props) {
     const [url, setUrl] = useState("")
     const [title] = useState(props.title)
     const [timeEstimate] = useState(props.time)
-    const [description] = useState(props.description)
     const [portions] = useState(props.portions)
     const imageRef = ref(getStorage(), `images/${props.imageUrl}`);
 
@@ -72,13 +71,16 @@ function RecipeCard(props) {
 
                             // ...
 
+
                             case 'storage/unknown':
                                 // Unknown error occurred, inspect the server response
+                                break;
+                            default:
                                 break;
                         }
                     });
             }
-            handleDownload()
+            handleDownload().then(r => console.log("download complete"))
         }
     )
 
@@ -87,8 +89,7 @@ function RecipeCard(props) {
             <Card.Img style={{width: "100%", height: "20rem", objectFit: "cover"}} variant="top" src={url}/>
             <Card.Body>
                 <Card.Title>{title}</Card.Title>
-                <Card.Subtitle> {description}</Card.Subtitle>
-                <Card.Subtitle> { timeEstimate} timer</Card.Subtitle>
+                <Card.Subtitle> { timeEstimate}</Card.Subtitle>
                 <Card.Subtitle> { portions } porsjoner </Card.Subtitle>
             </Card.Body>
         </Card>

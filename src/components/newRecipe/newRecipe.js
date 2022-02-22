@@ -1,19 +1,22 @@
 import {addDoc, collection} from "firebase/firestore";
-import {db} from "../../firebase_config";
+import {auth, db} from "../../firebase_config";
 import {useForm, Controller} from "react-hook-form";
 import {useNavigate} from "react-router";
-import {useState} from "react";
+import {useEffect, useState} from "react";
 import CreatableSelect from "react-select/creatable";
 import Textarea from 'react-textarea-autosize';
 import Select from "react-select";
 import {getStorage, ref, uploadBytes} from "firebase/storage";
 import "./newRecipe.scss"
+import {onAuthStateChanged} from "firebase/auth";
 
 function NewRecipe() {
     const [image, setImage] = useState(null)
     const {register, handleSubmit, control} = useForm()
     const recipesCollectionRef = collection(db, "newRecipes");
     const navigate = useNavigate();
+
+
 
     /**
      * Categories for category dropdown menu. Value is value passed from function, label is displayed label to user.
@@ -56,7 +59,7 @@ function NewRecipe() {
         // Adds date to string
         const dateString = today.getFullYear()+ "." +month+ "." + today.getDate()+ "." + today.getHours()
 
-        let imageUrl = null
+        let imageUrl = "blank.png"
         // ingredients are returned as an IterableIterator so loop is used to extract only ingredients and add them
         // to collection
         for (let ing of data.ingredients.entries()) {
@@ -80,9 +83,8 @@ function NewRecipe() {
 
         });
 
-        console.log(dateString)
         console.log("Recipe uploaded to database")
-        navigate("/")
+        navigate("/oppskrifter")
     }
 
     /**
