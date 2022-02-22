@@ -14,6 +14,7 @@ import Signup from "./components/registration/signup";
 import Login from "./components/registration/login";
 import ForgotPassword from "./components/registration/forgotPassword";
 import RecipeFeed from "./components/recipeFeed/recipeFeed";
+import DeleteUser from "./components/registration/deleteUser";
 
 let handleNavbar = () => {
     return <Navbar/>
@@ -34,6 +35,7 @@ render(
         <Route path="profilePage" element={<ProfilePage/>}/>
         <Route path="newRecipe" element={<NewRecipe/>}/>
         <Route path="oppskrifter" element={<RecipeFeed/>}/>
+        <Route path="deleteUser" element={<DeleteUser/>}/>
         <Route path={"*"} element={<h1> 404: not found</h1>}/>
     </Routes>
 </BrowserRouter>, rootElement);

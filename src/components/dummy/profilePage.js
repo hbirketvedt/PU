@@ -2,6 +2,8 @@ import { useState } from "react";
 import { useNavigate } from "react-router";
 import { auth } from "../../firebase_config";
 import { onAuthStateChanged, signOut} from "firebase/auth";
+import { Alert } from "react-bootstrap";
+
 
 function ProfilePage() {
 
@@ -19,10 +21,13 @@ function ProfilePage() {
     const navigate = useNavigate();
 
     const goToLogin = async () => {
-        navigate("../registration/login")
+       navigate("../login")
     }
 
-    
+    const deleteUser = async () => {
+        navigate("../deleteUser")
+    }
+
 
     return(
         <div >
@@ -30,6 +35,10 @@ function ProfilePage() {
             <p></p>
             <button onClick={logout}>
                 Logg ut
+            </button>
+
+            <button onClick={deleteUser}>
+                Slett bruker
             </button>
             
         </div>
