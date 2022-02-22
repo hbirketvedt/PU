@@ -14,6 +14,7 @@ import Signup from "./components/registration/signup";
 import Login from "./components/registration/login";
 import ForgotPassword from "./components/registration/forgotPassword";
 import RecipeFeed from "./components/recipeFeed/recipeFeed";
+import ProtectedRoutes from "./ProtectedRoutes";
 
 let handleNavbar = () => {
     return <Navbar/>
@@ -31,9 +32,11 @@ render(
         <Route path="forgotPassword" element={<ForgotPassword/>}/>
         <Route path="splashPage" element={<SplashPage/>}/>
         <Route path="recipes" element={<Recipes/>}/>
-        <Route path="profilePage" element={<ProfilePage/>}/>
-        <Route path="newRecipe" element={<NewRecipe/>}/>
         <Route path="oppskrifter" element={<RecipeFeed/>}/>
         <Route path={"*"} element={<h1> 404: not found</h1>}/>
+        <Route element={<ProtectedRoutes />}>
+            <Route path="profilePage" element={<ProfilePage/>}/>
+            <Route path="newRecipe" element={<NewRecipe/>}/>
+        </Route>      
     </Routes>
 </BrowserRouter>, rootElement);
