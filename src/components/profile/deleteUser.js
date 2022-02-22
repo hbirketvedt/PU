@@ -4,6 +4,9 @@ import { useNavigate } from "react-router";
 import { useState} from "react";
 import { set } from "react-hook-form";
 import { Alert } from "react-bootstrap";
+import { doc, deleteDoc } from "firebase/firestore";
+import { db } from "../../firebase_config";
+import { getStorage, ref, deleteObject } from "firebase/storage";
 
 
 function DeleteUser() {
@@ -11,33 +14,46 @@ function DeleteUser() {
     const user = auth.currentUser
     const navigate = useNavigate();
     const [errorMessage, setErrorMessage] = useState('');
-
+    const storage = getStorage();
 
     const goToHome = async () => {
         navigate("/splashPage")
     }
 
-    const deleteUser1 = () => {
+    const goToProfilePage = async () => {
+        navigate("/profilePage")
+    }
+
+    const deleteUser1 = async () => {
+        const id = user.uid
+
         if (window.confirm("Er du sikker på at ønsker å slette brukeren din? Denne handlingen kan ikke angres.")) {
+            await deleteDoc(doc(db, "users", id));
+            const imageRef = ref(storage, "profilePictures/" + id + ".png");
+            deleteObject(imageRef).then(() => {
+                    console.log("Profilbildet ble slettet!")
+                }).catch((error) => {
+                    console.log("Brukeren hadde ikke profilbilde")
+                });
             deleteUser(user).then(() => {
                 setErrorMessage("")
-                console.log("Suksess, brukeren er slettet")
-                goToHome()
+                goToHome();
               }).catch((error) => {
                 setErrorMessage("Brukeren ble ikke slettet, vennligst prøv igjen senere.")
-                console.log("Noe gikk galt, brukeren ble ikke slettet")
+                console.log(error.message)
               });
-        }
+        } 
 
     }
 
     return(
         <div>
             <h1>
-                Slett bruker
+                Slett bruker:
             </h1>
+            <button type="cancel" onClick={goToProfilePage}>Avbryt</button>
             <button onClick={deleteUser1}>
-                Slett Bruker
+                Slett bruker
             </button>
             <br></br>
             {errorMessage && <Alert variant="danger">{errorMessage}</Alert>}
