@@ -137,10 +137,51 @@ button {
     font-weight: 200;
   }
 
+  &[type=profile] {
+    width: 12em;
+  }
+
   &:hover {
     background: #449999;
     transition: all ease-in-out 0.2s;
+  }  
+
+  &[type=profileCancel] {
+    width: 12em;
+    background: gray; 
   }
+
+  &[type=cancel] {
+    background: gray; 
+  }
+
+  &[type=profileCancel]:hover  {
+    background: #999898;
+    transition: all ease-in-out 0.2s;
+  }  
+
+  &[type=cancel]:hover  {
+    background: #999898;
+    transition: all ease-in-out 0.2s;
+  } 
+
+  &[type=signOut] {
+    background: #ec5151;
+  }
+
+  &[type=signOut]:hover  {
+    background: rgb(241, 121, 121); 
+    transition: all ease-in-out 0.2s;
+  } 
+
+  &[type=save] {
+    background: #36a54e;
+  }
+
+  &[type=save]:hover  {
+    background: rgb(93, 212, 153); 
+    transition: all ease-in-out 0.2s;
+  } 
 }
 
 button + button {
@@ -256,7 +297,6 @@ link {
 }
 
 
-
 .avatar {
   vertical-align: middle;
   width: 50px;
@@ -266,6 +306,19 @@ link {
   border-color: gray;
   border-style: outset;
   margin-right: 2em;
+}
+
+.avatar2 {
+  margin-left: 43%;
+  vertical-align: middle;
+  width: 150px;
+  height: 150px;
+  border-radius: 50%;
+  border-width: 5px;
+  border-color: gray;
+  border-style: solid;
+  margin-top: 2em;
+  margin-bottom: 3em;
 }
 
 .inner {
@@ -282,5 +335,38 @@ link {
   margin-right: auto;
   margin-top: 1ch;
 }
+
+.centered {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate3d(-50%, -50%, 0);
+}
+
+.centered2 {
+  position: absolute;
+  left: 50%;
+  transform: translate3d(-50%, -50%, 0);
+  margin-bottom: 2em;
+}
+
+.test {
+  position: relative;
+  display:flex;
+  align-items:center;
+  flex-direction:column;
+}
+
+.bioHeader {
+  margin-left: .5cm;
+}
+
+.centerObject {
+  margin-left: 26%;
+}
+
+
+
+
 
 

@@ -8,6 +8,7 @@ import {getDownloadURL, getStorage, ref, uploadBytes} from "firebase/storage";
 import {Card, ListGroup, ListGroupItem} from "react-bootstrap";
 import { auth } from "../../firebase_config";
 import { onAuthStateChanged, signOut} from "firebase/auth";
+import { useNavigate } from "react-router";
 
 
 
@@ -26,6 +27,21 @@ function ProfilePage() {
         loadUser();
     })
 
+    const logout = async () => {
+        await signOut(auth);
+        goToLogin();
+    }
+
+    const navigate = useNavigate();
+
+    const goToLogin = async () => {
+        navigate("../registration/login")
+    }
+
+    const goToEditProfile = async () => {
+        navigate("/editProfile")
+    }
+
     const loadUser = async () => {
         const data = await getDocs(usersCollectionRef);
         const user = data.docs.filter(doc => doc.id === currentUser.uid).reduce((a, b) => a).data();
@@ -39,29 +55,29 @@ function ProfilePage() {
         }
         handleDownload();
     }
-        const handleDownload = async () => {
-            const imageRef = ref(getStorage(), 'profilePictures/' + currentUser.uid + '.png');
-            getDownloadURL(imageRef)
-                .then((url) => {
-                    setImageURL(url)
-                })
-                .catch((error) => {
-                    console.log(error.message)
-                    switch (error.code) {
-                        case 'storage/object-not-found':
-                            // File doesn't exist
-                            break;
-                        case 'storage/unauthorized':
-                            // User doesn't have permission to access the object
-                            break;
-                        case 'storage/canceled':
-                            // User canceled the upload
-                            break;
-                        case 'storage/unknown':
-                            // Unknown error occurred, inspect the server response
-                            break;
-                     }
-                });
+    const handleDownload = async () => {
+        const imageRef = ref(getStorage(), 'profilePictures/' + currentUser.uid + '.png');
+        getDownloadURL(imageRef)
+            .then((url) => {
+                setImageURL(url)
+            })
+            .catch((error) => {
+                console.log(error.message)
+                switch (error.code) {
+                    case 'storage/object-not-found':
+                        // File doesn't exist
+                        break;
+                    case 'storage/unauthorized':
+                        // User doesn't have permission to access the object
+                        break;
+                    case 'storage/canceled':
+                        // User canceled the upload
+                        break;
+                    case 'storage/unknown':
+                        // Unknown error occurred, inspect the server response
+                        break;
+                    }
+            });
         }
 
 
@@ -119,11 +135,18 @@ function ProfilePage() {
                 </Card.Body>
                 <ListGroup className="list-group-flush">
                     <ListGroupItem>E-post: {email}</ListGroupItem>
-                    <ListGroupItem>Fornavn: {firstname}</ListGroupItem>
+                    <ListGroupItem>Fornavn: {firstname} {lastName}</ListGroupItem>
                     <ListGroupItem>Etternavn: {lastName}</ListGroupItem>
                     <p></p> 
                 </ListGroup>
             </Card>
+            <button onClick={goToEditProfile}>
+                Endre profil
+            </button>
+            <button onClick={logout} type="signOut">
+                Logg ut
+            </button>
+            
         </div>
     )
 }
