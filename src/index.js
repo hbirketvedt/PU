@@ -34,7 +34,9 @@ render(
         <Route element={<LoggedInRoutes />}>
             <Route path="frontpage" element={<FrontPage/>}/>  
             <Route path="login" element={<Login/>}/>
+            <Route path="frontpage/login" element={<Login/>}/>
             <Route path="signup" element={<Signup/>}/>
+            <Route path="frontpage/signup" element={<Signup/>}/>
             <Route path="forgotPassword" element={<ForgotPassword/>}/>  
         </Route>  
         
