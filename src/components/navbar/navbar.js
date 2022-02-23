@@ -9,6 +9,7 @@ function Navbar() {
                 <div>
                     <ul>
                         <NavLink to={"/"}>Home </NavLink>
+                        <NavLink to='/frontpage'>Innlogging </NavLink>
                         <NavLink to='/profilePage'>Profile Page</NavLink>
                         <NavLink to='/newRecipe'>Add new recipe</NavLink>
                         <NavLink to='/oppskrifter'>Oppskrifter</NavLink>

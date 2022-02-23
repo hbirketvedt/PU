@@ -21,6 +21,8 @@ import Login from "./components/registration/login";
 import ForgotPassword from "./components/registration/forgotPassword";
 import RecipeFeed from "./components/recipeFeed/recipeFeed";
 import ProtectedRoutes from "./ProtectedRoutes";
+import LoggedInRoutes from "./LoggedInRoutes";
+import FrontPage from "./components/registration/frontpage";
 
 
 const rootElement = document.getElementById("root");
@@ -29,9 +31,13 @@ render(
     <Navbar/>
     <Routes>
         <Route path="/*" element={<App/>}></Route>
-        <Route path="login" element={<Login/>}/>
-        <Route path="signup" element={<Signup/>}/>
-        <Route path="forgotPassword" element={<ForgotPassword/>}/>
+        <Route element={<LoggedInRoutes />}>
+            <Route path="frontpage" element={<FrontPage/>}/>  
+            <Route path="login" element={<Login/>}/>
+            <Route path="signup" element={<Signup/>}/>
+            <Route path="forgotPassword" element={<ForgotPassword/>}/>  
+        </Route>  
+        
         <Route path="splashPage" element={<SplashPage/>}/>
         <Route path="recipes" element={<Recipes/>}/>
         <Route path="editProfile" element={<EditProfile/>}/>
