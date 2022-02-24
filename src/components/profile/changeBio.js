@@ -47,7 +47,7 @@ function ChangeBio() {
 
     return(
         <div className={"card"}>
-            <h4 className={"input__label"}>Nåværedne bio: </h4>
+            <h4 className={"input__label"}>Nåværende bio: </h4>
             <p className='bioHeader'><em>{oldBio}</em></p>
             <h4 className={"input__label"}>Ny bio: </h4>
             <Textarea

@@ -52,7 +52,7 @@ function ProfilePage() {
         } else {
             setBio(user.bio);
         }
-        if (user.email === user.uid) {
+        if (user.imageURL === user.uid) {
             handleDownloadImage();
         } else {
              handleDownloadDefault();
