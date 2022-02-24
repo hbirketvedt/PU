@@ -8,30 +8,41 @@ import SplashPage from "./components/dummy/splashPage";
 import Recipes from "./components/dummy/recipes";
 import ProfilePage from "./components/dummy/profilePage";
 import NewRecipe from "./components/newRecipe/newRecipe";
-import RecipePage from "./components/recipePage/recipePage";
 import RecipeFeed from "./components/recipeFeed/recipeFeed";
 import {Route, Routes} from "react-router-dom";
 import 'bootstrap/dist/css/bootstrap.min.css';
+import EditProfile from "./components/profile/editProfile";
+import ChangeBio from "./components/profile/changeBio";
+import ChangePassword from "./components/profile/changePassword";
+import ChangeProfilePicture from "./components/profile/changeProfilePicture";
+import DeleteUser from "./components/profile/deleteUser";
+import RecipePage from "./components/recipePage/recipePage";
 
 function App() {
     return (
         <div>
             <Navbar/>
             <Routes>
-                <Route path="/*" element={<FrontPage/>}/>
-                <Route path="login" element={<Login/>}/>
-                <Route path="signup" element={<Signup/>}/>
-                <Route path="forgotPassword" element={<ForgotPassword/>}/>
-                <Route path="splashPage" element={<SplashPage/>}/>
-                <Route path="recipes" element={<Recipes/>}/>
-                <Route path="profilePage" element={<ProfilePage/>}/>
-                <Route path="newRecipe" element={<NewRecipe/>}/>
-                <Route path="displayRecipe" element={<RecipePage/>}/>
-                <Route path="oppskrifter" element={<RecipeFeed/>}/>
-                <Route path={"*"} element={<h1> 404: not found</h1>}/>
+            <Route path="/*" element={<FrontPage/>}/>
+            <Route path="login" element={<Login/>}/>
+            <Route path="signup" element={<Signup/>}/>
+            <Route path="displayRecipe" element={<RecipePage/>}/>
+            <Route path="forgotPassword" element={<ForgotPassword/>}/>
+            <Route path="splashPage" element={<SplashPage/>}/>
+            <Route path="recipes" element={<Recipes/>}/>
+            <Route path="profilePage" element={<ProfilePage/>}/>
+            <Route path="editProfile" element={<EditProfile/>}/>
+            <Route path="changeBio" element={<ChangeBio/>}/>
+            <Route path="changePassword" element={<ChangePassword/>}/>
+            <Route path="changeProfilePicture" element={<ChangeProfilePicture/>}/>
+            <Route path="newRecipe" element={<NewRecipe/>}/>
+            <Route path="oppskrifter" element={<RecipeFeed/>}/>
+            <Route path="deleteUser" element={<DeleteUser/>}/>
+            <Route path={"*"} element={<h1> 404: not found</h1>}/>
             </Routes>
         </div>
     )
 }
 
 export default App;
+
