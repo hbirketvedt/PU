@@ -1,10 +1,12 @@
 import RecipeCard from "../recipeFeed/recipeCard";
 import {useEffect, useState} from "react";
 import {collection, getDocs} from "firebase/firestore";
-import {db} from "../../firebase_config";
+import {auth, db} from "../../firebase_config";
 import IngredientList from "./ingredientList";
 import {Card} from "react-bootstrap";
 import {useLocation} from "react-router";
+import {onAuthStateChanged} from "firebase/auth";
+import useUser from "../user/useUser";
 
 function RecipePage() {
     // const documentID = "bnlYw69QnfYJREjRM3ud"
@@ -12,6 +14,7 @@ function RecipePage() {
     // Had to use an empty array to create child react elements, or else they get set to null
     const [recipe, setRecipe] = useState([])
     const {state} = useLocation()
+    const user = useUser()
 
 
     /**

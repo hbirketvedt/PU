@@ -1,4 +1,4 @@
-import {addDoc, collection} from "firebase/firestore";
+import {addDoc, collection, getDocs} from "firebase/firestore";
 import {auth, db} from "../../firebase_config";
 import {useForm, Controller} from "react-hook-form";
 import {useNavigate} from "react-router";
@@ -9,13 +9,14 @@ import Select from "react-select";
 import {getStorage, ref, uploadBytes} from "firebase/storage";
 import "./newRecipe.scss"
 import {onAuthStateChanged} from "firebase/auth";
+import useUser from "../user/useUser";
 
 function NewRecipe() {
     const [image, setImage] = useState(null)
     const {register, handleSubmit, control} = useForm()
     const recipesCollectionRef = collection(db, "newRecipes");
     const navigate = useNavigate();
-
+    const user = useUser()
 
 
     /**
@@ -55,9 +56,9 @@ function NewRecipe() {
         const ingredients = []
         const today = new Date()
         // Month starts at 0
-        const month = today.getMonth() +1
+        const month = today.getMonth() + 1
         // Adds date to string
-        const dateString = today.getFullYear()+ "." +month+ "." + today.getDate()+ "." + today.getHours()
+        const dateString = today.getFullYear() + "." + month + "." + today.getDate() + "." + today.getHours()
 
         let imageUrl = "blank.png"
         // ingredients are returned as an IterableIterator so loop is used to extract only ingredients and add them
@@ -79,13 +80,14 @@ function NewRecipe() {
             category: data.category.value,
             description: data.description,
             imageUrl: imageUrl,
-            date: dateString
-
+            date: dateString,
+            userID: user.id
         });
 
         console.log("Recipe uploaded to database")
         navigate("/oppskrifter")
     }
+
 
     /**
      * Uploads image to storage in firebase

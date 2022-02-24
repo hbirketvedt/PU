@@ -8,7 +8,9 @@ import {useNavigate} from "react-router";
 function RecipeFeed() {
     // Constants used in function
     const recipesCollectionRef = collection(db, "newRecipes");
+    const usersCollectionRef = collection(db, "users");
     const [recipes, setRecipes] = useState([]);
+    const [users, setUsers] = useState([])
     const navigate = useNavigate()
 
 
@@ -22,7 +24,13 @@ function RecipeFeed() {
             const recipes = data.docs.map((doc) => ({...doc.data(), id: doc.id}));
             setRecipes(recipes)
         };
-        loadRecipes();
+        const loadUsers = async () => {
+            const data = await getDocs(usersCollectionRef);
+            const users = data.docs.map((doc) => ({...doc.data(), id: doc.id}));
+            setUsers(users)
+        };
+        loadRecipes().then(() => console.log("Users loaded "))
+        loadUsers().then(() => console.log("Users loaded "))
         console.log("Database polled");
     }, []);
 
@@ -31,6 +39,8 @@ function RecipeFeed() {
         navigate("/displayRecipe", {state: {recipe: recipe}})
     }
 
+    console.log(users)
+
 
     return (
         <div>
@@ -38,17 +48,18 @@ function RecipeFeed() {
             <div className={"center columns"}>
                 {recipes.map((recipe) => {
                     return (
-                        <button onClick={() => handleRecipeClicked(recipe)} key={recipe.id + "1"}>
-                        <RecipeCard
-                            id={recipe.id}
-                            title={recipe.title}
-                            description={recipe.description}
-                            imageUrl={recipe.imageUrl}
-                            time={recipe.timeEstimate}
-                            portions={recipe.portions}
-                            style={{margin: "10rem"}}
-                            key={recipe.id}
-                        /></button>)
+                        <div onClick={() => handleRecipeClicked(recipe)} key={recipe.id + "1"}>
+                            <RecipeCard
+                                name={ users.find(user => user.id === recipe.userID)?.firstName}
+                                id={recipe.id}
+                                title={recipe.title}
+                                description={recipe.description}
+                                imageUrl={recipe.imageUrl}
+                                time={recipe.timeEstimate}
+                                portions={recipe.portions}
+                                style={{margin: "10rem"}}
+                                key={recipe.id}
+                            /></div>)
 
                 })}
             </div>

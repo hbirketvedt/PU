@@ -9,39 +9,11 @@ function RecipeCard(props) {
     const [title] = useState(props.title)
     const [timeEstimate] = useState(props.time)
     const [portions] = useState(props.portions)
+    const [name] = useState(props.name)
     const imageRef = ref(getStorage(), `images/${props.imageUrl}`);
 
 
-    /**
-     * Old functions, don't delete
-     */
-    // useEffect(() => {
-    //     const loadRecipes = async () => {
-    //         const data = await getDocs(recipesCollectionRef);
-    //         const recipeFeed = data.docs.find((doc) => doc.id === documentID).data();
-    //         setTitle(recipeFeed.title)
-    //         setDescription(recipeFeed.description)
-    //         setIngredients(recipeFeed.ingredients)
-    //     };
-    //     loadRecipes();
-    //     console.log("Database polled");
-    // }, []);
-    //
-    //
-    // const handleChange = (e) => {
-    //     if (e.target.files[0]) {
-    //         setImage(e.target.files[0])
-    //     }
-    // }
-    //
-    // const handleUpload = () => {
-    //     const storage = getStorage();
-    //     const storageRef = ref(storage, `/images/${image.name}`);
-    //     uploadBytes(storageRef, image).then((snapshot) => {
-    //         console.log('Uploaded a blob or file!');
-    //     });
-    // }
-    //
+
 
     /**
      * Loads correct url for image into url variable using relative path from variable imageRef. Include url in <img>
@@ -91,6 +63,7 @@ function RecipeCard(props) {
                 <Card.Title>{title}</Card.Title>
                 <Card.Subtitle> { timeEstimate}</Card.Subtitle>
                 <Card.Subtitle> { portions } porsjoner </Card.Subtitle>
+                <Card.Subtitle> Laget av { name } </Card.Subtitle>
             </Card.Body>
         </Card>
 
