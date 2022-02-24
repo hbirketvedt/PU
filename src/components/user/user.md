@@ -1,6 +1,6 @@
 ### For å hente aktuell bruker i en page:
 
-<pre><code>import { Test } from "./isUser"</code></pre>
+<pre><code>import { Test } from "...(mappenavn)./isUser"</code></pre>
 
 ### Bruk så denne variabelen:
 

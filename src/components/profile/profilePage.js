@@ -1,13 +1,10 @@
-import {useState, useEffect} from "react";
-import {db} from "../../firebase_config";
-import {
-    firebase, collection, getDocs, addDoc, updateDoc, doc, deleteDoc,
-} from "firebase/firestore";
-import Navbar from "../navbar/navbar";
-import {getDownloadURL, getStorage, ref, uploadBytes} from "firebase/storage";
-import {Card, ListGroup, ListGroupItem} from "react-bootstrap";
+import { useState } from "react";
+import { db } from "../../firebase_config";
+import { collection, getDocs } from "firebase/firestore";
+import { getDownloadURL, getStorage, ref } from "firebase/storage";
+import { Card, ListGroup, ListGroupItem } from "react-bootstrap";
 import { auth } from "../../firebase_config";
-import { onAuthStateChanged, signOut} from "firebase/auth";
+import { onAuthStateChanged, signOut } from "firebase/auth";
 import { useNavigate } from "react-router";
 
 
@@ -28,8 +25,10 @@ function ProfilePage() {
     })
 
     const logout = async () => {
-        await signOut(auth);
-        goToLogin();
+        if (window.confirm("Er du sikker på at ønsker å logge ut?")) {
+            await signOut(auth);
+            goToLogin();
+        }
     }
 
     const navigate = useNavigate();
@@ -49,13 +48,19 @@ function ProfilePage() {
         setFirstname(user.firstName);
         setLastName(user.lastName);
         if (user.bio === "") {
-            setBio("Ingen bio");
+            setBio("(Ingen bio)");
         } else {
             setBio(user.bio);
         }
-        handleDownload();
+        if (user.email === user.uid) {
+            handleDownloadImage();
+        } else {
+             handleDownloadDefault();
+        }
+
     }
-    const handleDownload = async () => {
+
+    const handleDownloadImage = async () => {
         const imageRef = ref(getStorage(), 'profilePictures/' + currentUser.uid + '.png');
         getDownloadURL(imageRef)
             .then((url) => {
@@ -63,90 +68,43 @@ function ProfilePage() {
             })
             .catch((error) => {
                 console.log(error.message)
-                switch (error.code) {
-                    case 'storage/object-not-found':
-                        // File doesn't exist
-                        break;
-                    case 'storage/unauthorized':
-                        // User doesn't have permission to access the object
-                        break;
-                    case 'storage/canceled':
-                        // User canceled the upload
-                        break;
-                    case 'storage/unknown':
-                        // Unknown error occurred, inspect the server response
-                        break;
-                    }
             });
-        }
+    }
 
+    const handleDownloadDefault = async () => {
+        const imageRef = ref(getStorage(), 'profilePictures/' + "default.png");
+        getDownloadURL(imageRef)
+            .then((url) => {
+                setImageURL(url)
+            })
+            .catch((error) => {
+                console.log(error.message)
+            });
+    }
 
-    /*
-    useEffect(() => {
-        const loadUser = async () => {
-            const data = await getDocs(usersCollectionRef);
-            const user = data.docs.filter(doc => doc.id === currentUser.uid).reduce((a, b) => a).data()
-            //setUsername(user.username)
-            //setPhonenumber(user.telephone)
-            setEmail(user.email);
-            setFirstname(user.firstName)
-            console.log(user.firstName)
-            console.log("Heisa")
-            setSurname(user.lastName)
-            //setAge(user.age)
-            setBio(user.bio)
-            setImageURL(user.profilePictureURL)
-            console.log(user.email)
-            getDownloadURL(starsRef)
-                    .then((url) => {
-                        setImageURL(url)
-                    })
-                    .catch((error) => {
-                        console.log("Miss!")
-                        switch (error.code) {
-                            case 'storage/object-not-found':
-                                // File doesn't exist
-                                break;
-                            case 'storage/unauthorized':
-                                // User doesn't have permission to access the object
-                                break;
-                            case 'storage/canceled':
-                                // User canceled the upload
-                                break;
-
-                            // ...
-
-                            case 'storage/unknown':
-                                // Unknown error occurred, inspect the server response
-                                break;
-                        }
-                    });
-        };
-        loadUser();
-        console.log("Database Polled");
-    }, []); */
     
     return (
-        <div>
+        <div className="centered">
             <Card style={{ width: '19rem' }}>
                 <Card.Img variant="top" src={imageURL} className="profileImage" />
                 <Card.Body>
-                    <Card.Text> {bio} </Card.Text>
+                    <Card.Text> <em>{bio}</em> </Card.Text>
                 </Card.Body>
                 <ListGroup className="list-group-flush">
                     <ListGroupItem>E-post: {email}</ListGroupItem>
-                    <ListGroupItem>Fornavn: {firstname} {lastName}</ListGroupItem>
+                    <ListGroupItem>Fornavn: {firstname} </ListGroupItem>
                     <ListGroupItem>Etternavn: {lastName}</ListGroupItem>
                     <p></p> 
                 </ListGroup>
             </Card>
-            <button onClick={goToEditProfile}>
-                Endre profil
-            </button>
-            <button onClick={logout} type="signOut">
-                Logg ut
-            </button>
-            
+            <div className="centerButtons">
+                <button onClick={goToEditProfile}>
+                    Endre profil
+                </button>
+                <button onClick={logout} type="signOut">
+                    Logg ut
+                </button>
+            </div>
         </div>
     )
 }
