@@ -12,6 +12,7 @@ import EditProfile from "./components/profile/editProfile";
 import ChangeProfilePicture from "./components/profile/changeProfilePicture";
 import ChangePassword from "./components/profile/changePassword";
 import ChangeBio from "./components/profile/changeBio";
+import DeleteUser from "./components/profile/deleteUser";
 
 import NewRecipe from "./components/newRecipe/newRecipe";
 import Navbar from "./components/navbar/navbar";
@@ -40,6 +41,7 @@ render(
         <Route path="changeProfilePicture" element={<ChangeProfilePicture/>}/>
         <Route path="newRecipe" element={<NewRecipe/>}/>
         <Route path="oppskrifter" element={<RecipeFeed/>}/>
+        <Route path="deleteUser" element={<DeleteUser/>}/>
         <Route path={"*"} element={<h1> 404: not found</h1>}/>
     </Routes>
 </BrowserRouter>, rootElement);

@@ -18,6 +18,10 @@ function EditProfile() {
         navigate("/changeBio")
     }
 
+    const goToDeleteUser = async () => {
+        navigate("/deleteUser")
+    }
+
     const goToProfilePage = async () => {
         navigate("/profilePage")
     }
@@ -26,7 +30,7 @@ function EditProfile() {
         <div className="centered" >
             <p></p>
             <div className="test">
-                <button type="profile" onClick={goToChangeProfilePicture}>
+                <button type="profile" >
                     Endre profilbilde
                 </button>
                 <p></p>
@@ -38,7 +42,7 @@ function EditProfile() {
                     Endre bio
                 </button>
                 <p></p>
-                <button type="profile">
+                <button type="profile" onClick={goToDeleteUser}>
                     Slett min profil
                 </button>
                 <p></p>
