@@ -1,4 +1,3 @@
-
 import {
     Routes,
     Route
@@ -6,12 +5,10 @@ import {
 import Recipes from "./components/dummy/recipes";
 import ProfilePage from "./components/profile/profilePage";
 import EditProfile from "./components/profile/editProfile";
-
 import ChangeProfilePicture from "./components/profile/changeProfilePicture";
 import ChangePassword from "./components/profile/changePassword";
 import ChangeBio from "./components/profile/changeBio";
 import DeleteUser from "./components/profile/deleteUser";
-
 import NewRecipe from "./components/newRecipe/newRecipe";
 import Navbar from "./components/navbar/navbar";
 import SplashPage from "./components/dummy/splashPage";
@@ -23,6 +20,7 @@ import ProtectedRoutes from "./ProtectedRoutes";
 import LoggedInRoutes from "./LoggedInRoutes";
 import FrontPage from "./components/registration/frontpage";
 import "./css/app.scss"
+import RecipePage from "./components/recipePage/recipePage";
 
 
 function App() {
@@ -42,6 +40,7 @@ function App() {
 
                 <Route path="splashPage" element={<SplashPage/>}/>
                 <Route path="recipes" element={<Recipes/>}/>
+                <Route path="displayRecipe" element={<RecipePage/>}/>
                 <Route path="editProfile" element={<EditProfile/>}/>
                 <Route path="changeBio" element={<ChangeBio/>}/>
                 <Route path="changePassword" element={<ChangePassword/>}/>
