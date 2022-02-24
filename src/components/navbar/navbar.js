@@ -8,10 +8,10 @@ function Navbar() {
             <nav>
                 <div>
                     <ul>
-                        <NavLink to={"/"}>Home </NavLink>
+                        <NavLink to={"/"}>Hjem </NavLink>
                         <NavLink to='/frontpage'>Innlogging </NavLink>
-                        <NavLink to='/profilePage'>Profile Page</NavLink>
-                        <NavLink to='/newRecipe'>Add new recipe</NavLink>
+                        <NavLink to='/profilePage'>Min profil</NavLink>
+                        <NavLink to='/newRecipe'>Legg til oppskrift</NavLink>
                         <NavLink to='/oppskrifter'>Oppskrifter</NavLink>
                     </ul>
                 </div>
