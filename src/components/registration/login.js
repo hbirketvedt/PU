@@ -1,5 +1,5 @@
 import { useState} from "react";
-import { useNavigate } from "react-router";
+import { useLocation, useNavigate } from "react-router";
 import { auth } from "../../firebase_config";
 import { signInWithEmailAndPassword } from "firebase/auth";
 import { Alert } from "react-bootstrap";
@@ -9,13 +9,19 @@ function Login() {
     const [ loginEmail, setLoginEmail ] = useState("");
     const [ loginPassword, setLoginPassword ] = useState("");
     const [ loginError, setLoginError] = useState(""); // bytt navn til loginError
+    const location = useLocation();
 
     const login = async () => {
         try {
             setLoginError("");
             const user = await signInWithEmailAndPassword(auth, loginEmail, loginPassword);
             console.log(user);
-            goToHome();
+            //adds to navigate u to where u came from if u where sent to login
+            if (location.state?.from) {
+                navigate(location.state.from);
+            } else {
+                goToHome();
+            } 
         } catch (error) {
             console.log(error.message);
             if (error.message.includes("auth/invalid-email")) {

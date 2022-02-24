@@ -21,6 +21,9 @@ import Signup from "./components/registration/signup";
 import Login from "./components/registration/login";
 import ForgotPassword from "./components/registration/forgotPassword";
 import RecipeFeed from "./components/recipeFeed/recipeFeed";
+import ProtectedRoutes from "./ProtectedRoutes";
+import LoggedInRoutes from "./LoggedInRoutes";
+import FrontPage from "./components/registration/frontpage";
 
 
 const rootElement = document.getElementById("root");
@@ -29,19 +32,27 @@ render(
     <Navbar/>
     <Routes>
         <Route path="/*" element={<App/>}></Route>
-        <Route path="login" element={<Login/>}/>
-        <Route path="signup" element={<Signup/>}/>
-        <Route path="forgotPassword" element={<ForgotPassword/>}/>
+        <Route element={<LoggedInRoutes />}>
+            <Route path="frontpage" element={<FrontPage/>}/>  
+            <Route path="login" element={<Login/>}/>
+            <Route path="frontpage/login" element={<Login/>}/>
+            <Route path="signup" element={<Signup/>}/>
+            <Route path="frontpage/signup" element={<Signup/>}/>
+            <Route path="forgotPassword" element={<ForgotPassword/>}/>  
+        </Route>  
+        
         <Route path="splashPage" element={<SplashPage/>}/>
         <Route path="recipes" element={<Recipes/>}/>
-        <Route path="profilePage" element={<ProfilePage/>}/>
         <Route path="editProfile" element={<EditProfile/>}/>
         <Route path="changeBio" element={<ChangeBio/>}/>
         <Route path="changePassword" element={<ChangePassword/>}/>
         <Route path="changeProfilePicture" element={<ChangeProfilePicture/>}/>
-        <Route path="newRecipe" element={<NewRecipe/>}/>
         <Route path="oppskrifter" element={<RecipeFeed/>}/>
         <Route path="deleteUser" element={<DeleteUser/>}/>
         <Route path={"*"} element={<h1> 404: not found</h1>}/>
+        <Route element={<ProtectedRoutes />}>
+            <Route path="profilePage" element={<ProfilePage/>}/>
+            <Route path="newRecipe" element={<NewRecipe/>}/>
+        </Route>      
     </Routes>
 </BrowserRouter>, rootElement);

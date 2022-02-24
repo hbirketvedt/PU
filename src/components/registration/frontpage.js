@@ -1,10 +1,9 @@
 import React from 'react';
-import {useState, useEffect} from "react";
-import {NavLink} from "react-router-dom";
 import { useNavigate } from "react-router-dom";
 
 
 function FrontPage() {
+
     let navigateLogin = useNavigate();
     const routeChangeLogin = () => {
         let loginPath = 'login';
@@ -33,12 +32,3 @@ function FrontPage() {
     )
 }
 export default FrontPage;
-
-
-
-
-
-
-
-
-
