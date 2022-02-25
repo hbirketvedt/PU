@@ -3,6 +3,7 @@ import {useEffect, useState} from "react";
 import IngredientList from "./ingredientList";
 import {Card} from "react-bootstrap";
 import {useLocation} from "react-router";
+import "./recipePage.scss"
 
 function RecipePage() {
     // const documentID = "bnlYw69QnfYJREjRM3ud"
@@ -24,9 +25,7 @@ function RecipePage() {
         <div>
             {recipe.map(recipe => {
                 return (
-                    <div key={recipe.id + "1"}>
-                        <h1 className={"centered_text h1__margin"}> {recipe.title}</h1>
-                        <div className={"columns"}>
+                    <div key={recipe.id + "1"} className={"container-1"}>
                             <RecipeCard
                                 id={recipe.id}
                                 title={recipe.title}
@@ -42,7 +41,6 @@ function RecipePage() {
                                 key={recipe.id + "ingredients"}
                                 ingredients={recipe.ingredients}
                             />
-                        </div>
                         <Card style={{width: "83rem"}}>
                             <Card.Body>
                                 <Card.Title>Fremgangsmåte: </Card.Title>

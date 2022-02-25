@@ -17,35 +17,29 @@ function RecipeFeed(props) {
     }, [props.recipes])
 
 
-
-
     const handleRecipeClicked = (recipe) => {
         navigate("/displayRecipe", {state: {recipe: recipe}})
     }
 
 
-
     return (
-        <div style={{paddingLeft: "3rem"}}>
-            <h1 className={"h1"}>Oppskrifter</h1>
-            <div className={"container-1"}>
-                {recipes.map((recipe) => {
-                    return (
-                        <div onClick={() => handleRecipeClicked(recipe)} key={recipe.id + "1"} className={"container-1"}>
-                            <RecipeCard
-                                id={recipe.id}
-                                title={recipe.title}
-                                description={recipe.description}
-                                imageUrl={recipe.imageUrl}
-                                time={recipe.timeEstimate}
-                                portions={recipe.portions}
-                                name={recipe.nameOfUser}
-                                style={{margin: "10rem"}}
-                                key={recipe.id}
-                            /></div>)
+        <div className={"container-1"}>
+            {recipes.map((recipe) => {
+                return (
+                    <div onClick={() => handleRecipeClicked(recipe)} key={recipe.id + "1"} className={"container-1"}>
+                        <RecipeCard
+                            id={recipe.id}
+                            title={recipe.title}
+                            description={recipe.description}
+                            imageUrl={recipe.imageUrl}
+                            time={recipe.timeEstimate}
+                            portions={recipe.portions}
+                            name={recipe.nameOfUser}
+                            style={{margin: "10rem"}}
+                            key={recipe.id}
+                        /></div>)
 
-                })}
-            </div>
+            })}
         </div>
     )
 
