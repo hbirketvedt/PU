@@ -30,7 +30,6 @@ function NewRecipe() {
     onAuthStateChanged(auth, (currentUser) => {
         setCurrentUser(currentUser);
         loadNameOfUser().then()
-
     })
 
 

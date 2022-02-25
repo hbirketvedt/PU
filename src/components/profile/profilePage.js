@@ -6,6 +6,7 @@ import { Card, ListGroup, ListGroupItem } from "react-bootstrap";
 import { auth } from "../../firebase_config";
 import { onAuthStateChanged, signOut } from "firebase/auth";
 import { useNavigate } from "react-router";
+import PersonalRecipeFeed from "./personalRecipeFeed";
 
 
 
@@ -85,6 +86,7 @@ function ProfilePage() {
     
     return (
         <div className="centered">
+
             <Card style={{ width: '19rem' }}>
                 <Card.Img variant="top" src={imageURL} className="profileImage" />
                 <Card.Body>
@@ -105,6 +107,7 @@ function ProfilePage() {
                     Logg ut
                 </button>
             </div>
+            <PersonalRecipeFeed/>
         </div>
     )
 }

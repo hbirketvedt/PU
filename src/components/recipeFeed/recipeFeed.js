@@ -1,31 +1,21 @@
 import {collection, getDocs} from "firebase/firestore";
-import {db} from "../../firebase_config";
 import {useEffect, useState} from "react";
-import RecipeCard from "./recipeCard";
-import "./recipeFeed.scss"
 import {useNavigate} from "react-router";
+import {db} from "../../firebase_config";
+import RecipeCard from "./recipeCard";
 
-function RecipeFeed() {
+
+function RecipeFeed(props) {
     // Constants used in function
-    const recipesCollectionRef = collection(db, "recipes");
-    const usersCollectionRef = collection(db, "users");
     const [recipes, setRecipes] = useState([]);
     const navigate = useNavigate()
 
-
-    /**
-     * Loads recipes from database. Empty dependency array ( [] at the end of useEffect)
-     * specifies that the function only runs once on load
-     */
     useEffect(() => {
-        const loadRecipes = async () => {
-            const data = await getDocs(recipesCollectionRef);
-            const recipes = data.docs.map((doc) => ({...doc.data(), id: doc.id}));
-            setRecipes(recipes)
-        };
-        loadRecipes().then(() => console.log("Recipes loaded "))
-        console.log("Database polled");
-    }, []);
+        setRecipes(props.recipes)
+        console.log(props.recipes)
+    }, [props.recipes])
+
+
 
 
     const handleRecipeClicked = (recipe) => {
