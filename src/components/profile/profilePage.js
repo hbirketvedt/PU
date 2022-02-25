@@ -52,7 +52,7 @@ function ProfilePage() {
         } else {
             setBio(user.bio);
         }
-        if (user.imageURL === user.uid) {
+        if (user.profilePictureURL === currentUser.uid) {
             handleDownloadImage();
         } else {
              handleDownloadDefault();
@@ -85,7 +85,7 @@ function ProfilePage() {
     
     return (
         <div className="centered">
-            <Card style={{ width: '19rem' }}>
+            <Card style={{ width: '19rem', marginTop: '4em' }}>
                 <Card.Img variant="top" src={imageURL} className="profileImage" />
                 <Card.Body>
                     <Card.Text> <em>{bio}</em> </Card.Text>
@@ -94,7 +94,6 @@ function ProfilePage() {
                     <ListGroupItem>E-post: {email}</ListGroupItem>
                     <ListGroupItem>Fornavn: {firstname} </ListGroupItem>
                     <ListGroupItem>Etternavn: {lastName}</ListGroupItem>
-                    <p></p> 
                 </ListGroup>
             </Card>
             <div className="centerButtons">
