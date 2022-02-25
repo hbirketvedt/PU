@@ -1,13 +1,13 @@
 
-.columns {
-  column-count: 2;
-  gap: 3rem;
-  align-items: center;
-  break-inside: avoid-column;
-  overflow: hidden;
-  display: inline-block;
-}
-
+//.columns {
+//  column-count: 2;
+//  gap: 3rem;
+//  align-items: center;
+//  break-inside: avoid-column;
+//  overflow: hidden;
+//  display: inline-block;
+//}
+//
 .h1 {
   text-align: center;
   font-weight: 900;
@@ -15,5 +15,14 @@
   margin-bottom: 3rem;
   column-gap: 3rem;
 }
+
+.container-1 {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-evenly;
+  column-count: 2;
+  align-items: center;
+}
+
 
 

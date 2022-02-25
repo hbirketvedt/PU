@@ -3,6 +3,7 @@ import {useEffect, useState} from "react";
 import {useNavigate} from "react-router";
 import {db} from "../../firebase_config";
 import RecipeCard from "./recipeCard";
+import "./recipeFeed.scss"
 
 
 function RecipeFeed(props) {
@@ -25,12 +26,12 @@ function RecipeFeed(props) {
 
 
     return (
-        <div>
+        <div style={{paddingLeft: "3rem"}}>
             <h1 className={"h1"}>Oppskrifter</h1>
-            <div className={"center columns"}>
+            <div className={"container-1"}>
                 {recipes.map((recipe) => {
                     return (
-                        <div onClick={() => handleRecipeClicked(recipe)} key={recipe.id + "1"}>
+                        <div onClick={() => handleRecipeClicked(recipe)} key={recipe.id + "1"} className={"container-1"}>
                             <RecipeCard
                                 id={recipe.id}
                                 title={recipe.title}

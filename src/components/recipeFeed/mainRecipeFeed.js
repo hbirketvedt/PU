@@ -28,8 +28,6 @@ export default function MainRecipeFeed() {
 
 
     return (
-        <div>
-            <RecipeFeed recipes={recipes}/>
-        </div>
+        <RecipeFeed recipes={recipes}/>
     )
 }

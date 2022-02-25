@@ -7,6 +7,7 @@ import { auth } from "../../firebase_config";
 import { onAuthStateChanged, signOut } from "firebase/auth";
 import { useNavigate } from "react-router";
 import PersonalRecipeFeed from "./personalRecipeFeed";
+import "./profilePage.scss"
 
 
 
@@ -85,8 +86,7 @@ function ProfilePage() {
 
     
     return (
-        <div className="centered">
-
+        <div>
             <Card style={{ width: '19rem' }}>
                 <Card.Img variant="top" src={imageURL} className="profileImage" />
                 <Card.Body>

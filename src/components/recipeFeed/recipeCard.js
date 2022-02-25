@@ -50,12 +50,12 @@ function RecipeCard(props) {
                     });
             }
             handleDownload().then(r => console.log("image downloaded"))
-        },[]
+        }, []
     )
 
 
     return (
-        <Card className={"card"} style={{width: '40rem', height: "30rem"}}>
+        <Card className={"card recipeCard"} style={{width: '40rem', height: "30rem"}}>
             <Card.Img style={{width: "100%", height: "20rem", objectFit: "cover"}} variant="top" src={url}/>
             <Card.Body>
                 <Card.Title>{title}</Card.Title>
@@ -64,6 +64,17 @@ function RecipeCard(props) {
                 <Card.Subtitle> Laget av { name } </Card.Subtitle>
             </Card.Body>
         </Card>
+
+        // <div>
+        //     <img src={url} alt={""}/>
+        //     <body>
+        //     <title>{title}</title>
+        //         <sub> { timeEstimate }</sub>
+        //         <sub> { portions } porsjoner </sub>
+        //         <sub> Laget av { name }</sub>
+        //     </body>
+        // </div>
+
 
     )
 }
