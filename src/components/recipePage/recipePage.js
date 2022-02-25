@@ -26,21 +26,21 @@ function RecipePage() {
             {recipe.map(recipe => {
                 return (
                     <div key={recipe.id + "1"} className={"container-1"}>
-                            <RecipeCard
-                                id={recipe.id}
-                                title={recipe.title}
-                                description={recipe.description}
-                                imageUrl={recipe.imageUrl}
-                                time={recipe.timeEstimate}
-                                portions={recipe.portions}
-                                name={recipe.nameOfUser}
-                                style={{margin: "10rem"}}
-                                key={recipe.id}
-                            />
-                            <IngredientList
-                                key={recipe.id + "ingredients"}
-                                ingredients={recipe.ingredients}
-                            />
+                        <RecipeCard
+                            id={recipe.id}
+                            title={recipe.title}
+                            description={recipe.description}
+                            imageUrl={recipe.imageUrl}
+                            time={recipe.timeEstimate}
+                            portions={recipe.portions}
+                            name={recipe.nameOfUser}
+                            style={{margin: "10rem"}}
+                            key={recipe.id}
+                        />
+                        <IngredientList
+                            key={recipe.id + "ingredients"}
+                            ingredients={recipe.ingredients}
+                        />
                         <Card style={{width: "83rem"}}>
                             <Card.Body>
                                 <Card.Title>Fremgangsmåte: </Card.Title>
