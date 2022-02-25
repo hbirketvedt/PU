@@ -2,21 +2,49 @@ import {addDoc, collection, getDocs} from "firebase/firestore";
 import {auth, db} from "../../firebase_config";
 import {useForm, Controller} from "react-hook-form";
 import {useNavigate} from "react-router";
-import {useEffect, useState} from "react";
+import {useState} from "react";
 import CreatableSelect from "react-select/creatable";
 import Textarea from 'react-textarea-autosize';
 import Select from "react-select";
 import {getStorage, ref, uploadBytes} from "firebase/storage";
 import "./newRecipe.scss"
 import {onAuthStateChanged} from "firebase/auth";
-import useUser from "../user/useUser";
+import useFirebaseAuthentication from "../user/useFirebaseAuthentication";
 
 function NewRecipe() {
+    const usersCollectionRef = collection(db, "users")
+
     const [image, setImage] = useState(null)
     const {register, handleSubmit, control} = useForm()
-    const recipesCollectionRef = collection(db, "newRecipes");
+    const recipesCollectionRef = collection(db, "recipes");
     const navigate = useNavigate();
-    const user = useUser()
+    // const [user, setUser] = useState({})
+    const [currentUser, setCurrentUser] = useState({})
+    // const [user, setUser] = useFirebaseAuthentication()
+    const [nameOfUser, setNameOfUser] = useState("Ukjent")
+
+
+
+    /**
+     * Loads in current user
+     */
+    onAuthStateChanged(auth, (currentUser) => {
+        setCurrentUser(currentUser);
+        loadNameOfUser().then()
+
+    })
+
+
+    /**
+     * Sets nameOfUser to "firstName lastName" of current user
+     * @return {Promise<void>}
+     */
+    const loadNameOfUser = async () => {
+        const data = await getDocs(usersCollectionRef);
+        const user = data.docs.filter(doc => doc.id === currentUser.uid).reduce((a, b) => a).data();
+        setNameOfUser(user.firstName +" " +  user.lastName);
+        console.log(user.firstName +" " +  user.lastName)
+    }
 
 
     /**
@@ -81,9 +109,9 @@ function NewRecipe() {
             description: data.description,
             imageUrl: imageUrl,
             date: dateString,
-            userID: user.id
+            userID: currentUser.uid,
+            nameOfUser: nameOfUser
         });
-
         console.log("Recipe uploaded to database")
         navigate("/oppskrifter")
     }

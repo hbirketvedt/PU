@@ -4,15 +4,12 @@ import {Card} from "react-bootstrap";
 import "./recipeCard.scss"
 
 function RecipeCard(props) {
-    // const documentID = "39AquvXple9d6XbFHuam"
     const [url, setUrl] = useState("")
     const [title] = useState(props.title)
     const [timeEstimate] = useState(props.time)
     const [portions] = useState(props.portions)
     const [name] = useState(props.name)
     const imageRef = ref(getStorage(), `images/${props.imageUrl}`);
-
-
 
 
     /**
@@ -52,9 +49,10 @@ function RecipeCard(props) {
                         }
                     });
             }
-            handleDownload().then(r => console.log("download complete"))
-        }
+            handleDownload().then(r => console.log("image downloaded"))
+        },[]
     )
+
 
     return (
         <Card className={"card"} style={{width: '40rem', height: "30rem"}}>
