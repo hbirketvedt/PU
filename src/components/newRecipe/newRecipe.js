@@ -9,7 +9,6 @@ import Select from "react-select";
 import {getStorage, ref, uploadBytes} from "firebase/storage";
 import "./newRecipe.scss"
 import {onAuthStateChanged} from "firebase/auth";
-import useFirebaseAuthentication from "../user/useFirebaseAuthentication";
 
 function NewRecipe() {
     const usersCollectionRef = collection(db, "users")
