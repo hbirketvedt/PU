@@ -270,9 +270,18 @@ link {
   margin-left: 26%;
 }
 
+.dummyImage { //brukt til midlertidlig forside
+  height: 500px;
+  width: 612px;
+  display: inline-block;
+  margin-left: auto;
+  margin-right: auto;
+  text-align: center;
+  border: 2px solid #fff;
+  box-shadow: 10px 10px 5px #ccc;
+}
 
-
-
-
-
+#splash { //brukt til midlertidlig forside
+  text-align: center;
+}
 
