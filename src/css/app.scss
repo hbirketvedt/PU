@@ -41,9 +41,6 @@ mark {
 }
 
 
-
-
-
 .columns {
   column-count: 2;
   gap: 3rem;
@@ -89,12 +86,12 @@ button {
     background: gray;
   }
 
-  &[type=profileCancel]:hover  {
+  &[type=profileCancel]:hover {
     background: #999898;
     transition: all ease-in-out 0.2s;
   }
 
-  &[type=cancel]:hover  {
+  &[type=cancel]:hover {
     background: #999898;
     transition: all ease-in-out 0.2s;
   }
@@ -103,7 +100,7 @@ button {
     background: #ec5151;
   }
 
-  &[type=signOut]:hover  {
+  &[type=signOut]:hover {
     background: rgb(241, 121, 121);
     transition: all ease-in-out 0.2s;
   }
@@ -112,7 +109,7 @@ button {
     background: #36a54e;
   }
 
-  &[type=save]:hover  {
+  &[type=save]:hover {
     background: rgb(93, 212, 153);
     transition: all ease-in-out 0.2s;
   }
@@ -121,8 +118,6 @@ button {
 button + button {
   margin-left: calc(var(--size-bezel) * 2);
 }
-
-
 
 
 .hidden {
@@ -166,11 +161,13 @@ nav a:hover {
 }
 
 nav .active {
-  background: #118593;
+  //background: #118593;
   padding: 10px 20px;
   border-radius: 5px;
   color: #fff;
   text-underline-style: dotted;
+  background: #449999;
+
   //color: deeppink;
 }
 
@@ -180,15 +177,15 @@ link {
 }
 
 
-
 .profilePic {
 
   width: 200px;
   min-height: 300px;
-  height:100%;
+  height: 100%;
   object-fit: cover; // here is the key
 
- }
+}
+
 .profilePageBtn {
   color: currentColor;
   padding: var(--size-bezel) calc(var(--size-bezel) * 2);
@@ -222,8 +219,8 @@ link {
 }
 
 .inner {
-    display: inline-block;
-    margin-right: 1em;
+  display: inline-block;
+  margin-right: 1em;
 }
 
 .profileImage {
@@ -252,9 +249,9 @@ link {
 
 .test {
   position: relative;
-  display:flex;
-  align-items:center;
-  flex-direction:column;
+  display: flex;
+  align-items: center;
+  flex-direction: column;
 }
 
 .bioHeader {
@@ -264,7 +261,7 @@ link {
 .centerButtons {
   display: flex;
   justify-content: center;
-  }
+}
 
 .centerObject {
   margin-left: 26%;
