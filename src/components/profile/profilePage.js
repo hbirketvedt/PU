@@ -1,14 +1,13 @@
-import { useState } from "react";
-import { db } from "../../firebase_config";
-import { collection, getDocs } from "firebase/firestore";
-import { getDownloadURL, getStorage, ref } from "firebase/storage";
-import { Card, ListGroup, ListGroupItem } from "react-bootstrap";
-import { auth } from "../../firebase_config";
-import { onAuthStateChanged, signOut } from "firebase/auth";
-import { useNavigate } from "react-router";
+import {useState} from "react";
+import {db} from "../../firebase_config";
+import {collection, getDocs} from "firebase/firestore";
+import {getDownloadURL, getStorage, ref} from "firebase/storage";
+import {Card, ListGroup, ListGroupItem} from "react-bootstrap";
+import {auth} from "../../firebase_config";
+import {onAuthStateChanged, signOut} from "firebase/auth";
+import {useNavigate} from "react-router";
 import PersonalRecipeFeed from "./personalRecipeFeed";
 import "./profilePage.scss"
-
 
 
 function ProfilePage() {
@@ -54,10 +53,10 @@ function ProfilePage() {
         } else {
             setBio(user.bio);
         }
-        if (user.imageURL === user.uid) {
+        if (user.profilePictureURL === currentUser.uid) {
             handleDownloadImage();
         } else {
-             handleDownloadDefault();
+            handleDownloadDefault();
         }
 
     }
@@ -84,11 +83,11 @@ function ProfilePage() {
             });
     }
 
-    
+
     return (
         <div>
-            <Card style={{ width: '19rem' }}>
-                <Card.Img variant="top" src={imageURL} className="profileImage" />
+            <Card style={{width: '19rem', marginTop: '4em'}}>
+                <Card.Img variant="top" src={imageURL} className="profileImage"/>
                 <Card.Body>
                     <Card.Text> <em>{bio}</em> </Card.Text>
                 </Card.Body>
@@ -96,7 +95,6 @@ function ProfilePage() {
                     <ListGroupItem>E-post: {email}</ListGroupItem>
                     <ListGroupItem>Fornavn: {firstname} </ListGroupItem>
                     <ListGroupItem>Etternavn: {lastName}</ListGroupItem>
-                    <p></p> 
                 </ListGroup>
             </Card>
             <div className="centerButtons">
