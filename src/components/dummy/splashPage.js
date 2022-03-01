@@ -6,9 +6,12 @@ import '../../css/app.scss'
 function SplashPage() {
     return(
         <div id="splash">
-            <h1>
-                Velkommen til vår oppskriftsside
+            <h1 style={{fontSize:"100px"}}>
+                FOODIES
             </h1>
+            <h3>
+                "Oppskrifter lett tilgjengelig for deg"
+            </h3>
             <h3>
                 <img className="dummyImage" src={image1}></img>
                 <img className="dummyImage" src={image2}></img>

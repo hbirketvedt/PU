@@ -10,7 +10,6 @@ function Navbar() {
                     <ul>
                         <NavLink to={"/"} id={"home"}>Hjem </NavLink>
                         <NavLink to='/profilePage' id={"profilePage"}>Min Profil</NavLink>
-                        <NavLink to='/frontpage'>Innlogging</NavLink>
                         <NavLink to='/newRecipe'>Legg ut oppskrift</NavLink>
                         <NavLink to='/oppskrifter'>Oppskrifter</NavLink>
                     </ul>
