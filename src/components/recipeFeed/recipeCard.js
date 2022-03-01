@@ -4,44 +4,13 @@ import {Card} from "react-bootstrap";
 import "./recipeCard.scss"
 
 function RecipeCard(props) {
-    // const documentID = "39AquvXple9d6XbFHuam"
     const [url, setUrl] = useState("")
     const [title] = useState(props.title)
     const [timeEstimate] = useState(props.time)
     const [portions] = useState(props.portions)
+    const [name] = useState(props.name)
     const imageRef = ref(getStorage(), `images/${props.imageUrl}`);
 
-
-    /**
-     * Old functions, don't delete
-     */
-    // useEffect(() => {
-    //     const loadRecipes = async () => {
-    //         const data = await getDocs(recipesCollectionRef);
-    //         const recipeFeed = data.docs.find((doc) => doc.id === documentID).data();
-    //         setTitle(recipeFeed.title)
-    //         setDescription(recipeFeed.description)
-    //         setIngredients(recipeFeed.ingredients)
-    //     };
-    //     loadRecipes();
-    //     console.log("Database polled");
-    // }, []);
-    //
-    //
-    // const handleChange = (e) => {
-    //     if (e.target.files[0]) {
-    //         setImage(e.target.files[0])
-    //     }
-    // }
-    //
-    // const handleUpload = () => {
-    //     const storage = getStorage();
-    //     const storageRef = ref(storage, `/images/${image.name}`);
-    //     uploadBytes(storageRef, image).then((snapshot) => {
-    //         console.log('Uploaded a blob or file!');
-    //     });
-    // }
-    //
 
     /**
      * Loads correct url for image into url variable using relative path from variable imageRef. Include url in <img>
@@ -80,19 +49,32 @@ function RecipeCard(props) {
                         }
                     });
             }
-            handleDownload().then(r => console.log("download complete"))
-        }
+            handleDownload().then(r => console.log("image downloaded"))
+        }, []
     )
 
+
     return (
-        <Card className={"card"} style={{width: '40rem', height: "30rem"}}>
+        <Card className={"card recipeCard"} style={{width: '40rem', height: "30rem"}}>
             <Card.Img style={{width: "100%", height: "20rem", objectFit: "cover"}} variant="top" src={url}/>
             <Card.Body>
                 <Card.Title>{title}</Card.Title>
                 <Card.Subtitle> { timeEstimate}</Card.Subtitle>
                 <Card.Subtitle> { portions } porsjoner </Card.Subtitle>
+                <Card.Subtitle> Laget av { name } </Card.Subtitle>
             </Card.Body>
         </Card>
+
+        // <div>
+        //     <img src={url} alt={""}/>
+        //     <body>
+        //     <title>{title}</title>
+        //         <sub> { timeEstimate }</sub>
+        //         <sub> { portions } porsjoner </sub>
+        //         <sub> Laget av { name }</sub>
+        //     </body>
+        // </div>
+
 
     )
 }

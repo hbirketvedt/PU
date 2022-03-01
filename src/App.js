@@ -21,6 +21,7 @@ import LoggedInRoutes from "./LoggedInRoutes";
 import FrontPage from "./components/registration/frontpage";
 import "./css/app.scss"
 import RecipePage from "./components/recipePage/recipePage";
+import MainRecipeFeed from "./components/recipeFeed/mainRecipeFeed";
 
 
 function App() {
@@ -37,15 +38,13 @@ function App() {
                     <Route path="frontpage/signup" element={<Signup/>}/>
                     <Route path="forgotPassword" element={<ForgotPassword/>}/>
                 </Route>
-
                 <Route path="splashPage" element={<SplashPage/>}/>
-                <Route path="recipes" element={<Recipes/>}/>
                 <Route path="displayRecipe" element={<RecipePage/>}/>
                 <Route path="editProfile" element={<EditProfile/>}/>
                 <Route path="changeBio" element={<ChangeBio/>}/>
                 <Route path="changePassword" element={<ChangePassword/>}/>
                 <Route path="changeProfilePicture" element={<ChangeProfilePicture/>}/>
-                <Route path="oppskrifter" element={<RecipeFeed/>}/>
+                <Route path="oppskrifter" element={<MainRecipeFeed/>}/>
                 <Route path="deleteUser" element={<DeleteUser/>}/>
                 <Route path={"*"} element={<h1> 404: not found</h1>}/>
                 <Route element={<ProtectedRoutes/>}>
