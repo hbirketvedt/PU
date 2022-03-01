@@ -86,17 +86,19 @@ function ProfilePage() {
 
     return (
         <div>
-            <Card style={{width: '19rem', marginTop: '4em'}}>
-                <Card.Img variant="top" src={imageURL} className="profileImage"/>
-                <Card.Body>
-                    <Card.Text> <em>{bio}</em> </Card.Text>
-                </Card.Body>
-                <ListGroup className="list-group-flush">
-                    <ListGroupItem>E-post: {email}</ListGroupItem>
-                    <ListGroupItem>Fornavn: {firstname} </ListGroupItem>
-                    <ListGroupItem>Etternavn: {lastName}</ListGroupItem>
-                </ListGroup>
-            </Card>
+            <div className="centerButtons">
+                <Card style={{width: '19rem', marginTop: '4em'}}>
+                    <Card.Img variant="top" src={imageURL} className="profileImage"/>
+                    <Card.Body>
+                        <Card.Text> <em>{bio}</em> </Card.Text>
+                    </Card.Body>
+                    <ListGroup className="list-group-flush">
+                        <ListGroupItem>E-post: {email}</ListGroupItem>
+                        <ListGroupItem>Fornavn: {firstname} </ListGroupItem>
+                        <ListGroupItem>Etternavn: {lastName}</ListGroupItem>
+                    </ListGroup>
+                </Card>
+            </div>
             <div className="centerButtons">
                 <button onClick={goToEditProfile}>
                     Endre profil
