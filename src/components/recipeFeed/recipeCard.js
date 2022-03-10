@@ -2,6 +2,12 @@ import {useEffect, useState} from "react";
 import {getDownloadURL, getStorage, ref} from "firebase/storage";
 import {Card} from "react-bootstrap";
 import "./recipeCard.scss"
+import { auth } from "../../firebase_config";
+import {db} from "../../firebase_config";
+import {collection, getDocs} from "firebase/firestore";
+import {onAuthStateChanged} from "firebase/auth";
+import { useNavigate } from "react-router";
+import { doc, deleteDoc } from "firebase/firestore";
 
 function RecipeCard(props) {
     const [url, setUrl] = useState("")
@@ -9,8 +15,48 @@ function RecipeCard(props) {
     const [timeEstimate] = useState(props.time)
     const [portions] = useState(props.portions)
     const [name] = useState(props.name)
+    const [recipeId] = useState(props.id)
     const imageRef = ref(getStorage(), `images/${props.imageUrl}`);
 
+    const usersCollectionRef = collection(db, "users")
+    const [currentUser, setCurrentUser] = useState({});
+    const [admin, setAdmin] = useState(false);
+    const navigate = useNavigate();
+
+    /**
+     * Sjekker om brukeren er er admin.
+     * Hvis ja, så kan brukeren slette en opprskift.
+     */
+
+    onAuthStateChanged(auth, (currentUser) => {
+        setCurrentUser(currentUser);
+        if (currentUser) {
+            loadUser();
+        } else {
+            setAdmin(false);
+        }
+    })
+
+    const loadUser = async () => {
+        const data = await getDocs(usersCollectionRef);
+        const user = data.docs.filter(doc => doc.id === currentUser.uid).reduce((a, b) => a).data();
+        setAdmin(user.admin);
+    }
+
+    //Sletter oppskrifter
+    const deleteRecipe = async (e) => {
+
+        if (window.confirm("Er du sikker på at ønsker å slette oppskriften?")) {
+            await deleteDoc(doc(db, "recipes", recipeId));
+            goToRecipes();
+        } 
+        e.stopPropagation();
+    }
+
+
+    const goToRecipes = async () => {
+        navigate("/oppskrifter")
+    }
 
     /**
      * Loads correct url for image into url variable using relative path from variable imageRef. Include url in <img>
@@ -63,6 +109,8 @@ function RecipeCard(props) {
                 <Card.Subtitle> { portions } porsjoner </Card.Subtitle>
                 <Card.Subtitle> Laget av { name } </Card.Subtitle>
             </Card.Body>
+            {admin &&
+            <p style={{color:"#960b0b", marginLeft:"80%"}} onClick={(e) => deleteRecipe(e)}>Slett oppskrift?</p>}
         </Card>
 
         // <div>
