@@ -34,7 +34,7 @@ function RecipeFeed(props) {
                             imageUrl={recipe.imageUrl}
                             time={recipe.timeEstimate}
                             portions={recipe.portions}
-                            name={recipe.nameOfUser}
+                            name={recipe.nameOfUser || "Ukjent"}
                             style={{margin: "10rem"}}
                             key={recipe.id}
                         /></div>)

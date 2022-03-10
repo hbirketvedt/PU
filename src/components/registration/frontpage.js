@@ -17,10 +17,10 @@ function FrontPage() {
     return(
         <div>
             <h1>
-                Oppskriftshefte
+                Foodies
             </h1>
             <h3>
-                Spar tid, bruk oppskriftshefte når du handler.
+                Logg inn eller opprett bruker for å legge ut oppskrifter
             </h3>
             <button onClick={routeChangeLogin}>
                 Logg inn

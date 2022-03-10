@@ -52,6 +52,11 @@ function NewRecipe() {
         {value: "Frokost", label: "Frokost"},
         {value: "Lunch", label: "Lunch"},
         {value: "Middag", label: "Middag"},
+        {value: "Dessert", label: "Dessert"},
+        {value: "Vegetar", label: "Vegetar"},
+        {value: "Fisk", label: "Fisk"},
+        {value: "Kylling", label: "Kylling"},
+        {value: "Kjøtt", label: "Kjøtt"},
     ]
 
 
@@ -216,6 +221,8 @@ function NewRecipe() {
                         {...field}
                         // Options form const declared earlier
                         options={categories}
+
+                        isMulti
                         // defines css
                         className={"input__field"}
                     />}

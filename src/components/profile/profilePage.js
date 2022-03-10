@@ -107,6 +107,7 @@ function ProfilePage() {
                     Logg ut
                 </button>
             </div>
+            <h1>Mine Oppskrifter: </h1>
             <PersonalRecipeFeed/>
         </div>
     )

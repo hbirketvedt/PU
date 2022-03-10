@@ -36,7 +36,6 @@ function ProfilePage() {
             <button onClick={logout}>
                 Logg ut
             </button>
-
             <button onClick={deleteUser}>
                 Slett bruker
             </button>

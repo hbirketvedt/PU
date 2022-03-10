@@ -103,7 +103,7 @@ function Signup() {
     const navigate = useNavigate();
 
     const goToLogin = async () => {
-        navigate("/login")
+        navigate("/frontPage")
     }
 
     const goToHome = async () => {
