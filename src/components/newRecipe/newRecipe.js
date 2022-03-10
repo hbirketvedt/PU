@@ -85,6 +85,7 @@ function NewRecipe() {
      */
     const submitData = async (data) => {
         const ingredients = []
+        const category = []
         const today = new Date()
         // Month starts at 0
         const month = today.getMonth() + 1
@@ -97,6 +98,9 @@ function NewRecipe() {
         for (let ing of data.ingredients.entries()) {
             ingredients.push(ing[1].value)
         }
+        for (let cat of data.category.entries()) {
+            category.push(cat[1].value)
+        }
         // uploads image if present and sets imageUrl accordingly, which will be stored with recipe.
         if (image != null) {
             await uploadImage()
@@ -108,7 +112,7 @@ function NewRecipe() {
             timeEstimate: data.timeEstimate,
             portions: data.portions,
             ingredients: ingredients,
-            category: data.category.value,
+            category: category,
             description: data.description,
             imageUrl: imageUrl,
             date: dateString,
