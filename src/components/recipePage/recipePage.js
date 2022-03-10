@@ -4,13 +4,33 @@ import IngredientList from "./ingredientList";
 import {Card} from "react-bootstrap";
 import {useLocation} from "react-router";
 import "./recipePage.scss"
+import {onAuthStateChanged} from "firebase/auth";
+import {auth, db} from "../../firebase_config";
+import {collection, getDocs} from "firebase/firestore";
 
 function RecipePage() {
+    const usersCollectionRef = collection(db, "users")
     // const documentID = "bnlYw69QnfYJREjRM3ud"
     // const recipesCollectionRef = collection(db, "recipes");
     // Had to use an empty array to create child react elements, or else they get set to null
     const [recipe, setRecipe] = useState([])
     const {state} = useLocation()
+    const [currentUser, setCurrentUser] = useState({})
+    const [editButton, setEditButton] = useState("")
+    const [show, setShow] = useState(false)
+
+
+    /**
+     * Loads in current user
+     */
+    onAuthStateChanged(auth, (currentUser) => {
+        console.log(state.recipe.userID)
+        console.log(currentUser.uid)
+        if (currentUser.uid.localeCompare(state.recipe.userID)) {
+            setShow(true)
+        }
+
+    })
 
 
     /**
@@ -20,12 +40,17 @@ function RecipePage() {
         setRecipe([state.recipe])
     }, [])
 
+    const handleEdit = () => {
+      console.log("hei")
+    }
+
 
     return (
         <div>
             {recipe.map(recipe => {
                 return (
                     <div key={recipe.id + "1"} className={"container-1"}>
+                        <div>{ !show ? <button onClick={handleEdit}>Rediger oppskrift</button> : null }</div>
                         <RecipeCard
                             id={recipe.id}
                             title={recipe.title}
