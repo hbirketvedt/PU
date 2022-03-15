@@ -34,6 +34,7 @@ function RecipePage() {
                             time={recipe.timeEstimate}
                             portions={recipe.portions}
                             name={recipe.nameOfUser}
+                            date={recipe.date}
                             style={{margin: "10rem"}}
                             key={recipe.id}
                         />

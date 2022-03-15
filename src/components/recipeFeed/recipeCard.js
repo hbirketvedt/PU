@@ -69,19 +69,18 @@ function RecipeCard(props) {
         } else if (60000 < difference && difference < 3600000) {
             setCardDate(Math.round(difference / (1000*60)) + " minutter siden")
         } else if (3600000 < difference && difference < 86400000) {
-            setCardDate(Math.round(difference / (1000*60*24)) + " timer siden")
+            setCardDate(Math.round(difference / (1000*60*60)) + " timer siden")
         } else if (86400000 < difference && difference < 604800000) {
-            setCardDate(Math.round(difference / (1000*60*24*7)) + " dager siden")
+            setCardDate(Math.round(difference / (1000*60*60*24)) + " dager siden")
         } else if (604800000 < difference && difference < 2419200000) {
-            setCardDate(Math.round(difference / (1000*60*24*7*4)) + " uker siden")
+            setCardDate(Math.round(difference / (1000*60*60*24*7)) + " uker siden")
         } else {
-            setCardDate(Math.round(difference / (1000*60*24*7*31)) + " måneder siden")
+            setCardDate(Math.round(difference / (1000*60*60*24*7)) + " måneder siden")
         }
     }
 
     //Sletter oppskrifter
     const deleteRecipe = async (e) => {
-
         if (window.confirm("Er du sikker på at ønsker å slette oppskriften?")) {
             await deleteDoc(doc(db, "recipes", recipeId));
             goToRecipes();
