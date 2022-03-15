@@ -8,7 +8,8 @@ import {collection, getDocs} from "firebase/firestore";
 import {onAuthStateChanged} from "firebase/auth";
 import { useNavigate } from "react-router";
 import { doc, deleteDoc } from "firebase/firestore";
-import 'bootstrap/dist/css/bootstrap.min.css';
+import React from 'react';
+import { Clock } from 'react-bootstrap-icons';
 
 function RecipeCard(props) {
     const [url, setUrl] = useState("")
@@ -145,8 +146,8 @@ function RecipeCard(props) {
             </Card.Body>
             <div >
                 <p style={{float:"left", marginLeft:"3%"}}>
-                    <i class="bi bi-clock"></i> 
-                    { cardDate }
+                    <Clock size={16} style={{marginRight:"0.5em"}}/>
+                    { cardDate } 
                 </p>
                 {admin &&
                 <p style={{color:"#960b0b", float:"right", marginRight:"3%"}} onClick={(e) => deleteRecipe(e)}>Slett oppskrift?</p>}
