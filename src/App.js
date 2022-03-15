@@ -22,7 +22,7 @@ import FrontPage from "./components/registration/frontpage";
 import "./css/app.scss"
 import RecipePage from "./components/recipePage/recipePage";
 import MainRecipeFeed from "./components/recipeFeed/mainRecipeFeed";
-
+import Users from "./components/admin/users";
 
 function App() {
     return (
@@ -46,6 +46,7 @@ function App() {
                 <Route path="changeProfilePicture" element={<ChangeProfilePicture/>}/>
                 <Route path="oppskrifter" element={<MainRecipeFeed/>}/>
                 <Route path="deleteUser" element={<DeleteUser/>}/>
+                <Route path="users" element={<Users/>}/>
                 <Route path={"*"} element={<h1> 404: not found</h1>}/>
                 <Route element={<ProtectedRoutes/>}>
                     <Route path="profilePage" element={<ProfilePage/>}/>
