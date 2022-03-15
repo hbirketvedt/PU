@@ -28,6 +28,7 @@ export default function MainRecipeFeed() {
 
 
     return (
+        // Sends recipes as props to child element
         <RecipeFeed recipes={recipes}/>
     )
 }

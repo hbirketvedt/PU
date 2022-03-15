@@ -7,9 +7,12 @@ import "./recipePage.scss"
 import {onAuthStateChanged} from "firebase/auth";
 import {auth, db} from "../../firebase_config";
 import {collection, DocumentReference, getDocs} from "firebase/firestore";
-import { Alert } from "react-bootstrap";
-import { doc, deleteDoc } from "firebase/firestore";
-import { useNavigate } from "react-router";
+import {Alert} from "react-bootstrap";
+import {doc, deleteDoc} from "firebase/firestore";
+import {useNavigate} from "react-router";
+import NewRecipe from "../newRecipe/newRecipe";
+import {Modal} from "react-responsive-modal";
+import "react-responsive-modal/styles.css";
 
 function RecipePage(props) {
     const usersCollectionRef = collection(db, "users")
@@ -20,7 +23,8 @@ function RecipePage(props) {
     const {state} = useLocation()
     const [currentUser, setCurrentUser] = useState({})
     const [editButton, setEditButton] = useState("")
-    const [show, setShow] = useState(false)
+    const [showEditButton, setShowEditButton] = useState(false)
+    const [showEditor, setShowEditor] = useState(false);
 
     const navigate = useNavigate();
 
@@ -32,11 +36,10 @@ function RecipePage(props) {
         console.log(state.recipe.userID)
         console.log(currentUser.uid)
         if (currentUser.uid.localeCompare(state.recipe.userID)) {
-            setShow(true)
+            setShowEditButton(true)
         }
 
     })
-
 
     /**
      * Sets recipe from received props value. Only runs once on first render.
@@ -45,10 +48,13 @@ function RecipePage(props) {
         setRecipe([state.recipe])
     }, [])
 
+    /**
+     * Displays editor window
+     */
     const handleEdit = () => {
-      console.log("hei")
-
+        setShowEditor(true)
     }
+
 
     const goToProfilePage = async () => {
         navigate("/profilePage")
@@ -63,11 +69,32 @@ function RecipePage(props) {
         console.log("Oppskriften ble slettet")
     }
 
+    const onCloseModal = () => {
+        setShowEditor(false)
+    };
+
     return (
         <div>
+
             {recipe.map(recipe => {
                 return (
                     <div key={recipe.id + "1"} className={"container-1"}>
+                        {/*Editor that loads all current values as props in the newRecipe element. Hidden until user
+                        starts editing the current recipe.
+                        */}
+                        <Modal open={showEditor} onClose={onCloseModal}>
+                            <div>{showEditor ?
+                                <NewRecipe
+                                    recipeName={recipe.title}
+                                    timeEstimate={recipe.timeEstimate}
+                                    portions={recipe.portions}
+                                    image={recipe.image}
+                                    ingredients={recipe.ingredients}
+                                    category={recipe.category}
+                                    description={recipe.description}
+                                /> : null}
+                            </div>
+                        </Modal>
                         <RecipeCard
                             id={recipe.id}
                             title={recipe.title}
@@ -83,8 +110,6 @@ function RecipePage(props) {
                             key={recipe.id + "ingredients"}
                             ingredients={recipe.ingredients}
                         />
-                        
-
                         <Card style={{width: "83rem"}}>
                             <Card.Body>
                                 <Card.Title>Fremgangsmåte: </Card.Title>
@@ -94,9 +119,10 @@ function RecipePage(props) {
                             </Card.Body>
                         </Card>
                         <div>
-                            <div>{ !show ? <button onClick={handleEdit}>Rediger oppskrift</button> : null }</div>
-                            <br></br>
-                            <div>{ !show ? <button onClick={handleDelete}>Slett oppskrift</button> : null }</div>
+                            <div>{!showEditButton ?
+                                <button onClick={handleEdit}>Rediger oppskrift</button> : null}</div>
+                            <div>{!showEditButton ?
+                                <button onClick={handleDelete}>Slett oppskrift</button> : null}</div>
                         </div>
                     </div>
                 )

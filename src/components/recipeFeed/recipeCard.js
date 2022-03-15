@@ -27,7 +27,6 @@ function RecipeCard(props) {
      * Sjekker om brukeren er er admin.
      * Hvis ja, så kan brukeren slette en opprskift.
      */
-
     onAuthStateChanged(auth, (currentUser) => {
         setCurrentUser(currentUser);
         if (currentUser) {

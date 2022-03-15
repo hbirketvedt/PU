@@ -10,9 +10,8 @@ import {getStorage, ref, uploadBytes} from "firebase/storage";
 import "./newRecipe.scss"
 import {onAuthStateChanged} from "firebase/auth";
 
-function NewRecipe() {
+function NewRecipe(props) {
     const usersCollectionRef = collection(db, "users")
-
     const [image, setImage] = useState(null)
     const {register, handleSubmit, control} = useForm()
     const recipesCollectionRef = collection(db, "recipes");
@@ -23,6 +22,13 @@ function NewRecipe() {
     const [nameOfUser, setNameOfUser] = useState("Ukjent")
 
 
+    // let ingredientList = {}
+    // let counter = 0
+    // for (let ingredient of props.ingredients) {
+    //     counter: ingredient
+    // }
+
+    console.log(props.ingredients)
 
     /**
      * Loads in current user
@@ -40,8 +46,8 @@ function NewRecipe() {
     const loadNameOfUser = async () => {
         const data = await getDocs(usersCollectionRef);
         const user = data.docs.filter(doc => doc.id === currentUser.uid).reduce((a, b) => a).data();
-        setNameOfUser(user.firstName +" " +  user.lastName);
-        console.log(user.firstName +" " +  user.lastName)
+        setNameOfUser(user.firstName + " " + user.lastName);
+        console.log(user.firstName + " " + user.lastName)
     }
 
 
@@ -93,6 +99,9 @@ function NewRecipe() {
         const dateString = today.getFullYear() + "." + month + "." + today.getDate() + "." + today.getHours()
 
         let imageUrl = "blank.png"
+        if (props.imageUrl != null) {
+            imageUrl = props.imageUrl
+        }
         // ingredients are returned as an IterableIterator so loop is used to extract only ingredients and add them
         // to collection
         for (let ing of data.ingredients.entries()) {
@@ -147,8 +156,11 @@ function NewRecipe() {
     }
 
 
+    /**
+     * value of all fields are set for the purpose of editing recipes. In newRecipe page the values are null, ie.
+     * no displayed values.
+     */
     return (
-
         <div className={"center"}>
             <form
                 onSubmit={handleSubmit((data) => {
@@ -165,6 +177,7 @@ function NewRecipe() {
                             message: "Minimum title length is 3"
                         }
                     })}
+                    value={props.recipeName}
                     type={"text"}
                     className={"input__field"}
                 />
@@ -178,6 +191,7 @@ function NewRecipe() {
                             message: "Minimum time estimate is 1"
                         }
                     })}
+                    value={props.timeEstimate}
                     className={"input__field"}
                 />
 
@@ -188,6 +202,7 @@ function NewRecipe() {
                     })
                     }
                     type={"number"}
+                    value={props.portions}
                     className={"input__field"}/>
 
 
@@ -195,6 +210,7 @@ function NewRecipe() {
                 <input
                     type={"file"}
                     onChange={handleChosenImage}
+                    value={props.image}
                     className={"input__field"}
                 />
 
@@ -211,6 +227,7 @@ function NewRecipe() {
                         isMulti
                         // defines css
                         className={"input__field"}
+                        defaultValue={[props.ingredients[0]]}
                     />}
                     rules={{required: true}}
 
@@ -225,10 +242,10 @@ function NewRecipe() {
                         {...field}
                         // Options form const declared earlier
                         options={categories}
-
                         isMulti
                         // defines css
                         className={"input__field"}
+                        defaultValue={[props.category[0]]}
                     />}
                     rules={{required: true}}
 
@@ -244,7 +261,9 @@ function NewRecipe() {
                         }
                     })}
                     type={"textarea"}
-                    className={"input__field__big"}/>
+                    value={props.description}
+                    className={"input__field__big"}
+                />
                 <button
                     type={"submit"}
                     className={"input__submit"}
