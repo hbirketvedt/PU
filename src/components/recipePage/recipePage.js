@@ -6,9 +6,12 @@ import {useLocation} from "react-router";
 import "./recipePage.scss"
 import {onAuthStateChanged} from "firebase/auth";
 import {auth, db} from "../../firebase_config";
-import {collection, getDocs} from "firebase/firestore";
+import {collection, DocumentReference, getDocs} from "firebase/firestore";
+import { Alert } from "react-bootstrap";
+import { doc, deleteDoc } from "firebase/firestore";
+import { useNavigate } from "react-router";
 
-function RecipePage() {
+function RecipePage(props) {
     const usersCollectionRef = collection(db, "users")
     // const documentID = "bnlYw69QnfYJREjRM3ud"
     // const recipesCollectionRef = collection(db, "recipes");
@@ -18,6 +21,8 @@ function RecipePage() {
     const [currentUser, setCurrentUser] = useState({})
     const [editButton, setEditButton] = useState("")
     const [show, setShow] = useState(false)
+
+    const navigate = useNavigate();
 
 
     /**
@@ -42,15 +47,27 @@ function RecipePage() {
 
     const handleEdit = () => {
       console.log("hei")
+
     }
 
+    const goToProfilePage = async () => {
+        navigate("/profilePage")
+    }
+
+    const handleDelete = async () => {
+        if (window.confirm("Er du sikker på at du ønsker å slette oppskriften din? Denne handlingen kan ikke angres.")) {
+            await deleteDoc(doc(db, "recipes", state.recipe.id));
+            console.log("Oppskriften ble slettet!")
+            goToProfilePage()
+        }
+        console.log("Oppskriften ble slettet")
+    }
 
     return (
         <div>
             {recipe.map(recipe => {
                 return (
                     <div key={recipe.id + "1"} className={"container-1"}>
-                        <div>{ !show ? <button onClick={handleEdit}>Rediger oppskrift</button> : null }</div>
                         <RecipeCard
                             id={recipe.id}
                             title={recipe.title}
@@ -66,6 +83,8 @@ function RecipePage() {
                             key={recipe.id + "ingredients"}
                             ingredients={recipe.ingredients}
                         />
+                        
+
                         <Card style={{width: "83rem"}}>
                             <Card.Body>
                                 <Card.Title>Fremgangsmåte: </Card.Title>
@@ -74,9 +93,15 @@ function RecipePage() {
                                 </Card.Text>
                             </Card.Body>
                         </Card>
+                        <div>
+                            <div>{ !show ? <button onClick={handleEdit}>Rediger oppskrift</button> : null }</div>
+                            <br></br>
+                            <div>{ !show ? <button onClick={handleDelete}>Slett oppskrift</button> : null }</div>
+                        </div>
                     </div>
                 )
             })}
+
         </div>
 
     )
