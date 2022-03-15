@@ -22,13 +22,28 @@ function NewRecipe(props) {
     const [nameOfUser, setNameOfUser] = useState("Ukjent")
 
 
-    // let ingredientList = {}
-    // let counter = 0
-    // for (let ingredient of props.ingredients) {
-    //     counter: ingredient
-    // }
+    /**
+     * Only used for editing recipes
+     */
+    const ingredientList = []
+    if (props.ingredients != null) {
+        for (const ing of props.ingredients) {
+            const x = {value: ing, label: ing}
+            ingredientList.push(x)
+        }
+    }
 
-    console.log(props.ingredients)
+    /**
+     * Only used for editing recipes
+     */
+    const categoryList = []
+    if (props.category != null) {
+        for (const cat of props.category) {
+            const x = {value: cat, label: cat}
+            categoryList.push(x)
+        }
+    }
+
 
     /**
      * Loads in current user
@@ -177,7 +192,7 @@ function NewRecipe(props) {
                             message: "Minimum title length is 3"
                         }
                     })}
-                    value={props.recipeName}
+                    defaultValue={props.recipeName}
                     type={"text"}
                     className={"input__field"}
                 />
@@ -191,7 +206,7 @@ function NewRecipe(props) {
                             message: "Minimum time estimate is 1"
                         }
                     })}
-                    value={props.timeEstimate}
+                    defaultValue={props.timeEstimate}
                     className={"input__field"}
                 />
 
@@ -202,7 +217,7 @@ function NewRecipe(props) {
                     })
                     }
                     type={"number"}
-                    value={props.portions}
+                    defaultValue={props.portions}
                     className={"input__field"}/>
 
 
@@ -210,7 +225,7 @@ function NewRecipe(props) {
                 <input
                     type={"file"}
                     onChange={handleChosenImage}
-                    value={props.image}
+                    defaultValue={props.image}
                     className={"input__field"}
                 />
 
@@ -227,10 +242,8 @@ function NewRecipe(props) {
                         isMulti
                         // defines css
                         className={"input__field"}
-                        defaultValue={[props.ingredients[0]]}
+                        defaultValue={ingredientList}
                     />}
-                    rules={{required: true}}
-
                 />
 
                 <h5 className={"input__label"}>Kategori: </h5>
@@ -245,10 +258,8 @@ function NewRecipe(props) {
                         isMulti
                         // defines css
                         className={"input__field"}
-                        defaultValue={[props.category[0]]}
+                        defaultValue={categoryList}
                     />}
-                    rules={{required: true}}
-
                 />
 
                 <h5 className={"input__label"}>Fremgangsmåte: </h5>
@@ -261,7 +272,7 @@ function NewRecipe(props) {
                         }
                     })}
                     type={"textarea"}
-                    value={props.description}
+                    defaultValue={props.description}
                     className={"input__field__big"}
                 />
                 <button
