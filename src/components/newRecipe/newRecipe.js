@@ -89,8 +89,12 @@ function NewRecipe() {
         const today = new Date()
         // Month starts at 0
         const month = today.getMonth() + 1
+        // Get minutes
+        const minutes = today.getMinutes() % 60;
+        console.log("Hei" + minutes);
         // Adds date to string
-        const dateString = today.getFullYear() + "." + month + "." + today.getDate() + "." + today.getHours()
+        const dateString = today.getFullYear() + "." + month + "." + today.getDate() + "." + today.getHours() + "." + minutes;
+
 
         let imageUrl = "blank.png"
         // ingredients are returned as an IterableIterator so loop is used to extract only ingredients and add them
