@@ -10,6 +10,7 @@ import { useNavigate } from "react-router";
 import { doc, deleteDoc } from "firebase/firestore";
 import React from 'react';
 import { Clock } from 'react-bootstrap-icons';
+import Button from "react-bootstrap/Button";
 
 function RecipeCard(props) {
     const [url, setUrl] = useState("")
@@ -93,9 +94,6 @@ function RecipeCard(props) {
         navigate("/oppskrifter")
     }
 
-    //Slik at vi kan favorisere oppskrifter
-    //const favoriteRecipe;
-
     /**
      * Loads correct url for image into url variable using relative path from variable imageRef. Include url in <img>
      *     component (found in return statement) to load image to page.
@@ -146,12 +144,14 @@ function RecipeCard(props) {
                 <Card.Subtitle> { timeEstimate}</Card.Subtitle>
                 <Card.Subtitle> { portions } porsjoner </Card.Subtitle>
                 <Card.Subtitle> Laget av { name } </Card.Subtitle>
+                <Button className= "favorite" variant="outline-dark">Favoritt </Button>
             </Card.Body>
             <div >
                 <p style={{float:"left", marginLeft:"3%"}}>
                     <Clock size={16} style={{marginRight:"0.5em"}}/>
                     { cardDate } 
                 </p>
+                
                 {admin &&
                 <p style={{color:"#960b0b", float:"right", marginRight:"3%"}} onClick={(e) => deleteRecipe(e)}>Slett oppskrift?</p>}
             </div>

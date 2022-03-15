@@ -7,6 +7,7 @@ import {auth} from "../../firebase_config";
 import {onAuthStateChanged, signOut} from "firebase/auth";
 import {useNavigate} from "react-router";
 import PersonalRecipeFeed from "./personalRecipeFeed";
+import PersonalFavorites from "./personalFavorites";
 import "./profilePage.scss"
 
 
@@ -109,6 +110,8 @@ function ProfilePage() {
             </div>
             <h1>Mine Oppskrifter: </h1>
             <PersonalRecipeFeed/>
+            <h1>Mine Favoritter:</h1>
+            <PersonalFavorites/>
         </div>
     )
 }
