@@ -22,7 +22,7 @@ function RecipePage() {
 
 
     return (
-        <div>
+        <div >
             {recipe.map(recipe => {
                 return (
                     <div key={recipe.id + "1"} className={"container-1"}>
@@ -33,6 +33,7 @@ function RecipePage() {
                             imageUrl={recipe.imageUrl}
                             time={recipe.timeEstimate}
                             portions={recipe.portions}
+                            category = {recipe.category}
                             name={recipe.nameOfUser}
                             style={{margin: "10rem"}}
                             key={recipe.id}
@@ -54,6 +55,7 @@ function RecipePage() {
             })}
         </div>
 
+       
     )
 }
 

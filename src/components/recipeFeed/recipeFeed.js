@@ -23,10 +23,11 @@ function RecipeFeed(props) {
 
 
     return (
-        <div className={"container-1"}>
+        <div>
+            <div class = "split right" className = "container-1">
             {recipes.map((recipe) => {
                 return (
-                    <div onClick={() => handleRecipeClicked(recipe)} key={recipe.id + "1"} className={"container-1"}>
+                    <div onClick={() => handleRecipeClicked(recipe)} key={recipe.id + "1"}>
                         <RecipeCard
                             id={recipe.id}
                             title={recipe.title}
@@ -34,12 +35,20 @@ function RecipeFeed(props) {
                             imageUrl={recipe.imageUrl}
                             time={recipe.timeEstimate}
                             portions={recipe.portions}
+                            category={recipe.category}
                             name={recipe.nameOfUser || "Ukjent"}
                             style={{margin: "10rem"}}
                             key={recipe.id}
                         /></div>)
 
             })}
+                
+                </div>
+
+            <div class= "split left" >
+                
+                </div>
+           
         </div>
     )
 
