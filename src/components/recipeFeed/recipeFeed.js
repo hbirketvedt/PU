@@ -34,6 +34,7 @@ function RecipeFeed(props) {
                             imageUrl={recipe.imageUrl}
                             time={recipe.timeEstimate}
                             portions={recipe.portions}
+                            date={recipe.date}
                             name={recipe.nameOfUser || "Ukjent"}
                             style={{margin: "10rem"}}
                             key={recipe.id}
@@ -45,4 +46,4 @@ function RecipeFeed(props) {
 
 }
 
-export default RecipeFeed;
+export default RecipeFeed
