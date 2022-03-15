@@ -93,6 +93,9 @@ function RecipeCard(props) {
         navigate("/oppskrifter")
     }
 
+    //Slik at vi kan favorisere oppskrifter
+    //const favoriteRecipe;
+
     /**
      * Loads correct url for image into url variable using relative path from variable imageRef. Include url in <img>
      *     component (found in return statement) to load image to page.
