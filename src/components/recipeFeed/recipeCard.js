@@ -15,6 +15,7 @@ function RecipeCard(props) {
     const [timeEstimate] = useState(props.time)
     const [portions] = useState(props.portions)
     const [name] = useState(props.name)
+    const[category] = useState(props.category)
     const [recipeId] = useState(props.id)
     const imageRef = ref(getStorage(), `images/${props.imageUrl}`);
 
@@ -108,6 +109,7 @@ function RecipeCard(props) {
                 <Card.Subtitle> { timeEstimate}</Card.Subtitle>
                 <Card.Subtitle> { portions } porsjoner </Card.Subtitle>
                 <Card.Subtitle> Laget av { name } </Card.Subtitle>
+                <Card.Subtitle> {category} </Card.Subtitle>
             </Card.Body>
             {admin &&
             <p style={{color:"#960b0b", marginLeft:"80%"}} onClick={(e) => deleteRecipe(e)}>Slett oppskrift?</p>}
