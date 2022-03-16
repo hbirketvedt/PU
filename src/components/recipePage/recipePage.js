@@ -13,6 +13,8 @@ import {useNavigate} from "react-router";
 import OldNewRecipe from "../newRecipe/oldNewRecipe";
 import {Modal} from "react-responsive-modal";
 import "react-responsive-modal/styles.css";
+import RecipeEditor from "./updateRecipe";
+import UpdateRecipe from "./updateRecipe";
 
 function RecipePage(props) {
     const usersCollectionRef = collection(db, "users")
@@ -84,14 +86,8 @@ function RecipePage(props) {
                         */}
                         <Modal open={showEditor} onClose={onCloseModal}>
                             <div>{showEditor ?
-                                <OldNewRecipe
-                                    recipeName={recipe.title}
-                                    timeEstimate={recipe.timeEstimate}
-                                    portions={recipe.portions}
-                                    image={recipe.image}
-                                    ingredients={recipe.ingredients}
-                                    category={recipe.category}
-                                    description={recipe.description}
+                                <UpdateRecipe
+                                    recipe={recipe}
                                 /> : null}
                             </div>
                         </Modal>

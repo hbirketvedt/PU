@@ -31,6 +31,7 @@ function Recipes() {
      */
     const changePrice = async (id, price, operator) => {
         const recipeDoc = doc(db, "recipes", id);
+        console.log(recipeDoc)
         if (operator) {
             await updateDoc(recipeDoc, {price: price + 1});
         } else {

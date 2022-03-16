@@ -1,4 +1,3 @@
-import {useState} from "react";
 import {Controller, useForm} from "react-hook-form";
 import CreatableSelect from "react-select/creatable";
 import Select from "react-select";
@@ -7,13 +6,18 @@ import Textarea from "react-textarea-autosize";
 
 function RecipeForm(props) {
     const {register, handleSubmit, control} = useForm()
+    let recipe = {}
+    if (props.recipe != null) {
+        recipe = props.recipe
+    }
+
 
     /**
      * Only used for editing recipes. Loads in ingredients from props into correct format for <Select>
      */
     const ingredientList = []
-    if (props.ingredients != null) {
-        for (const ing of props.ingredients) {
+    if (recipe.ingredients != null) {
+        for (const ing of recipe.ingredients) {
             const x = {value: ing, label: ing}
             ingredientList.push(x)
         }
@@ -23,8 +27,8 @@ function RecipeForm(props) {
      * Only used for editing recipes. Loads in ingredients from props into correct format for <Select>
      */
     const categoryList = []
-    if (props.category != null) {
-        for (const cat of props.category) {
+    if (recipe.category != null) {
+        for (const cat of recipe.category) {
             const x = {value: cat, label: cat}
             categoryList.push(x)
         }
@@ -81,7 +85,7 @@ function RecipeForm(props) {
                             message: "Minimum title length is 3"
                         }
                     })}
-                    defaultValue={props.recipeName}
+                    defaultValue={recipe.title}
                     type={"text"}
                     className={"input__field"}
                 />
@@ -95,7 +99,7 @@ function RecipeForm(props) {
                             message: "Minimum time estimate is 1"
                         }
                     })}
-                    defaultValue={props.timeEstimate}
+                    defaultValue={recipe.timeEstimate}
                     className={"input__field"}
                 />
 
@@ -106,7 +110,7 @@ function RecipeForm(props) {
                     })
                     }
                     type={"number"}
-                    defaultValue={props.portions}
+                    defaultValue={recipe.portions}
                     className={"input__field"}/>
 
 
@@ -130,8 +134,9 @@ function RecipeForm(props) {
                         isMulti
                         // defines css
                         className={"input__field"}
-                        defaultValue={ingredientList}
+
                     />}
+                    defaultValue={ingredientList}
                     rules={{required: true}}
                 />
 
@@ -147,8 +152,9 @@ function RecipeForm(props) {
                         isMulti
                         // defines css
                         className={"input__field"}
-                        defaultValue={categoryList}
+
                     />}
+                    defaultValue={categoryList}
                     rules={{required: true}}
                 />
 
@@ -162,7 +168,7 @@ function RecipeForm(props) {
                         }
                     })}
                     type={"textarea"}
-                    defaultValue={props.description}
+                    defaultValue={recipe.description}
                     className={"input__field__big"}
                 />
                 <button
