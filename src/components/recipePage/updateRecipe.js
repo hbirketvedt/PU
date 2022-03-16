@@ -8,8 +8,6 @@ import {useNavigate} from "react-router";
 
 function UpdateRecipe(props) {
     const recipeDoc = doc(db, "recipes", props.recipe.id);
-    const navigate = useNavigate()
-
 
     /**
      * Updates recipe with new fields from <RecipeForm>

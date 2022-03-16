@@ -5,6 +5,7 @@ import {useState} from "react";
 import {addDoc, collection, getDocs} from "firebase/firestore";
 import {getStorage, ref, uploadBytes} from "firebase/storage";
 import {useNavigate} from "react-router";
+import "./newRecipe.scss"
 
 
 function NewRecipe() {
@@ -95,9 +96,13 @@ function NewRecipe() {
     }
 
     return (
-        <RecipeForm
-            onSubmit={submitData}
-        />
+        <div className={"center"}>
+            <div className={"newRecipe"}>
+                <RecipeForm
+                    onSubmit={submitData}
+                />
+            </div>
+        </div>
     )
 }
 

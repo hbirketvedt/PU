@@ -69,115 +69,112 @@ function RecipeForm(props) {
 
 
     return (
-        <div className={"center"}>
-            <form
-                onSubmit={handleSubmit((data) => {
-                    props.onSubmit(data)
+        <form
+            onSubmit={handleSubmit((data) => {
+                props.onSubmit(data)
+            })}
+        >
+            <h3 className={"input__label"}>Oppskriftens navn: </h3>
+            <input
+                {...register("title", {
+                    required: "title is required",
+                    minLength: {
+                        value: 3,
+                        message: "Minimum title length is 3"
+                    }
                 })}
-                className={"newRecipe"}
-            >
-                <h3 className={"input__label"}>Oppskriftens navn: </h3>
-                <input
-                    {...register("title", {
-                        required: "title is required",
-                        minLength: {
-                            value: 3,
-                            message: "Minimum title length is 3"
-                        }
-                    })}
-                    defaultValue={recipe.title}
-                    type={"text"}
-                    className={"input__field"}
-                />
+                defaultValue={recipe.title}
+                type={"text"}
+                className={"input__field"}
+            />
 
-                <h5 className={"input__label"}>Tidsestimat: </h5>
-                <input
-                    {...register("timeEstimate", {
-                        required: "Time estimate is required",
-                        minLength: {
-                            value: 1,
-                            message: "Minimum time estimate is 1"
-                        }
-                    })}
-                    defaultValue={recipe.timeEstimate}
-                    className={"input__field"}
-                />
-
-                <h5 className={"input__label"}>Antall Porsjoner: </h5>
-                <input
-                    {...register("portions", {
-                        required: "Portion count is required"
-                    })
+            <h5 className={"input__label"}>Tidsestimat: </h5>
+            <input
+                {...register("timeEstimate", {
+                    required: "Time estimate is required",
+                    minLength: {
+                        value: 1,
+                        message: "Minimum time estimate is 1"
                     }
-                    type={"number"}
-                    defaultValue={recipe.portions}
-                    className={"input__field"}/>
+                })}
+                defaultValue={recipe.timeEstimate}
+                className={"input__field"}
+            />
+
+            <h5 className={"input__label"}>Antall Porsjoner: </h5>
+            <input
+                {...register("portions", {
+                    required: "Portion count is required"
+                })
+                }
+                type={"number"}
+                defaultValue={recipe.portions}
+                className={"input__field"}/>
 
 
-                <h5 className={"input__label"}>Legg til bilde</h5>
-                <input
-                    {...register("image")
-                    }
-                    type={"file"}
+            <h5 className={"input__label"}>Legg til bilde</h5>
+            <input
+                {...register("image")
+                }
+                type={"file"}
+                className={"input__field"}
+            />
+            <h5 className={"input__label"}>Ingredienser: </h5>
+            <Controller
+                // Name specifies key in register
+                name="ingredients"
+                control={control}
+                render={({field}) => <CreatableSelect
+                    {...field}
+                    // Options form const declared earlier
+                    options={ingredientsOptions}
+                    // Allow multiple choices
+                    isMulti
+                    // defines css
                     className={"input__field"}
-                />
-                <h5 className={"input__label"}>Ingredienser: </h5>
-                <Controller
-                    // Name specifies key in register
-                    name="ingredients"
-                    control={control}
-                    render={({field}) => <CreatableSelect
-                        {...field}
-                        // Options form const declared earlier
-                        options={ingredientsOptions}
-                        // Allow multiple choices
-                        isMulti
-                        // defines css
-                        className={"input__field"}
 
-                    />}
-                    defaultValue={ingredientList}
-                    rules={{required: true}}
-                />
+                />}
+                defaultValue={ingredientList}
+                rules={{required: true}}
+            />
 
-                <h5 className={"input__label"}>Kategori: </h5>
-                <Controller
-                    // Name specifies key in register
-                    name="category"
-                    control={control}
-                    render={({field}) => <Select
-                        {...field}
-                        // Options form const declared earlier
-                        options={categoriesOptions}
-                        isMulti
-                        // defines css
-                        className={"input__field"}
+            <h5 className={"input__label"}>Kategori: </h5>
+            <Controller
+                // Name specifies key in register
+                name="category"
+                control={control}
+                render={({field}) => <Select
+                    {...field}
+                    // Options form const declared earlier
+                    options={categoriesOptions}
+                    isMulti
+                    // defines css
+                    className={"input__field"}
 
-                    />}
-                    defaultValue={categoryList}
-                    rules={{required: true}}
-                />
+                />}
+                defaultValue={categoryList}
+                rules={{required: true}}
+            />
 
-                <h5 className={"input__label"}>Fremgangsmåte: </h5>
-                <Textarea
-                    {...register("description", {
-                        required: "Description is required",
-                        minLength: {
-                            value: 1,
-                            message: "Minimum title length is 1"
-                        }
-                    })}
-                    type={"textarea"}
-                    defaultValue={recipe.description}
-                    className={"input__field__big"}
-                />
-                <button
-                    type={"submit"}
-                    className={"input__submit"}
-                >Publiser
-                </button>
-            </form>
-        </div>
+            <h5 className={"input__label"}>Fremgangsmåte: </h5>
+            <Textarea
+                {...register("description", {
+                    required: "Description is required",
+                    minLength: {
+                        value: 1,
+                        message: "Minimum title length is 1"
+                    }
+                })}
+                type={"textarea"}
+                defaultValue={recipe.description}
+                className={"input__field__big"}
+            />
+            <button
+                type={"submit"}
+                className={"input__submit"}
+            >Publiser
+            </button>
+        </form>
     )
 }
 
