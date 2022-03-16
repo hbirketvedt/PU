@@ -9,7 +9,6 @@ import ChangeProfilePicture from "./components/profile/changeProfilePicture";
 import ChangePassword from "./components/profile/changePassword";
 import ChangeBio from "./components/profile/changeBio";
 import DeleteUser from "./components/profile/deleteUser";
-import NewRecipe from "./components/newRecipe/newRecipe";
 import Navbar from "./components/navbar/navbar";
 import SplashPage from "./components/dummy/splashPage";
 import Signup from "./components/registration/signup";
@@ -22,6 +21,8 @@ import FrontPage from "./components/registration/frontpage";
 import "./css/app.scss"
 import RecipePage from "./components/recipePage/recipePage";
 import MainRecipeFeed from "./components/recipeFeed/mainRecipeFeed";
+import RecipeForm from "./components/newRecipe/recipeForm";
+import NewRecipe from "./components/newRecipe/newRecipe";
 
 
 function App() {

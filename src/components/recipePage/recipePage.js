@@ -10,7 +10,7 @@ import {collection, DocumentReference, getDocs} from "firebase/firestore";
 import {Alert} from "react-bootstrap";
 import {doc, deleteDoc} from "firebase/firestore";
 import {useNavigate} from "react-router";
-import NewRecipe from "../newRecipe/newRecipe";
+import OldNewRecipe from "../newRecipe/oldNewRecipe";
 import {Modal} from "react-responsive-modal";
 import "react-responsive-modal/styles.css";
 
@@ -84,7 +84,7 @@ function RecipePage(props) {
                         */}
                         <Modal open={showEditor} onClose={onCloseModal}>
                             <div>{showEditor ?
-                                <NewRecipe
+                                <OldNewRecipe
                                     recipeName={recipe.title}
                                     timeEstimate={recipe.timeEstimate}
                                     portions={recipe.portions}
