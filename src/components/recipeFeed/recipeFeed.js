@@ -38,7 +38,7 @@ function RecipeFeed(props) {
                     )
             );
         }
-    }, [category], [recipes]) //recipes er inkludert fordi den vil laste inn alle oppskriftene første gangen. category er inkludert siden den oppdateres for hvert knappetrykk
+    }, [category, props.recipes]) //props.recipes er inkludert fordi den vil laste inn alle oppskriftene første gangen. category er inkludert siden den oppdateres for hvert knappetrykk
 
     const handleRecipeClicked = (recipe) => {
         navigate("/displayRecipe", {state: {recipe: recipe}})
