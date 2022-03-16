@@ -3,20 +3,22 @@ import { useState, useEffect } from "react";
 import { auth } from "../../firebase_config";
 import {getDownloadURL, getStorage, ref} from "firebase/storage";
 import { useNavigate } from "react-router";
+import {db} from "../../firebase_config";
+import {collection, getDocs} from "firebase/firestore";
 
 
 function ChangeProfilePicture() {
 
-
-    const [user, setUser] = useState({});
+    const navigate = useNavigate();
+    const user = auth.currentUser
     const [photoURL, setPhotoURL] = useState("")
     const [photo, setPhoto] = useState("")
+    const usersCollectionRef = collection(db, "users")
 
-    onAuthStateChanged(auth, (currentUser) => {
-        setUser(currentUser);
-        handleDownload();
-    })
-    
+    useEffect(() => {
+            loadUser();
+        }, []
+    )
 
     const handleChange = (e) => {
         const etf = e.target.files[0]; 
@@ -35,7 +37,18 @@ function ChangeProfilePicture() {
     }
 
 
-    const handleDownload = async () => {
+    const loadUser = async () => {
+        const data = await getDocs(usersCollectionRef);
+        const currentUser = data.docs.filter(doc => doc.id === user.uid).reduce((a, b) => a).data();
+        if (currentUser.profilePictureURL === user.uid) {
+            handleDownloadImage();
+        } else {
+            handleDownloadDefault();
+        }
+
+    }
+
+    const handleDownloadImage = async () => {
         const imageRef = ref(getStorage(), 'profilePictures/' + user.uid + '.png');
         getDownloadURL(imageRef)
             .then((url) => {
@@ -44,11 +57,25 @@ function ChangeProfilePicture() {
             .catch((error) => {
                 console.log(error.message)
             });
-        }
+    }
 
-    const navigate = useNavigate();
+    const handleDownloadDefault = async () => {
+        const imageRef = ref(getStorage(), 'profilePictures/' + "default.png");
+        getDownloadURL(imageRef)
+            .then((url) => {
+                setPhotoURL(url)
+            })
+            .catch((error) => {
+                console.log(error.message)
+            });
+    }
 
     const goToProfilePage = async () => {
+        navigate("/profilePage")
+    }
+
+    const save = async () => {
+        //...
         navigate("/profilePage")
     }
 
@@ -61,10 +88,10 @@ function ChangeProfilePicture() {
             </div>
             <div className="centered2">
                 <input type="file" onChange={handleChange} />
-                <button type="save" >Last opp</button>
+                <button type="save" onClick={save}>Last opp</button>
                 <button type="cancel" onClick={goToProfilePage}>Avbryt</button>
             </div>
-            <h1>Vi er ikke ferdig med denne siden!!!!</h1>
+            
         </div>
     )
 }
