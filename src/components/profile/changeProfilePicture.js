@@ -1,10 +1,12 @@
 import { onAuthStateChanged, signOut} from "firebase/auth";
 import { useState, useEffect } from "react";
 import { auth } from "../../firebase_config";
-import {getDownloadURL, getStorage, ref} from "firebase/storage";
+import {getDownloadURL, getStorage, ref, uploadBytes} from "firebase/storage";
 import { useNavigate } from "react-router";
 import {db} from "../../firebase_config";
 import {collection, getDocs} from "firebase/firestore";
+import {Card} from "react-bootstrap";
+import { Alert } from "react-bootstrap";
 
 
 function ChangeProfilePicture() {
@@ -13,7 +15,10 @@ function ChangeProfilePicture() {
     const user = auth.currentUser
     const [photoURL, setPhotoURL] = useState("")
     const [photo, setPhoto] = useState("")
+    const [name, setName] = useState("")
+    const [ errorMsg, setErrorMsg] = useState(""); 
     const usersCollectionRef = collection(db, "users")
+    const storage = getStorage();
 
     useEffect(() => {
             loadUser();
@@ -22,6 +27,7 @@ function ChangeProfilePicture() {
 
     const handleChange = (e) => {
         const etf = e.target.files[0]; 
+        setName(etf.name);
         /**
          * Checks if etf is not null and a jp(e)g- or a png-file.
          */
@@ -75,8 +81,15 @@ function ChangeProfilePicture() {
     }
 
     const save = async () => {
-        //...
-        navigate("/profilePage")
+        if (name === "") {
+            setErrorMsg("Ingen fil valgt!")
+        } else {
+            setErrorMsg("")
+            const fileRef = ref(storage, "profilePictures/" + user.uid + ".png");
+            const snapshot = await uploadBytes(fileRef, photo);
+            
+            navigate("/profilePage") 
+        }
     }
 
 
@@ -84,14 +97,15 @@ function ChangeProfilePicture() {
     return(
         <div >
             <div>
-                <img src={photoURL} alt="Profilbilde" className="avatar2" />
+                <Card.Img variant="top" src={photoURL} className="profileImage2" style={{marginBottom:"4em", marginTop:"4em"}}/>
             </div>
             <div className="centered2">
                 <input type="file" onChange={handleChange} />
                 <button type="save" onClick={save}>Last opp</button>
                 <button type="cancel" onClick={goToProfilePage}>Avbryt</button>
             </div>
-            
+            <p></p>
+            {errorMsg && <Alert variant="danger" style={{marginTop:"7em"}}>{errorMsg}</Alert>}
         </div>
     )
 }

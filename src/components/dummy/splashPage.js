@@ -1,20 +1,16 @@
 import image1 from '../../images/forside-3.jpg'
 import image2 from '../../images/forside-2.jpg'
+import image3 from '../../images/logo.png'
 import '../../css/app.scss'
 
 
 function SplashPage() {
     return(
         <div id="splash">
-            <h1 style={{fontSize:"100px"}}>
-                FOODIES
-            </h1>
+            <img src={image3} style={{width:"50%"}}></img>
             <h3>
-                "Oppskrifter lett tilgjengelig for deg"
-            </h3>
-            <h3>
-                <img className="dummyImage" src={image1}></img>
-                <img className="dummyImage" src={image2}></img>
+                <img className="dummyImage" src={image1} style={{width:"40%", height:"40%"}}></img>
+                <img className="dummyImage" src={image2} style={{width:"40%", height:"40%"}}></img>
             </h3>
         </div>
     )
