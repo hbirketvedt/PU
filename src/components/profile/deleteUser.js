@@ -47,9 +47,9 @@ function DeleteUser() {
     }
 
     return(
-        <div>
-            <h1>
-                Slett bruker:
+        <div className="centered">
+            <h1 style={{marginBottom:"1em"}}>
+                Slett bruker?
             </h1>
             <button type="cancel" onClick={goToProfilePage}>Avbryt</button>
             <button onClick={deleteUser1}>

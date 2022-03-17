@@ -64,18 +64,38 @@ function RecipeCard(props) {
 
         const difference = today- recipeDate;
 
-        if (difference < 60000) {
+        if (difference < 90000) {
             setCardDate("1 minutt siden")
         } else if (60000 < difference && difference < 3600000) {
             setCardDate(Math.round(difference / (1000*60)) + " minutter siden")
         } else if (3600000 < difference && difference < 86400000) {
-            setCardDate(Math.round(difference / (1000*60*60)) + " timer siden")
+            const d = Math.round(difference / (1000*60*60));
+            if (d === 1) {
+                setCardDate("1 time siden")
+            } else {
+                setCardDate(d + " timer siden")
+            }
         } else if (86400000 < difference && difference < 604800000) {
-            setCardDate(Math.round(difference / (1000*60*60*24)) + " dager siden")
+            const d = Math.round(difference / (1000*60*60*24)) 
+            if (d === 1) {
+                setCardDate("1 dag siden")
+            } else {
+                setCardDate(d + " dager siden")
+            }
         } else if (604800000 < difference && difference < 2419200000) {
-            setCardDate(Math.round(difference / (1000*60*60*24*7)) + " uker siden")
+            const d = Math.round(difference / (1000*60*60*24*7))
+            if (d === 1) {
+                setCardDate("1 uke siden")
+            } else {
+                setCardDate(d + " uker siden")
+            }
         } else {
-            setCardDate(Math.round(difference / (1000*60*60*24*7)) + " måneder siden")
+            const d = Math.round(difference / (1000*60*60*24*7))
+            if (d === 1) {
+                setCardDate("1 måned siden")
+            } else {
+                setCardDate(d + " måneder siden")
+            }
         }
     }
 
