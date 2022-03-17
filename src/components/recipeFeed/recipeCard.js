@@ -153,7 +153,7 @@ function RecipeCard(props) {
 
 
     return (
-        <Card className={"card recipeCard"} style={{width: '100%', height: "100%"}}>
+        <Card className={"card recipeCard"} style={{maxWidth: '100%', maxHeight: "100%"}}>
             <Card.Img style={{maxWidth: "30em", maxHeight: "20rem", objectFit: "cover"}} variant="top" src={url}/>
             <Card.Body>
                 <Card.Title>{title}</Card.Title>

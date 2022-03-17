@@ -69,7 +69,7 @@ function RecipePage() {
         <div>
             {recipe.map(recipe => {
                 return (
-                    <div key={recipe.id + "1"} className={"container-1"}>
+                    <div key={recipe.id + "1"} className={"container-2"}>
                         {/*Editor that loads all current values as props in the newRecipe element. Hidden until user
                         starts editing the current recipe.
                         */}
