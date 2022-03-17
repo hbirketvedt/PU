@@ -46,7 +46,7 @@ function Login() {
     } 
 
     return(
-        <div >
+        <div className="centered">
             <p>E-post:</p>
             <input onChange={(event) => {setLoginEmail(event.target.value)}}/>
             <p>Passord:</p>
@@ -56,7 +56,7 @@ function Login() {
             <button onClick={login}>
                 Logg inn
             </button>
-            <form>
+            <form style={{marginTop:"5%"}}>
                 <p> Har du ikke en konto?      
                     <span onClick={goToSignup}>
                         <mark>Registrer deg</mark> 
@@ -64,9 +64,9 @@ function Login() {
                 </p>
             </form>
             <form>   
-                    <span onClick={goToForgotPassword}>
-                        <mark>Glemt passord?</mark> 
-                    </span>
+                <span onClick={goToForgotPassword} >
+                    <mark>Glemt passord?</mark> 
+                </span>
             </form>
         </div>
     )
