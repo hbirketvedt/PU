@@ -10,3 +10,15 @@
 //  flex-direction: column;
 //  //justify-content: space-evenly;
 //}
+
+
+.container-3 {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-evenly;
+    column-count: 2;
+    align-items: center;
+    width: 80%;
+    float: right;
+  }
+

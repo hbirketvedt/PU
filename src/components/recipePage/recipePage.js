@@ -25,7 +25,7 @@ function RecipePage() {
         <div >
             {recipe.map(recipe => {
                 return (
-                    <div key={recipe.id + "1"} className={"container-1"}>
+                    <div key={recipe.id + "1"} className={"container-2"}>
                         <RecipeCard
                             id={recipe.id}
                             title={recipe.title}

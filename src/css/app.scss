@@ -127,7 +127,8 @@ button + button {
 
 .navbar__wrapper {
   background-color: teal;
-  width: 100%;
+  width: 1500px;
+  //max-width: 1500px;
   justify-content: center;
   height: 2cm;
   display: flex;
@@ -135,6 +136,11 @@ button + button {
   position: sticky;
   top: 0;
   z-index: 9999;
+  //margin: auto;
+  width: 100vw;
+  //position: relative;
+  margin-left: -50vw;
+  left: 50%;
 }
 
 a {
