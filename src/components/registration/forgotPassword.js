@@ -1,8 +1,8 @@
-import { auth } from "../../firebase_config";
-import { sendPasswordResetEmail } from "firebase/auth";
-import { Alert } from "react-bootstrap";
-import { useState} from "react";
-import { useNavigate } from "react-router";
+import {auth} from "../../firebase_config";
+import {sendPasswordResetEmail} from "firebase/auth";
+import {Alert} from "react-bootstrap";
+import {useState} from "react";
+import {useNavigate} from "react-router";
 
 
 function ForgotPassword() {
@@ -30,14 +30,19 @@ function ForgotPassword() {
 
 
     return(
-        <div>
-            <h1>Tilbakestill passord</h1>
+        <div className="centered">
+            <h2>Tilbakestill passord</h2>
             <p>E-post:</p>
             <input onChange={(event) => {setEmail(event.target.value)}}/>
             <p></p>
-            <button onClick={resetPassword}>
-                Tilbakestill passord
-            </button>
+            <div className="centerButtons">
+                <button onClick={resetPassword}>
+                    Tilbakestill passord
+                </button>
+                <button onClick={goToLogin} type="cancel">
+                    Avbryt
+                </button>
+            </div>
             {confirmedMsg && <Alert variant="danger">{confirmedMsg}</Alert>}
         </div>
     )

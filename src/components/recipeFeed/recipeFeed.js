@@ -1,7 +1,5 @@
-import {collection, getDocs} from "firebase/firestore";
 import {useEffect, useState} from "react";
 import {useNavigate} from "react-router";
-import {db} from "../../firebase_config";
 import RecipeCard from "./recipeCard";
 import "./recipeFeed.scss"
 
@@ -11,12 +9,18 @@ function RecipeFeed(props) {
     const [recipes, setRecipes] = useState([]);
     const navigate = useNavigate()
 
+    /**
+     * Loads recipes that are passed as props from parent element (MainRecipeFeed / PersonalRecipeFeed)
+     */
     useEffect(() => {
         setRecipes(props.recipes)
         console.log(props.recipes)
     }, [props.recipes])
 
 
+    /**
+     * Navigates to /displayRecipe and passes clicked recipe as a prop to recipePage
+     */
     const handleRecipeClicked = (recipe) => {
         navigate("/displayRecipe", {state: {recipe: recipe}})
     }
