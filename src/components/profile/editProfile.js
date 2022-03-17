@@ -1,5 +1,4 @@
-import { useNavigate } from "react-router";
-
+import {useNavigate} from "react-router";
 
 
 function EditProfile() {
@@ -26,13 +25,7 @@ function EditProfile() {
         navigate("/profilePage")
     }
 
-    // Dette skal inn i return når man kan endre profilbilde
-    /*
-        <button type="profile" >
-            Endre profilbilde
-        </button>
-        <p></p>
-    */
+    
     return(
         <div className="centered" >
             <p></p>
@@ -43,6 +36,10 @@ function EditProfile() {
                 <p></p>
                 <button type="profile" onClick={goToChangeBio}>
                     Endre bio
+                </button>
+                <p></p>
+                <button type="profile" onClick={goToChangeProfilePicture}>
+                    Endre profilbilde
                 </button>
                 <p></p>
                 <button type="profile" onClick={goToDeleteUser}>

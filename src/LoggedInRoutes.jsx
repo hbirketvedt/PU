@@ -1,7 +1,6 @@
 import SplashPage from "./components/dummy/splashPage";
-import FrontPage from "./components/registration/frontpage";
 import {Test} from "./components/user/isUser";
-import { Outlet } from "react-router";
+import {Outlet} from "react-router";
 
 
 const useAuth = () => {

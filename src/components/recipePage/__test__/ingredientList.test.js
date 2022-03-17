@@ -1,8 +1,6 @@
 import React from "react";
 import {render, unmountComponentAtNode} from "react-dom";
-import {act} from "react-dom/test-utils";
 import IngredientList from "../ingredientList";
-import ingredientList from "../ingredientList";
 
 
 beforeEach(() => {

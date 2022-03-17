@@ -1,6 +1,4 @@
-import {useEffect, useRef, useState} from "react";
-import RecipeCard from "./recipeCard";
-import {useNavigate} from "react-router";
+import {useEffect, useState} from "react";
 import {collection, getDocs} from "firebase/firestore";
 import {db} from "../../firebase_config";
 import RecipeFeed from "./recipeFeed";

@@ -1,9 +1,6 @@
-import {useState, useEffect} from "react";
+import {useEffect, useState} from "react";
 import {db} from "../../firebase_config";
-import {
-    collection, getDocs, addDoc, updateDoc, doc, deleteDoc,
-} from "firebase/firestore";
-import Navbar from "../navbar/navbar";
+import {addDoc, collection, deleteDoc, doc, getDocs, updateDoc,} from "firebase/firestore";
 
 function Recipes() {
     const [newRecipeName, setNewRecipeName] = useState("");
@@ -31,6 +28,7 @@ function Recipes() {
      */
     const changePrice = async (id, price, operator) => {
         const recipeDoc = doc(db, "recipes", id);
+        console.log(recipeDoc)
         if (operator) {
             await updateDoc(recipeDoc, {price: price + 1});
         } else {
