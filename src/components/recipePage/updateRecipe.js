@@ -8,6 +8,7 @@ import {useNavigate} from "react-router";
 
 function UpdateRecipe(props) {
     const recipeDoc = doc(db, "recipes", props.recipe.id);
+    const navigate = useNavigate();
 
     /**
      * Updates recipe with new fields from <RecipeForm>
@@ -55,7 +56,8 @@ function UpdateRecipe(props) {
             // Merges in data if document exists
             {merge: true});
         console.log("Recipe updated")
-        window.location.reload();
+        navigate("/oppskrifter")
+        // window.location.reload()
 
     }
 
