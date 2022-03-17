@@ -4,6 +4,7 @@ import {getStorage, ref, uploadBytes} from "firebase/storage";
 import {db} from "../../firebase_config";
 import Recipes from "../dummy/recipes";
 import {useNavigate} from "react-router";
+import "./updateRecipe.scss"
 
 
 function UpdateRecipe(props) {
@@ -74,10 +75,12 @@ function UpdateRecipe(props) {
     }
 
     return (
-        <RecipeForm
-            recipe={props.recipe}
-            onSubmit={updateRecipe}
-        />
+        <div>
+            <RecipeForm
+                recipe={props.recipe}
+                onSubmit={updateRecipe}
+            />
+        </div>
     )
 }
 
