@@ -6,7 +6,6 @@ import {db} from "../../firebase_config";
 import RecipeFeed from "./recipeFeed";
 import {categories} from "./categories";
 import "./recipeFeed.scss";
-
 import {
     FormControl,
     Checkbox,
@@ -65,7 +64,6 @@ export default function MainRecipeFeed() {
                 <RecipeFeed recipes={recipes}/>
             </div>
             <div class="split left" >
-                <TextField value={category} fullWidth onChange={handleChange}/> {/*denne kan tas vekk*/}
                 <FormControl>
                     <FormGroup>
                         {categories.map(categories => ( //lager knapper for alle kategoriene som er oppgitt i categories.js-filen
