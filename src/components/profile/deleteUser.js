@@ -1,12 +1,10 @@
-import { auth } from "../../firebase_config";
-import { getAuth, deleteUser } from "firebase/auth";
-import { useNavigate } from "react-router";
-import { useState} from "react";
-import { set } from "react-hook-form";
-import { Alert } from "react-bootstrap";
-import { doc, deleteDoc } from "firebase/firestore";
-import { db } from "../../firebase_config";
-import { getStorage, ref, deleteObject } from "firebase/storage";
+import {auth, db} from "../../firebase_config";
+import {deleteUser} from "firebase/auth";
+import {useNavigate} from "react-router";
+import {useState} from "react";
+import {Alert} from "react-bootstrap";
+import {deleteDoc, doc} from "firebase/firestore";
+import {deleteObject, getStorage, ref} from "firebase/storage";
 
 
 function DeleteUser() {

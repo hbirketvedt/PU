@@ -1,10 +1,8 @@
 import React from "react";
 import {render, unmountComponentAtNode} from "react-dom";
 import {act} from "react-dom/test-utils";
-import Navbar from "../navbar";
 import {BrowserRouter} from "react-router-dom";
 import App from "../../../App";
-
 
 
 beforeEach(() => {

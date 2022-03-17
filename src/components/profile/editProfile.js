@@ -1,5 +1,4 @@
-import { useNavigate } from "react-router";
-
+import {useNavigate} from "react-router";
 
 
 function EditProfile() {

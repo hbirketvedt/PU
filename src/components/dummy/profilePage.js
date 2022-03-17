@@ -1,8 +1,7 @@
-import { useState } from "react";
-import { useNavigate } from "react-router";
-import { auth } from "../../firebase_config";
-import { onAuthStateChanged, signOut} from "firebase/auth";
-import { Alert } from "react-bootstrap";
+import {useState} from "react";
+import {useNavigate} from "react-router";
+import {auth} from "../../firebase_config";
+import {onAuthStateChanged, signOut} from "firebase/auth";
 
 
 function ProfilePage() {
