@@ -127,20 +127,15 @@ button + button {
 
 .navbar__wrapper {
   background-color: teal;
-  width: 1500px;
-  //max-width: 1500px;
+  width: 100%;
   justify-content: center;
   height: 2cm;
   display: flex;
   align-items: center;
-  //position: sticky;
-  top: 0;
+  top: 0px;
   z-index: 9999;
-  //margin: auto;
-  width: 100vw;
   position: fixed;
-  margin-left: -50vw;
-  left: 50%;
+  right: 0;
 }
 
 a {
