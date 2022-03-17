@@ -2,29 +2,19 @@ import RecipeCard from "../recipeFeed/recipeCard";
 import {useEffect, useState} from "react";
 import IngredientList from "./ingredientList";
 import {Card} from "react-bootstrap";
-import {useLocation} from "react-router";
+import {useLocation, useNavigate} from "react-router";
 import "./recipePage.scss"
 import {onAuthStateChanged} from "firebase/auth";
 import {auth, db} from "../../firebase_config";
-import {collection, DocumentReference, getDocs} from "firebase/firestore";
-import {Alert} from "react-bootstrap";
-import {doc, deleteDoc} from "firebase/firestore";
-import {useNavigate} from "react-router";
-import OldNewRecipe from "../newRecipe/oldNewRecipe";
+import {deleteDoc, doc} from "firebase/firestore";
 import {Modal} from "react-responsive-modal";
 import "react-responsive-modal/styles.css";
-import RecipeEditor from "./updateRecipe";
 import UpdateRecipe from "./updateRecipe";
 
-function RecipePage(props) {
-    const usersCollectionRef = collection(db, "users")
-    // const documentID = "bnlYw69QnfYJREjRM3ud"
-    // const recipesCollectionRef = collection(db, "recipes");
+function RecipePage() {
     // Had to use an empty array to create child react elements, or else they get set to null
     const [recipe, setRecipe] = useState([])
     const {state} = useLocation()
-    const [currentUser, setCurrentUser] = useState({})
-    const [editButton, setEditButton] = useState("")
     const [showEditButton, setShowEditButton] = useState(false)
     const [showEditor, setShowEditor] = useState(false);
 

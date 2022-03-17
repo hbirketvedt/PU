@@ -1,11 +1,10 @@
 import Textarea from 'react-textarea-autosize';
-import {useForm, Controller} from "react-hook-form";
-import { useState } from "react";
-import { useNavigate } from "react-router";
-import { auth } from "../../firebase_config";
-import { onAuthStateChanged } from "firebase/auth";
-import {db} from "../../firebase_config";
-import { doc, updateDoc, collection, getDocs } from "firebase/firestore";
+import {useForm} from "react-hook-form";
+import {useState} from "react";
+import {useNavigate} from "react-router";
+import {auth, db} from "../../firebase_config";
+import {onAuthStateChanged} from "firebase/auth";
+import {collection, doc, getDocs, updateDoc} from "firebase/firestore";
 
 
 function ChangeBio() {

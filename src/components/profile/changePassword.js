@@ -1,8 +1,8 @@
-import { useState} from "react";
-import { useNavigate } from "react-router";
-import { Alert } from "react-bootstrap";
-import { onAuthStateChanged, updatePassword  } from "firebase/auth";
-import { auth } from "../../firebase_config";
+import {useState} from "react";
+import {useNavigate} from "react-router";
+import {Alert} from "react-bootstrap";
+import {onAuthStateChanged, updatePassword} from "firebase/auth";
+import {auth} from "../../firebase_config";
 
 function ChangePassword() {
 

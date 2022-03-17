@@ -1,8 +1,8 @@
-import { useState} from "react";
-import { useLocation, useNavigate } from "react-router";
-import { auth } from "../../firebase_config";
-import { signInWithEmailAndPassword } from "firebase/auth";
-import { Alert } from "react-bootstrap";
+import {useState} from "react";
+import {useLocation, useNavigate} from "react-router";
+import {auth} from "../../firebase_config";
+import {signInWithEmailAndPassword} from "firebase/auth";
+import {Alert} from "react-bootstrap";
 
 function Login() {
 

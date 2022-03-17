@@ -1,5 +1,5 @@
 import React from 'react';
-import { auth } from '../firebase_config';
+import {auth} from '../firebase_config';
 
 const Home = ({ user }) => {
   return (

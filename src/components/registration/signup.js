@@ -1,11 +1,10 @@
-import { Alert } from "react-bootstrap";
-import { useState} from "react";
-import { useNavigate } from "react-router";
-import { auth } from "../../firebase_config";
-import { createUserWithEmailAndPassword } from "firebase/auth";
-import { getStorage, ref, uploadBytes } from "firebase/storage"
-import { doc, setDoc } from "firebase/firestore";
-import { db } from "../../firebase_config";
+import {Alert} from "react-bootstrap";
+import {useState} from "react";
+import {useNavigate} from "react-router";
+import {auth, db} from "../../firebase_config";
+import {createUserWithEmailAndPassword} from "firebase/auth";
+import {getStorage, ref, uploadBytes} from "firebase/storage"
+import {doc, setDoc} from "firebase/firestore";
 
 function Signup() {
 

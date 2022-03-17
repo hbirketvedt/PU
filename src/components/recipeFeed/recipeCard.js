@@ -2,12 +2,10 @@ import {useEffect, useState} from "react";
 import {getDownloadURL, getStorage, ref} from "firebase/storage";
 import {Card} from "react-bootstrap";
 import "./recipeCard.scss"
-import { auth } from "../../firebase_config";
-import {db} from "../../firebase_config";
-import {collection, getDocs} from "firebase/firestore";
+import {auth, db} from "../../firebase_config";
+import {collection, deleteDoc, doc, getDocs} from "firebase/firestore";
 import {onAuthStateChanged} from "firebase/auth";
-import { useNavigate } from "react-router";
-import { doc, deleteDoc } from "firebase/firestore";
+import {useNavigate} from "react-router";
 import React from 'react';
 import { Clock } from 'react-bootstrap-icons';
 

@@ -1,8 +1,7 @@
 import RecipeForm from "../newRecipe/recipeForm";
-import {addDoc, collection, doc, setDoc, updateDoc} from "firebase/firestore";
+import {doc, setDoc} from "firebase/firestore";
 import {getStorage, ref, uploadBytes} from "firebase/storage";
 import {db} from "../../firebase_config";
-import Recipes from "../dummy/recipes";
 import {useNavigate} from "react-router";
 import "./updateRecipe.scss"
 

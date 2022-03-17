@@ -1,6 +1,6 @@
 import {addDoc, collection, getDocs} from "firebase/firestore";
 import {auth, db} from "../../firebase_config";
-import {useForm, Controller} from "react-hook-form";
+import {Controller, useForm} from "react-hook-form";
 import {useNavigate} from "react-router";
 import {useState} from "react";
 import CreatableSelect from "react-select/creatable";

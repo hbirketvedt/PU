@@ -1,8 +1,8 @@
-import { onAuthStateChanged, signOut} from "firebase/auth";
-import { useState, useEffect } from "react";
-import { auth } from "../../firebase_config";
+import {onAuthStateChanged} from "firebase/auth";
+import {useState} from "react";
+import {auth} from "../../firebase_config";
 import {getDownloadURL, getStorage, ref} from "firebase/storage";
-import { useNavigate } from "react-router";
+import {useNavigate} from "react-router";
 
 
 function ChangeProfilePicture() {

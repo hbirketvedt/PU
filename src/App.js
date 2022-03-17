@@ -1,8 +1,4 @@
-import {
-    Routes,
-    Route
-} from "react-router-dom";
-import Recipes from "./components/dummy/recipes";
+import {Route, Routes} from "react-router-dom";
 import ProfilePage from "./components/profile/profilePage";
 import EditProfile from "./components/profile/editProfile";
 import ChangeProfilePicture from "./components/profile/changeProfilePicture";
@@ -14,14 +10,12 @@ import SplashPage from "./components/dummy/splashPage";
 import Signup from "./components/registration/signup";
 import Login from "./components/registration/login";
 import ForgotPassword from "./components/registration/forgotPassword";
-import RecipeFeed from "./components/recipeFeed/recipeFeed";
 import ProtectedRoutes from "./ProtectedRoutes";
 import LoggedInRoutes from "./LoggedInRoutes";
 import FrontPage from "./components/registration/frontpage";
 import "./css/app.scss"
 import RecipePage from "./components/recipePage/recipePage";
 import MainRecipeFeed from "./components/recipeFeed/mainRecipeFeed";
-import RecipeForm from "./components/newRecipe/recipeForm";
 import NewRecipe from "./components/newRecipe/newRecipe";
 
 

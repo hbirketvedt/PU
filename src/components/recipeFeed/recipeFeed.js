@@ -1,7 +1,5 @@
-import {collection, getDocs} from "firebase/firestore";
 import {useEffect, useState} from "react";
 import {useNavigate} from "react-router";
-import {db} from "../../firebase_config";
 import RecipeCard from "./recipeCard";
 import "./recipeFeed.scss"
 

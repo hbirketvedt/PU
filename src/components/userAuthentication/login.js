@@ -1,6 +1,4 @@
-import Navbar from "../navbar/navbar";
-
-import { signInWithGoogle } from "../../firebase_config";
+import {signInWithGoogle} from "../../firebase_config";
 
 
 const Login = () => {

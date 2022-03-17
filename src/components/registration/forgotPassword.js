@@ -1,8 +1,8 @@
-import { auth } from "../../firebase_config";
-import { sendPasswordResetEmail } from "firebase/auth";
-import { Alert } from "react-bootstrap";
-import { useState} from "react";
-import { useNavigate } from "react-router";
+import {auth} from "../../firebase_config";
+import {sendPasswordResetEmail} from "firebase/auth";
+import {Alert} from "react-bootstrap";
+import {useState} from "react";
+import {useNavigate} from "react-router";
 
 
 function ForgotPassword() {
