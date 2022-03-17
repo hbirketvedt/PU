@@ -18,6 +18,7 @@ function ProfilePage() {
     const [lastName, setLastName] = useState("")
     const [bio, setBio] = useState("")
     const [imageURL, setImageURL] = useState("")
+    const [favoriteRecipes, setFavoriteRecipes] = useState("")
 
     const [currentUser, setCurrentUser] = useState({});
 
@@ -49,6 +50,7 @@ function ProfilePage() {
         setEmail(user.email);
         setFirstname(user.firstName);
         setLastName(user.lastName);
+        setFavoriteRecipes(user.favoriteRecipes);
         if (user.bio === "") {
             setBio("(Ingen bio)");
         } else {
@@ -84,6 +86,17 @@ function ProfilePage() {
             });
     }
 
+    // const handleFavoriteRecipes = async () => {
+    //     const data = await getDocs(usersCollectionRef);
+    //     const user = data.docs.filter(doc => doc.id === currentUser.uid).reduce((a, b) => a).data();  
+
+    //     if (user.favoriteRecipes === "") {
+    //         setFavoriteRecipes("Du har ikke valgt noen favorittoppskrifter enda.");
+    //     } else {
+    //         setFavoriteRecipes(user.favoriteRecipes);
+    //     };
+    // }
+
 
     return (
         <div>
@@ -97,6 +110,7 @@ function ProfilePage() {
                         <ListGroupItem>E-post: {email}</ListGroupItem>
                         <ListGroupItem>Fornavn: {firstname} </ListGroupItem>
                         <ListGroupItem>Etternavn: {lastName}</ListGroupItem>
+                        <ListGroupItem>(husk å fjerne)Test av favoritter: {favoriteRecipes}</ListGroupItem>
                     </ListGroup>
                 </Card>
             </div>
