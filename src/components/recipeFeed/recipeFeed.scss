@@ -26,13 +26,14 @@
   float: right;
 }
 
-.container-recipeFeedOrigin{
+.container-mainPage{
   display: flex;
   flex-wrap: wrap;
   justify-content: space-evenly;
   column-count: 2;
   align-items: center;
-  width: 100%;
+  width: 80%;
+  float: right;
 }
 
 
@@ -59,7 +60,7 @@
   right: 0;
   background-color: white;
   width: 85%;
-  position: fixed;
+  position: relative;
   float: left;
 }
 

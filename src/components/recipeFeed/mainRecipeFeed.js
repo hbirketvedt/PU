@@ -5,6 +5,8 @@ import {collection, getDocs} from "firebase/firestore";
 import {db} from "../../firebase_config";
 import RecipeFeed from "./recipeFeed";
 import {categories} from "./categories";
+import "./recipeFeed.scss";
+
 import {
     FormControl,
     Checkbox,
@@ -58,9 +60,11 @@ export default function MainRecipeFeed() {
 
 
     return (
-        <div>
-            <RecipeFeed recipes={recipes}/>
-            <div className="split left">
+        <div >
+            <div class = "split right" className = "container-recipeFeedOrigin">  
+                <RecipeFeed recipes={recipes}/>
+            </div>
+            <div class="split left" >
                 <TextField value={category} fullWidth onChange={handleChange}/> {/*denne kan tas vekk*/}
                 <FormControl>
                     <FormGroup>
