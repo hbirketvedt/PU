@@ -67,7 +67,6 @@ function RecipePage() {
 
     return (
         <div>
-
             {recipe.map(recipe => {
                 return (
                     <div key={recipe.id + "1"} className={"container-1"}>
@@ -88,6 +87,7 @@ function RecipePage() {
                             imageUrl={recipe.imageUrl}
                             time={recipe.timeEstimate}
                             portions={recipe.portions}
+                            category = {recipe.category}
                             name={recipe.nameOfUser}
                             date={recipe.date}
                             style={{margin: "10rem"}}
@@ -117,6 +117,7 @@ function RecipePage() {
 
         </div>
 
+       
     )
 }
 

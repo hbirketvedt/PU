@@ -15,6 +15,7 @@ function RecipeCard(props) {
     const [timeEstimate] = useState(props.time)
     const [portions] = useState(props.portions)
     const [name] = useState(props.name)
+    const[category] = useState(props.category)
     const [recipeId] = useState(props.id)
     const [date] = useState(props.date)
     const [cardDate, setCardDate] = useState("");
@@ -152,13 +153,14 @@ function RecipeCard(props) {
 
 
     return (
-        <Card className={"card recipeCard"} style={{width: '40rem', height: "30rem"}}>
-            <Card.Img style={{width: "100%", height: "20rem", objectFit: "cover"}} variant="top" src={url}/>
+        <Card className={"card recipeCard"} style={{width: '100%', height: "100%"}}>
+            <Card.Img style={{maxWidth: "30em", maxHeight: "20rem", objectFit: "cover"}} variant="top" src={url}/>
             <Card.Body>
                 <Card.Title>{title}</Card.Title>
                 <Card.Subtitle> { timeEstimate}</Card.Subtitle>
                 <Card.Subtitle> { portions } porsjoner </Card.Subtitle>
                 <Card.Subtitle> Laget av { name } </Card.Subtitle>
+                <Card.Subtitle> {category}</Card.Subtitle>
             </Card.Body>
             <div >
                 <p style={{float:"left", marginLeft:"3%"}}>

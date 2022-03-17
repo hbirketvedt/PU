@@ -23,6 +23,10 @@ function App() {
     return (
         <div>
             <Navbar/>
+            <br></br>
+            <br></br>
+            <br></br>
+            <br></br>
             <Routes>
                 <Route path="/*" element={<SplashPage/>}/>
                 <Route element={<LoggedInRoutes/>}>
@@ -47,6 +51,8 @@ function App() {
                     <Route path="newRecipe" element={<NewRecipe/>}/>
                 </Route>
             </Routes>
+
+        
         </div>
     )
 }

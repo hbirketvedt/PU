@@ -3,6 +3,7 @@ import {collection, getDocs} from "firebase/firestore";
 import {auth, db} from "../../firebase_config";
 import RecipeFeed from "../recipeFeed/recipeFeed";
 import {onAuthStateChanged} from "firebase/auth";
+import "./profilePage.scss";
 
 
 export default function PersonalRecipeFeed() {
@@ -35,6 +36,9 @@ export default function PersonalRecipeFeed() {
 
 
     return (
-        <RecipeFeed recipes={recipes}/>
+        <div className = "container-3">
+            <RecipeFeed recipes={recipes}/>
+        </div>
+        
     )
 }
