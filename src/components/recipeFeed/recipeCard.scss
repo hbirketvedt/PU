@@ -3,10 +3,14 @@
 .recipeCard {
   margin-top: 1rem;
   margin-bottom: 1rem;
+  columns: 2;
 }
 
 .recipeCard:hover {
   background-color: lightgray;
   transition-duration: 0.5s;
 }
+
+
+
 

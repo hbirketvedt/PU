@@ -7,18 +7,21 @@ import {collection, deleteDoc, doc, getDocs} from "firebase/firestore";
 import {onAuthStateChanged} from "firebase/auth";
 import {useNavigate} from "react-router";
 import React from 'react';
-import { Clock } from 'react-bootstrap-icons';
+import {Clock} from 'react-bootstrap-icons';
+import {Rating} from 'react-simple-star-rating'
 
 function RecipeCard(props) {
+    const recipe = props.recipe
     const [url, setUrl] = useState("")
-    const [title] = useState(props.title)
-    const [timeEstimate] = useState(props.time)
-    const [portions] = useState(props.portions)
-    const [name] = useState(props.name)
-    const [recipeId] = useState(props.id)
-    const [date] = useState(props.date)
+    const [title] = useState(recipe.title)
+    const [timeEstimate] = useState(recipe.time)
+    const [portions] = useState(recipe.portions)
+    const [name] = useState(recipe.name || "Ukjent")
+    const [recipeId] = useState(recipe.id)
+    const [date] = useState(recipe.date)
     const [cardDate, setCardDate] = useState("");
-    const imageRef = ref(getStorage(), `images/${props.imageUrl}`);
+    const imageRef = ref(getStorage(), `images/${recipe.imageUrl}`);
+    const [rating, setRating] = useState(recipe.rating)
 
     const usersCollectionRef = collection(db, "users")
     const [currentUser, setCurrentUser] = useState({});
@@ -39,16 +42,27 @@ function RecipeCard(props) {
         }
     })
 
+    /**
+     * Sets rating to average rating for recipeCard
+     */
+    useEffect(() => {
+        if (typeof recipe.rating !== "undefined") {
+            const sum = recipe.rating.reduce((a, b) => a + b, 0);
+            const avg = (sum / recipe.rating.length) || 0;
+            setRating(avg)
+        }
+    }, [recipe.rating])
+
     const loadUser = async () => {
         const data = await getDocs(usersCollectionRef);
         const user = data.docs.filter(doc => doc.id === currentUser.uid).reduce((a, b) => a).data();
         setAdmin(user.admin);
-        
+
     }
 
     const handleDate = async () => {
         const today = new Date();
-        
+
         const year = today.getFullYear();
         const month = today.getMonth();
         const day = today.getDay();
@@ -57,22 +71,22 @@ function RecipeCard(props) {
 
         const array = date.split(".");
 
-        const recipeDate = new Date(array[0], array[1]-1, array[2], array[3], array[4]) 
+        const recipeDate = new Date(array[0], array[1] - 1, array[2], array[3], array[4])
 
-        const difference = today- recipeDate;
+        const difference = today - recipeDate;
 
         if (difference < 60000) {
             setCardDate("1 minutt siden")
         } else if (60000 < difference && difference < 3600000) {
-            setCardDate(Math.round(difference / (1000*60)) + " minutter siden")
+            setCardDate(Math.round(difference / (1000 * 60)) + " minutter siden")
         } else if (3600000 < difference && difference < 86400000) {
-            setCardDate(Math.round(difference / (1000*60*60)) + " timer siden")
+            setCardDate(Math.round(difference / (1000 * 60 * 60)) + " timer siden")
         } else if (86400000 < difference && difference < 604800000) {
-            setCardDate(Math.round(difference / (1000*60*60*24)) + " dager siden")
+            setCardDate(Math.round(difference / (1000 * 60 * 60 * 24)) + " dager siden")
         } else if (604800000 < difference && difference < 2419200000) {
-            setCardDate(Math.round(difference / (1000*60*60*24*7)) + " uker siden")
+            setCardDate(Math.round(difference / (1000 * 60 * 60 * 24 * 7)) + " uker siden")
         } else {
-            setCardDate(Math.round(difference / (1000*60*60*24*7)) + " måneder siden")
+            setCardDate(Math.round(difference / (1000 * 60 * 60 * 24 * 7)) + " måneder siden")
         }
     }
 
@@ -81,7 +95,7 @@ function RecipeCard(props) {
         if (window.confirm("Er du sikker på at ønsker å slette oppskriften?")) {
             await deleteDoc(doc(db, "recipes", recipeId));
             goToRecipes();
-        } 
+        }
         e.stopPropagation();
     }
 
@@ -130,37 +144,28 @@ function RecipeCard(props) {
         }, []
     )
 
-
     return (
-        <Card className={"card recipeCard"} style={{width: '40rem', height: "30rem"}}>
-            <Card.Img style={{width: "100%", height: "20rem", objectFit: "cover"}} variant="top" src={url}/>
-            <Card.Body>
-                <Card.Title>{title}</Card.Title>
-                <Card.Subtitle> { timeEstimate}</Card.Subtitle>
-                <Card.Subtitle> { portions } porsjoner </Card.Subtitle>
-                <Card.Subtitle> Laget av { name } </Card.Subtitle>
-            </Card.Body>
-            <div >
-                <p style={{float:"left", marginLeft:"3%"}}>
-                    <Clock size={16} style={{marginRight:"0.5em"}}/>
-                    { cardDate } 
-                </p>
-                {admin &&
-                <p style={{color:"#960b0b", float:"right", marginRight:"3%"}} onClick={(e) => deleteRecipe(e)}>Slett oppskrift?</p>}
+        <Card className={"card recipeCard"} style={{width: '40rem', height: "30rem",}}>
+            <div>
+                <Card.Img style={{width: "100%", height: "20rem", objectFit: "cover"}} variant="top" src={url}/>
+                <Card.Body>
+                    <Card.Title>{title}</Card.Title>
+                    <Card.Subtitle> {timeEstimate}</Card.Subtitle>
+                    <Card.Subtitle> {portions} porsjoner </Card.Subtitle>
+                    <Card.Subtitle> Laget av {name} </Card.Subtitle>
+                </Card.Body>
+                <div>
+                    <p style={{float: "left", marginLeft: "3%"}}>
+                        <Clock size={16} style={{marginRight: "0.5em"}}/>
+                        {cardDate}
+                    </p>
+                    {admin &&
+                        <p style={{color: "#960b0b", float: "right", marginRight: "3%"}}
+                           onClick={(e) => deleteRecipe(e)}>Slett oppskrift?</p>}
+                </div>
             </div>
+            <Rating ratingValue={rating} readonly={true}/>
         </Card>
-
-        // <div>
-        //     <img src={url} alt={""}/>
-        //     <body>
-        //     <title>{title}</title>
-        //         <sub> { timeEstimate }</sub>
-        //         <sub> { portions } porsjoner </sub>
-        //         <sub> Laget av { name }</sub>
-        //     </body>
-        // </div>
-
-
     )
 }
 
