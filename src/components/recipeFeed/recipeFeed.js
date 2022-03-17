@@ -3,7 +3,7 @@ import {useEffect, useState} from "react";
 import {useNavigate} from "react-router";
 import {db} from "../../firebase_config";
 import RecipeCard from "./recipeCard";
-import "./recipeFeed.scss"
+import "./recipeFeed.scss";
 import {categories} from "./categories";
 import {
     FormControl,

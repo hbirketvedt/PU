@@ -1,7 +1,7 @@
 import {useEffect, useState} from "react";
 import {collection, getDocs} from "firebase/firestore";
 import {auth, db} from "../../firebase_config";
-import RecipeFeed from "../recipeFeed/recipeFeed";
+import RecipeFeed from "../recipeFeed/recipeFeedOrigin";
 import {onAuthStateChanged} from "firebase/auth";
 
 

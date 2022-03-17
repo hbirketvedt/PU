@@ -26,8 +26,17 @@
   float: right;
 }
 
+.container-recipeFeedOrigin{
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-evenly;
+  column-count: 2;
+  align-items: center;
+  width: 100%;
+}
 
 
+/*splitter skjermen i to deler*/
 .split{
   height: 100%;
   position: fixed;
@@ -37,7 +46,7 @@
   padding-top: 20px;
 }
 
-/* Control the left side */
+/* Kontrollerer venstresiden */
 .left {
   left: 0;
   background-color: #449999;
@@ -45,7 +54,7 @@
   top: 75px;
 }
 
-/* Control the right side */
+/* Kontrollerer høyresiden */
 .right {
   right: 0;
   background-color: white;
