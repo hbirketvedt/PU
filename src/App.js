@@ -17,7 +17,7 @@ import "./css/app.scss"
 import RecipePage from "./components/recipePage/recipePage";
 import MainRecipeFeed from "./components/recipeFeed/mainRecipeFeed";
 import NewRecipe from "./components/newRecipe/newRecipe";
-
+import OthersProfilePage from "./components/othersProfile/othersProfilepage";
 
 function App() {
     return (
@@ -41,6 +41,7 @@ function App() {
                 <Route path="changeProfilePicture" element={<ChangeProfilePicture/>}/>
                 <Route path="oppskrifter" element={<MainRecipeFeed/>}/>
                 <Route path="deleteUser" element={<DeleteUser/>}/>
+                <Route path="seeProfile" element={<OthersProfilePage/>}/>
                 <Route path={"*"} element={<h1> 404: not found</h1>}/>
                 <Route element={<ProtectedRoutes/>}>
                     <Route path="profilePage" element={<ProfilePage/>}/>

@@ -15,8 +15,10 @@ function RecipePage() {
     // Had to use an empty array to create child react elements, or else they get set to null
     const [recipe, setRecipe] = useState([])
     const {state} = useLocation()
-    const [showEditButton, setShowEditButton] = useState(false)
+    const [showEditButton, setShowEditButton] = useState(false);
     const [showEditor, setShowEditor] = useState(false);
+    const [showVisitButton, setShowVisitButton] = useState(false);
+
 
     const navigate = useNavigate();
 
@@ -30,9 +32,10 @@ function RecipePage() {
         if (currentUser.uid.localeCompare(state.recipe.userID)) {
             setShowEditButton(true)
         }
-
+        if (!currentUser.uid.localeCompare(state.recipe.userID)) {
+            setShowVisitButton(true)
+        }
     })
-
     /**
      * Sets recipe from received props value. Only runs once on first render.
      */
@@ -52,6 +55,10 @@ function RecipePage() {
         navigate("/profilePage")
     }
 
+    const goToSeeProfile = async () => {
+        navigate("/seeProfile")
+    }
+
     const handleDelete = async () => {
         if (window.confirm("Er du sikker på at du ønsker å slette oppskriften din? Denne handlingen kan ikke angres.")) {
             await deleteDoc(doc(db, "recipes", state.recipe.id));
@@ -59,6 +66,10 @@ function RecipePage() {
             goToProfilePage()
         }
         console.log("Oppskriften ble slettet")
+    }
+
+    const handleVisit = async () => {
+        goToSeeProfile()
     }
 
     const onCloseModal = () => {
@@ -110,6 +121,8 @@ function RecipePage() {
                                 <button onClick={handleEdit}>Rediger oppskrift</button> : null}</div>
                             <div>{!showEditButton ?
                                 <button onClick={handleDelete}>Slett oppskrift</button> : null}</div>
+                             <div>{!showVisitButton ?
+                                <button onClick={handleVisit}>Besøk profil</button> : null}</div>
                         </div>
                     </div>
                 )
