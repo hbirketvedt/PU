@@ -14,6 +14,7 @@ import UpdateRecipe from "./updateRecipe";
 function RecipePage() {
     // Had to use an empty array to create child react elements, or else they get set to null
     const [recipe, setRecipe] = useState([])
+    //const [user, setUser] = useState([])
     const {state} = useLocation()
     const [showEditButton, setShowEditButton] = useState(false);
     const [showEditor, setShowEditor] = useState(false);
@@ -50,13 +51,12 @@ function RecipePage() {
         setShowEditor(true)
     }
 
-
     const goToProfilePage = async () => {
         navigate("/profilePage")
     }
 
-    const goToSeeProfile = async () => {
-        navigate("/seeProfile")
+    const goToSeeProfile = async (recipe) => {
+        navigate("/seeProfile", {state: {recipe: recipe}})
     }
 
     const handleDelete = async () => {
@@ -69,7 +69,7 @@ function RecipePage() {
     }
 
     const handleVisit = async () => {
-        goToSeeProfile()
+        goToSeeProfile(state)
     }
 
     const onCloseModal = () => {

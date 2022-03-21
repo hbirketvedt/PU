@@ -3,21 +3,25 @@ import {collection, getDocs} from "firebase/firestore";
 import {auth, db} from "../../firebase_config";
 import RecipeFeed from "../recipeFeed/recipeFeed";
 import {onAuthStateChanged} from "firebase/auth";
-
+import { useLocation } from "react-router";
 
 export default function OthersRecipeFeed() {
     const recipesCollectionRef = collection(db, "recipes");
     // const [recipes, setRecipes] = useState([])
     const [recipes, setRecipes] = useState([])
     const [currentUser, setCurrentUser] = useState({})
+    const {state} = useLocation()
+
 
     /**
      * Loads in current user
      * Denne setter til den nåværende brukeren, vi må sette den til brukeren vi vil se oppskriftene til
      */
     onAuthStateChanged(auth, (currentUser) => {
-        setCurrentUser(currentUser);
+        setCurrentUser(state.recipes.uid);
+        setRecipes(currentUser.recipes)
     })
+
 
     /**
      * Loads recipes from database. Empty dependency array ( [] at the end of useEffect)

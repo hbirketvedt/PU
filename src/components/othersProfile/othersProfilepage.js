@@ -1,11 +1,14 @@
 import {useState} from "react";
 import {auth, db} from "../../firebase_config";
-import {collection, getDocs} from "firebase/firestore";
+import {collection, doc, getDocs} from "firebase/firestore";
 import {getDownloadURL, getStorage, ref} from "firebase/storage";
 import {Card, ListGroup, ListGroupItem} from "react-bootstrap";
-import {onAuthStateChanged, signOut} from "firebase/auth";
+//import {onAuthStateChanged, signOut} from "firebase/auth";
 import {useNavigate} from "react-router";
 import OtherRecipeFeed from "./othersRecipeFeed";
+import { useLocation } from "react-router";
+import { useEffect } from "react";
+
 
 //Kan se siden på /seeProfile
 
@@ -17,13 +20,26 @@ function OthersProfilePage() {
     const [bio, setBio] = useState("")
     const [imageURL, setImageURL] = useState("")
     const [currentUser, setCurrentUser] = useState({});
+    const {state} = useLocation()
+    const [recipe, setRecipe] = useState([])
 
+    
     //Denne setter til den nåværende brukeren, vi må sette den til brukeren vi vil se oppskriftene til
 
-    onAuthStateChanged(auth, (currentUser) => {
-        setCurrentUser(currentUser);
+
+    useEffect(() => {
+        setRecipe(state.recipe)
+    }, [])
+
+    const userFromRecipe = () => {
+        console.log(state.recipe)
+        console.log("hei")
+        const uid = recipe.uid
+        const user = doc(db, "users", uid)
+        setCurrentUser(user);
         loadUser();
-    })
+    }
+ 
 
 
     const loadUser = async () => {
