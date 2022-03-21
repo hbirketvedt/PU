@@ -47,7 +47,6 @@ function RecipeCard(props) {
      * Sets rating to average rating for recipeCard
      */
     useEffect(() => {
-        console.log(typeof recipe.ratings)
         if (typeof recipe.ratings !== "undefined") {
             let sum = 0
             let count = 0
@@ -55,24 +54,10 @@ function RecipeCard(props) {
                 sum += rating
                 count += 1
             })
-            console.log(sum)
-            // console.log(Object.keys(recipe.ratings).forEach(function (key, index) {
-            //     console.log(key)
-            // });
             const avg = (sum / count) || 0;
             setRating(avg)
 
         }
-        // if (typeof recipe.ratings.values() !== "undefined") {
-        //     let sum = 0
-        //     // for (rating of recipe.ratings.values()) {
-        //     //     sum += rating
-        //     // }
-        //     // const sum = recipe.ratings.values().reduce((a, b) => a + b, 0);
-        //     const avg = (sum / recipe.ratings.length) || 0;
-        //     setRating(avg)
-        //     console.log(avg)
-        // }
     }, [recipe.ratings])
 
     const loadUser = async () => {

@@ -115,7 +115,13 @@ function RecipePage() {
                             key={recipe.id + "ingredients"}
                             ingredients={recipe.ingredients}
                         />
-                        <Rating onClick={handleRating} ratingValue={rating}/>
+                        <Card>
+                            <Card.Body>
+
+                                <Card.Title>Vurder denne oppskriften</Card.Title>
+                                <Rating onClick={handleRating} ratingValue={rating}/>
+                            </Card.Body>
+                        </Card>
                         <Card style={{width: "83rem"}}>
                             <Card.Body>
                                 <Card.Title>Fremgangsmåte: </Card.Title>
