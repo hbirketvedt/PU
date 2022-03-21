@@ -181,18 +181,22 @@ function RecipeCard(props) {
                     <Card.Subtitle> {portions} porsjoner </Card.Subtitle>
                     <Card.Subtitle> Laget av {name} </Card.Subtitle>
                     <Card.Subtitle> {category}</Card.Subtitle>
+                    <Card.Body>
+                        <Rating ratingValue={rating} readonly={true}/>
+                    </Card.Body>
+
+                    <div>
+                        <p style={{float: "left", marginLeft: "3%"}}>
+                            <Clock size={16} style={{marginRight: "0.5em"}}/>
+                            {cardDate}
+                        </p>
+                        {admin &&
+                            <p style={{color: "#960b0b", float: "right", marginRight: "3%"}}
+                               onClick={(e) => deleteRecipe(e)}>Slett oppskrift?</p>}
+                    </div>
                 </Card.Body>
-                <div>
-                    <p style={{float: "left", marginLeft: "3%"}}>
-                        <Clock size={16} style={{marginRight: "0.5em"}}/>
-                        {cardDate}
-                    </p>
-                    {admin &&
-                        <p style={{color: "#960b0b", float: "right", marginRight: "3%"}}
-                           onClick={(e) => deleteRecipe(e)}>Slett oppskrift?</p>}
-                </div>
             </div>
-            <Rating ratingValue={rating} readonly={true}/>
+
         </Card>
     )
 }
