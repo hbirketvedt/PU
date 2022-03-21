@@ -110,7 +110,7 @@ function Signup() {
     }
 
     return(
-        <div>
+        <div className="centered" style={{marginTop:"3.5em", marginLeft:"5%"}}>
             <p>E-post:</p>
             <input onChange={(event) => {setRegisterEmail(event.target.value)}}/>
             <p>Fornavn:</p>
@@ -126,7 +126,6 @@ function Signup() {
                 <p>Profilbilde:</p>
                 <img src={photoURL} alt="Avatar" className="avatar" />
                 <input type="file" onChange={handleChange} />
-                <p/>
             </div>
             {signupError && <Alert variant="danger">{signupError}</Alert>}
             <div className="space">

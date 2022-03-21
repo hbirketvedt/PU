@@ -6,7 +6,7 @@ import {useLocation, useNavigate} from "react-router";
 import "./recipePage.scss"
 import {onAuthStateChanged} from "firebase/auth";
 import {auth, db} from "../../firebase_config";
-import {deleteDoc, doc, setDoc} from "firebase/firestore";
+import {deleteDoc, doc, setDoc, updateDoc} from "firebase/firestore";
 import {Modal} from "react-responsive-modal";
 import "react-responsive-modal/styles.css";
 import UpdateRecipe from "./updateRecipe";
@@ -20,6 +20,7 @@ function RecipePage() {
     const [showEditButton, setShowEditButton] = useState(false)
     const [showEditor, setShowEditor] = useState(false);
     const navigate = useNavigate();
+    const [currentUser, setCurrentUser] = useState(null)
 
 
     /**
@@ -31,6 +32,7 @@ function RecipePage() {
         if (currentUser.uid.localeCompare(state.recipe.userID)) {
             setShowEditButton(true)
         }
+        setCurrentUser(currentUser)
 
     })
 
@@ -72,14 +74,17 @@ function RecipePage() {
      */
     const handleRating = async (rating) => {
         const recipeDoc = doc(db, "recipes", state.recipe.id);
-        let newRaitings = []
-        if (typeof state.recipe.rating === "undefined") {
-            newRaitings = [rating]
+        let newRatings = []
+        if (typeof state.recipe.ratings === "undefined") {
+            newRatings = {[currentUser.uid]: rating}
         } else {
-            newRaitings = [...state.recipe.rating, rating]
+            newRatings = {...state.recipe.ratings, [currentUser.uid]: rating}
         }
+        console.log(newRatings)
+        // await db.collection("recipes").doc(recipe.id).collection("ratings").add({currentUser: rating})
+
         await setDoc(recipeDoc, {
-                rating: newRaitings
+                ratings: newRatings
             },
             // Merges in data if document exists
             {merge: true});
@@ -90,7 +95,7 @@ function RecipePage() {
         <div>
             {recipe.map(recipe => {
                 return (
-                    <div key={recipe.id + "1"} className={"container-1"}>
+                    <div key={recipe.id + "1"} className={"container-2"}>
                         {/*Editor that loads all current values as props in the newRecipe element. Hidden until user
                         starts editing the current recipe.
                         */}
@@ -102,6 +107,8 @@ function RecipePage() {
                             </div>
                         </Modal>
                         <RecipeCard
+                            style={{margin: "10rem"}}
+                            key={recipe.id}
                             recipe={recipe}
                         />
                         <IngredientList
@@ -128,6 +135,7 @@ function RecipePage() {
             })}
 
         </div>
+
 
     )
 }

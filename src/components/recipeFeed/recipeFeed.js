@@ -8,7 +8,6 @@ function RecipeFeed(props) {
     // Constants used in function
     const [recipes, setRecipes] = useState([]);
     const navigate = useNavigate()
-    const [hover, setHover] = useState(false)
 
     /**
      * Loads recipes that are passed as props from parent element (MainRecipeFeed / PersonalRecipeFeed)
@@ -27,30 +26,14 @@ function RecipeFeed(props) {
     }
 
 
-    const cardStyle = () => {
-        if (this.state.hover) {
-            return {backgroundColor: 'red'}
-        } else {
-            return {backgroundColor: 'blue'}
-        }
-    }
-
-    const toggleHover = () => {
-        setHover(!hover)
-    }
-
     return (
-        <div className={"container-1"}>
+        <div className = "container-1">
             {recipes.map((recipe) => {
                 return (
-                    <div onClick={() => handleRecipeClicked(recipe)} key={recipe.id + "1"}
-                         className={"container-1 hovercontainer"}>
+                    <div onClick={() => handleRecipeClicked(recipe)} key={recipe.id + "1"}>
                         <RecipeCard
                             recipe={recipe}
                             key={recipe.id}
-                            // style={{backgroundColor: "red"}}
-                            onMouseEnter={toggleHover}
-                            onMouseLeave={toggleHover}
                         />
                     </div>)
 

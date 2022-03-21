@@ -45,14 +45,15 @@ function ChangeBio() {
     }
 
     return(
-        <div className={"card"}>
-            <h4 className={"input__label"}>Nåværende bio: </h4>
-            <p className='bioHeader'><em>{oldBio}</em></p>
-            <h4 className={"input__label"}>Ny bio: </h4>
+        <div className={"card"} style={{width:"50%", marginLeft:"25%", marginTop:"2em"}}>
+            <h4 className={"input__label"} style={{marginLeft:"5%"}}>Nåværende bio: </h4>
+            <p className='bioHeader' style={{marginLeft:"5%"}}><em>{oldBio}</em></p>
+            <h4 className={"input__label"} style={{marginLeft:"5%"}}>Ny bio: </h4>
             <Textarea
                 onChange={(event) => {setNewBio(event.target.value)}}
                 type={"textarea"}
-                className={"input__field__big"}/>
+                className={"input__field__big"}
+                />
             <div className="centerObject"> 
                 <h1></h1>
                 <button type="cancel" onClick={goToProfilePage}>Avbryt</button>

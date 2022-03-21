@@ -16,12 +16,13 @@ function RecipeCard(props) {
     const [title] = useState(recipe.title)
     const [timeEstimate] = useState(recipe.time)
     const [portions] = useState(recipe.portions)
-    const [name] = useState(recipe.name || "Ukjent")
+    const [name] = useState(recipe.nameOfUser || "Ukjent")
+    const [category] = useState(props.category)
     const [recipeId] = useState(recipe.id)
     const [date] = useState(recipe.date)
     const [cardDate, setCardDate] = useState("");
     const imageRef = ref(getStorage(), `images/${recipe.imageUrl}`);
-    const [rating, setRating] = useState(recipe.rating)
+    const [rating, setRating] = useState(0)
 
     const usersCollectionRef = collection(db, "users")
     const [currentUser, setCurrentUser] = useState({});
@@ -46,12 +47,33 @@ function RecipeCard(props) {
      * Sets rating to average rating for recipeCard
      */
     useEffect(() => {
-        if (typeof recipe.rating !== "undefined") {
-            const sum = recipe.rating.reduce((a, b) => a + b, 0);
-            const avg = (sum / recipe.rating.length) || 0;
+        console.log(typeof recipe.ratings)
+        if (typeof recipe.ratings !== "undefined") {
+            let sum = 0
+            let count = 0
+            Object.values(recipe.ratings).forEach(rating => {
+                sum += rating
+                count += 1
+            })
+            console.log(sum)
+            // console.log(Object.keys(recipe.ratings).forEach(function (key, index) {
+            //     console.log(key)
+            // });
+            const avg = (sum / count) || 0;
             setRating(avg)
+
         }
-    }, [recipe.rating])
+        // if (typeof recipe.ratings.values() !== "undefined") {
+        //     let sum = 0
+        //     // for (rating of recipe.ratings.values()) {
+        //     //     sum += rating
+        //     // }
+        //     // const sum = recipe.ratings.values().reduce((a, b) => a + b, 0);
+        //     const avg = (sum / recipe.ratings.length) || 0;
+        //     setRating(avg)
+        //     console.log(avg)
+        // }
+    }, [recipe.ratings])
 
     const loadUser = async () => {
         const data = await getDocs(usersCollectionRef);
@@ -75,18 +97,38 @@ function RecipeCard(props) {
 
         const difference = today - recipeDate;
 
-        if (difference < 60000) {
+        if (difference < 90000) {
             setCardDate("1 minutt siden")
         } else if (60000 < difference && difference < 3600000) {
             setCardDate(Math.round(difference / (1000 * 60)) + " minutter siden")
         } else if (3600000 < difference && difference < 86400000) {
-            setCardDate(Math.round(difference / (1000 * 60 * 60)) + " timer siden")
+            const d = Math.round(difference / (1000 * 60 * 60));
+            if (d === 1) {
+                setCardDate("1 time siden")
+            } else {
+                setCardDate(d + " timer siden")
+            }
         } else if (86400000 < difference && difference < 604800000) {
-            setCardDate(Math.round(difference / (1000 * 60 * 60 * 24)) + " dager siden")
+            const d = Math.round(difference / (1000 * 60 * 60 * 24))
+            if (d === 1) {
+                setCardDate("1 dag siden")
+            } else {
+                setCardDate(d + " dager siden")
+            }
         } else if (604800000 < difference && difference < 2419200000) {
-            setCardDate(Math.round(difference / (1000 * 60 * 60 * 24 * 7)) + " uker siden")
+            const d = Math.round(difference / (1000 * 60 * 60 * 24 * 7))
+            if (d === 1) {
+                setCardDate("1 uke siden")
+            } else {
+                setCardDate(d + " uker siden")
+            }
         } else {
-            setCardDate(Math.round(difference / (1000 * 60 * 60 * 24 * 7)) + " måneder siden")
+            const d = Math.round(difference / (1000 * 60 * 60 * 24 * 7))
+            if (d === 1) {
+                setCardDate("1 måned siden")
+            } else {
+                setCardDate(d + " måneder siden")
+            }
         }
     }
 
@@ -145,14 +187,15 @@ function RecipeCard(props) {
     )
 
     return (
-        <Card className={"card recipeCard"} style={{width: '40rem', height: "30rem",}}>
+        <Card className={"card recipeCard"} style={{maxWidth: '100%', maxHeight: "100%",}}>
             <div>
-                <Card.Img style={{width: "100%", height: "20rem", objectFit: "cover"}} variant="top" src={url}/>
+                <Card.Img style={{maxWidth: "30em", maxHeight: "20rem", objectFit: "cover"}} variant="top" src={url}/>
                 <Card.Body>
                     <Card.Title>{title}</Card.Title>
                     <Card.Subtitle> {timeEstimate}</Card.Subtitle>
                     <Card.Subtitle> {portions} porsjoner </Card.Subtitle>
                     <Card.Subtitle> Laget av {name} </Card.Subtitle>
+                    <Card.Subtitle> {category}</Card.Subtitle>
                 </Card.Body>
                 <div>
                     <p style={{float: "left", marginLeft: "3%"}}>

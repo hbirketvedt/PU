@@ -22,8 +22,10 @@ function UpdateRecipe(props) {
         const today = new Date()
         // Month starts at 0
         const month = today.getMonth() + 1
-        // Adds date to string
-        const dateString = today.getFullYear() + "." + month + "." + today.getDate() + "." + today.getHours()
+   // Get minutes
+   const minutes = today.getMinutes() % 60;
+   // Adds date to string
+   const dateString = today.getFullYear() + "." + month + "." + today.getDate() + "." + today.getHours() + "." + minutes;
 
         // ingredients are returned as an IterableIterator so loop is used to extract only ingredients and add them
         // to collection

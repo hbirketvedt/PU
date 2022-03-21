@@ -50,7 +50,6 @@ function NewRecipe() {
         const month = today.getMonth() + 1
         // Get minutes
         const minutes = today.getMinutes() % 60;
-        console.log("Hei" + minutes);
         // Adds date to string
         const dateString = today.getFullYear() + "." + month + "." + today.getDate() + "." + today.getHours() + "." + minutes;
 
