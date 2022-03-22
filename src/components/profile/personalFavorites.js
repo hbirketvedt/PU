@@ -4,6 +4,7 @@ import {auth, db} from "../../firebase_config";
 import RecipeFeed from "../recipeFeed/recipeFeed";
 
 import {onAuthStateChanged} from "firebase/auth";
+import { query, where } from "firebase/firestore";
 
 
 export default function PersonalFavorites() {
@@ -26,7 +27,15 @@ export default function PersonalFavorites() {
     useEffect(() => {
         const loadRecipes = async () => {
             const data = await getDocs(recipesCollectionRef);
-            const recipes = data.docs.filter(doc => doc.data().userID === currentUser.uid).map(doc => ({...doc.data(), id: doc.id}))
+            console.log("innlogget bruker:", currentUser.uid)
+            // const recipes = data.docs.filter(doc => doc.data().favoritedByUser == currentUser.uid).map(doc => ({...doc.data(), id: doc.id}))
+            //const recipes = data.docs.filter(doc => doc.data().favoritedByUser.includes(currentUser.uid)).map(doc => ({...doc.data(), id: doc.id}))
+            const recipes = data.docs.filter(doc => doc.data().favoritedByUser,'array-contains', currentUser.uid).map(doc => ({...doc.data(), id: doc.id}))
+            
+            const favs = query(recipesCollectionRef, where("regions", "array-contains", "west_coast"));
+            //const recipes = data.docs.filter(doc => doc.data().favoritedByUser, where(doc => doc.data().favoritedByUser,'array-contains', currentUser.uid) ).map(doc => ({...doc.data(), id: doc.id}));
+            //const recipes = data.docs.filter(doc => doc.data().favoritedByUser.currentUser.uid).get().map(doc => ({...doc.data(), id: doc.id}));
+            //const recipes = query(recipesCollectionRef, where(doc => doc.data().favoritedByUser, "array-contains", currentUser.uid).map(doc => ({...doc.data(), id: doc.id})));
             setRecipes(recipes)
         };
         loadRecipes();
