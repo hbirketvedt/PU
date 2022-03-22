@@ -1,9 +1,8 @@
 import {useState} from "react";
-import {db} from "../../firebase_config";
+import {auth, db} from "../../firebase_config";
 import {collection, getDocs} from "firebase/firestore";
 import {getDownloadURL, getStorage, ref} from "firebase/storage";
 import {Card, ListGroup, ListGroupItem} from "react-bootstrap";
-import {auth} from "../../firebase_config";
 import {onAuthStateChanged, signOut} from "firebase/auth";
 import {useNavigate} from "react-router";
 import PersonalRecipeFeed from "./personalRecipeFeed";

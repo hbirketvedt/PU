@@ -2,25 +2,34 @@ import {useEffect, useState} from "react";
 import {getDownloadURL, getStorage, ref} from "firebase/storage";
 import {Card} from "react-bootstrap";
 import "./recipeCard.scss"
-import { auth } from "../../firebase_config";
-import {db} from "../../firebase_config";
-import {collection, getDocs} from "firebase/firestore";
+import {auth, db} from "../../firebase_config";
+import {collection, deleteDoc, doc, getDocs, setDoc} from "firebase/firestore";
 import {onAuthStateChanged} from "firebase/auth";
-import { useNavigate } from "react-router";
-import { doc, deleteDoc } from "firebase/firestore";
+import {useNavigate} from "react-router";
 import React from 'react';
 import { Clock } from 'react-bootstrap-icons';
 import Button from "react-bootstrap/Button";
+import { AiFillLike, AiOutlineLike } from 'react-icons/ai';
+import { FaHeart } from 'react-icons/fa';
+import { FiHeart } from 'react-icons/fi';
+
+
 
 function RecipeCard(props) {
+    const recipe = props.recipe
     const [url, setUrl] = useState("")
     const [title] = useState(props.title)
     const [timeEstimate] = useState(props.time)
     const [portions] = useState(props.portions)
     const [name] = useState(props.name)
+    const[category] = useState(props.category)
     const [recipeId] = useState(props.id)
     const [date] = useState(props.date)
     const [cardDate, setCardDate] = useState("");
+    const [likes, setLikes] = useState("");
+    const [hasLiked, setHasLiked] = useState("");
+    const [favoritedByUser, setFavoritedByUser] = useState("");
+    const [isFavoritedByUser, setIsFavoritedByUser] = useState("");
     const imageRef = ref(getStorage(), `images/${props.imageUrl}`);
 
     const usersCollectionRef = collection(db, "users")
@@ -32,7 +41,6 @@ function RecipeCard(props) {
      * Sjekker om brukeren er er admin.
      * Hvis ja, så kan brukeren slette en opprskift.
      */
-
     onAuthStateChanged(auth, (currentUser) => {
         setCurrentUser(currentUser);
         handleDate();
@@ -41,13 +49,46 @@ function RecipeCard(props) {
         } else {
             setAdmin(false);
         }
-    })
+        if (likes === "") {
+            updateLikes();
+        }
+        if (hasLiked === "") {
+            setHasLiked(props.likes.includes(currentUser.uid))
+        }
+        if (favoritedByUser === "") {
+            updateFavorites();
+        }
+        if (isFavoritedByUser === "") {
+            setIsFavoritedByUser(props.favoritedByUser.includes(currentUser.uid))
+        }
+    }) 
+
+
+    const updateLikes = async () => {
+        let n = 0;
+        console.log(1);
+        for (var i in props.likes) {
+            if (props.likes[i] === "") {
+                n += 1;
+            }
+        }
+        setLikes(props.likes.length - n)
+    }
+
+    const updateFavorites = async () => {
+        let n = 0;
+        for (var i in props.favoritedByUser) {
+            if (props.favoritedByUser[i] === "") {
+                n += 1;
+            }
+        }
+        setIsFavoritedByUser(props.favoritedByUser.length - n)
+    }
 
     const loadUser = async () => {
         const data = await getDocs(usersCollectionRef);
         const user = data.docs.filter(doc => doc.id === currentUser.uid).reduce((a, b) => a).data();
         setAdmin(user.admin);
-        
     }
 
     const handleDate = async () => {
@@ -65,24 +106,43 @@ function RecipeCard(props) {
 
         const difference = today- recipeDate;
 
-        if (difference < 60000) {
+        if (difference < 90000) {
             setCardDate("1 minutt siden")
         } else if (60000 < difference && difference < 3600000) {
             setCardDate(Math.round(difference / (1000*60)) + " minutter siden")
         } else if (3600000 < difference && difference < 86400000) {
-            setCardDate(Math.round(difference / (1000*60*24)) + " timer siden")
+            const d = Math.round(difference / (1000*60*60));
+            if (d === 1) {
+                setCardDate("1 time siden")
+            } else {
+                setCardDate(d + " timer siden")
+            }
         } else if (86400000 < difference && difference < 604800000) {
-            setCardDate(Math.round(difference / (1000*60*24*7)) + " dager siden")
+            const d = Math.round(difference / (1000*60*60*24)) 
+            if (d === 1) {
+                setCardDate("1 dag siden")
+            } else {
+                setCardDate(d + " dager siden")
+            }
         } else if (604800000 < difference && difference < 2419200000) {
-            setCardDate(Math.round(difference / (1000*60*24*7*4)) + " uker siden")
+            const d = Math.round(difference / (1000*60*60*24*7))
+            if (d === 1) {
+                setCardDate("1 uke siden")
+            } else {
+                setCardDate(d + " uker siden")
+            }
         } else {
-            setCardDate(Math.round(difference / (1000*60*24*7*31)) + " måneder siden")
+            const d = Math.round(difference / (1000*60*60*24*7))
+            if (d === 1) {
+                setCardDate("1 måned siden")
+            } else {
+                setCardDate(d + " måneder siden")
+            }
         }
     }
 
     //Sletter oppskrifter
     const deleteRecipe = async (e) => {
-
         if (window.confirm("Er du sikker på at ønsker å slette oppskriften?")) {
             await deleteDoc(doc(db, "recipes", recipeId));
             goToRecipes();
@@ -92,6 +152,74 @@ function RecipeCard(props) {
 
     const goToRecipes = async () => {
         navigate("/oppskrifter")
+    }
+
+    const liking = async (e) => {
+        const recipeDoc = doc(db, "recipes", props.id);
+
+        if (props.likes.includes(currentUser.uid)) {
+            let la = props.likes
+            const index = la.indexOf(currentUser.uid);
+            la.splice(index, 1)
+            setLikes(likes - 1);
+            await setDoc(recipeDoc, {
+                likes: la
+            },
+            {merge: true});
+        } else {
+            let la = props.likes
+            la.push(currentUser.uid)
+            setLikes(likes + 1);
+            await setDoc(recipeDoc, {
+                likes: la
+            },
+            {merge: true});
+        }
+        likeOrUnlike();
+        goToRecipes();
+        e.stopPropagation();
+    }
+
+    /**
+     * 
+     * @returns True if user has liked recipe
+     */
+    const likeOrUnlike = async () => {
+        setHasLiked(props.likes.includes(currentUser.uid));
+    }
+
+    const favoriting = async (e) => {
+        const recipeDoc = doc(db, "recipes", props.id);
+
+        if (props.favoritedByUser.includes(currentUser.uid)) {
+            let la = props.favoritedByUser
+            const index = la.indexOf(currentUser.uid);
+            la.splice(index, 1)
+            setLikes(favoritedByUser - 1);
+            await setDoc(recipeDoc, {
+                favoritedByUser: la
+            },
+            {merge: true});
+        } else {
+            let la = props.favoritedByUser
+            la.push(currentUser.uid)
+            setFavoritedByUser(favoritedByUser + 1);
+            await setDoc(recipeDoc, {
+                favoritedByUser: la
+            },
+            {merge: true});
+        }
+        favoriteOrUnfavorite();
+        goToRecipes();
+        e.stopPropagation();
+    }
+
+    /**
+     * 
+     * @returns True if user has liked recipe
+     */
+    const favoriteOrUnfavorite = async () => {
+        setIsFavoritedByUser(props.favoritedByUser.includes(currentUser.uid));
     }
 
     /**
@@ -135,18 +263,68 @@ function RecipeCard(props) {
         }, []
     )
 
-
     return (
-        <Card className={"card recipeCard"} style={{width: '40rem', height: "30rem"}}>
-            <Card.Img style={{width: "100%", height: "20rem", objectFit: "cover"}} variant="top" src={url}/>
-            <Card.Body>
-                <Card.Title>{title}</Card.Title>
-                <Card.Subtitle> { timeEstimate}</Card.Subtitle>
-                <Card.Subtitle> { portions } porsjoner </Card.Subtitle>
-                <Card.Subtitle> Laget av { name } </Card.Subtitle>
-                <Button className= "favorite" variant="outline-dark">Favoritt </Button>
-            </Card.Body>
-            <div >
+        <Card className={"card recipeCard"} style={{maxWidth: '100%', maxHeight: "100%"}}>
+            <Card.Img 
+                style={{maxWidth: "30em", maxHeight: "20rem", objectFit: "cover"}} 
+                variant="top" src={url}
+            />
+            <div className="centerIcon">
+                <Card.Body style={{maxWidth: "26em"}} >
+                    <Card.Title>{title}</Card.Title>
+                    <Card.Subtitle> { timeEstimate}</Card.Subtitle>
+                    <Card.Subtitle> { portions } porsjoner </Card.Subtitle>
+                    <Card.Subtitle> Laget av { name } </Card.Subtitle>
+                    <Button className= "favorite" variant="outline-dark">Favoritt </Button>
+                    <Card.Subtitle> {category}</Card.Subtitle>
+                </Card.Body>
+
+                {!hasLiked && 
+                <div className="centerIcon" style={{marginTop:"1em"}}>
+                    <AiOutlineLike 
+                        onClick={(e) => liking(e)}
+                        size={"1.5em"} 
+                        style={{marginLeft: "2%", marginRight:"1%"}}
+                    />
+                    <p style={{padding:"0.05em"}}> {likes} </p>         
+                </div>}
+
+                {hasLiked && 
+                <div className="centerIcon" style={{marginTop:"1em"}}>
+                    <AiFillLike 
+                        onClick={(e) => liking(e)}
+                        size={"1.5em"} 
+                        style={{marginLeft: "2%", marginRight:"%"}}
+                    />
+                <p> {likes} </p> 
+                </div>}
+
+                {!isFavoritedByUser && 
+                <div className="centerIcon" style={{marginTop:"1em"}}>
+                    <FiHeart 
+                        onClick={(e) => favoriting(e)}
+                        size={"1.5em"} 
+                        style={{marginLeft: "2%", marginRight:"1%"}}
+                    />
+                    <p style={{padding:"0.05em"}}> {favoritedByUser} </p>         
+                </div>}
+
+                {isFavoritedByUser && 
+                <div className="centerIcon" style={{marginTop:"1em"}}>
+                    <FaHeart 
+                        onClick={(e) => favoriting(e)}
+                        size={"1.5em"} 
+                        style={{marginLeft: "2%", marginRight:"%"}}
+                    />
+                <p> {favoritedByUser} </p> 
+                </div>}
+
+                
+            </div>
+
+
+
+            <div>
                 <p style={{float:"left", marginLeft:"3%"}}>
                     <Clock size={16} style={{marginRight:"0.5em"}}/>
                     { cardDate } 
@@ -155,7 +333,21 @@ function RecipeCard(props) {
                 {admin &&
                 <p style={{color:"#960b0b", float:"right", marginRight:"3%"}} onClick={(e) => deleteRecipe(e)}>Slett oppskrift?</p>}
             </div>
+
+            
+        
         </Card>
+
+        /*
+        {!hasLiked && <p style={{padding:"70px"}}>
+                <AiOutlineLike 
+                    onClick={(e) => liking(e)}
+                    size={"1.5em"} 
+                    style={{marginLeft: "2%", marginRight:"1%"}}
+                />
+                {likes}  
+            </p> }
+        */
 
         // <div>
         //     <img src={url} alt={""}/>

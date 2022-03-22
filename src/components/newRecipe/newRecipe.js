@@ -1,27 +1,22 @@
-import {addDoc, collection, getDocs} from "firebase/firestore";
-import {auth, db} from "../../firebase_config";
-import {useForm, Controller} from "react-hook-form";
-import {useNavigate} from "react-router";
-import {useState} from "react";
-import CreatableSelect from "react-select/creatable";
-import Textarea from 'react-textarea-autosize';
-import Select from "react-select";
-import {getStorage, ref, uploadBytes} from "firebase/storage";
-import "./newRecipe.scss"
+import RecipeForm from "./recipeForm";
 import {onAuthStateChanged} from "firebase/auth";
+import {auth, db} from "../../firebase_config";
+import {useState} from "react";
+import {addDoc, collection, getDocs} from "firebase/firestore";
+import {getStorage, ref, uploadBytes} from "firebase/storage";
+import {useNavigate} from "react-router";
+import "./newRecipe.scss"
+
 
 function NewRecipe() {
     const usersCollectionRef = collection(db, "users")
-
-    const [image, setImage] = useState(null)
-    const {register, handleSubmit, control} = useForm()
     const recipesCollectionRef = collection(db, "recipes");
-    const navigate = useNavigate();
-    // const [user, setUser] = useState({})
+
+    // const [image, setImage] = useState(null)
     const [currentUser, setCurrentUser] = useState({})
-    // const [user, setUser] = useFirebaseAuthentication()
     const [nameOfUser, setNameOfUser] = useState("Ukjent")
 
+    const navigate = useNavigate();
 
 
     /**
@@ -32,7 +27,6 @@ function NewRecipe() {
         loadNameOfUser().then()
     })
 
-
     /**
      * Sets nameOfUser to "firstName lastName" of current user
      * @return {Promise<void>}
@@ -40,44 +34,9 @@ function NewRecipe() {
     const loadNameOfUser = async () => {
         const data = await getDocs(usersCollectionRef);
         const user = data.docs.filter(doc => doc.id === currentUser.uid).reduce((a, b) => a).data();
-        setNameOfUser(user.firstName +" " +  user.lastName);
-        console.log(user.firstName +" " +  user.lastName)
+        setNameOfUser(user.firstName + " " + user.lastName);
+        console.log(user.firstName + " " + user.lastName)
     }
-
-
-    /**
-     * Categories for category dropdown menu. Value is value passed from function, label is displayed label to user.
-     */
-    const categories = [
-        {value: "Frokost", label: "Frokost"},
-        {value: "Lunch", label: "Lunch"},
-        {value: "Middag", label: "Middag"},
-        {value: "Dessert", label: "Dessert"},
-        {value: "Vegetar", label: "Vegetar"},
-        {value: "Fisk", label: "Fisk"},
-        {value: "Kylling", label: "Kylling"},
-        {value: "Kjøtt", label: "Kjøtt"},
-    ]
-
-
-    /**
-     * Default value for ingredients in dropdown-list. Possible to type in custom ingredients as well.
-     */
-    const ingredients = [
-        {value: "Gulrøtter", label: "Gulrøtter"},
-        {value: "Kjøtt", label: "Kjøtt"},
-        {value: "Kylling", label: "Kylling"},
-        {value: "Lam", label: "Lam"},
-        {value: "Spinat", label: "Spinat"},
-        {value: "Løk", label: "Løk"},
-        {value: "Vann", label: "Vann"},
-        {value: "Egg", label: "Egg"},
-        {value: "Mel", label: "Mel"},
-        {value: "Epler", label: "Epler"},
-        {value: "Tomat", label: "Tomat"},
-        {value: "Salat", label: "Salat"},
-        {value: "Agurk", label: "Agurk"},
-    ]
 
     /**
      * Uploads new recipe to firebase
@@ -91,7 +50,6 @@ function NewRecipe() {
         const month = today.getMonth() + 1
         // Get minutes
         const minutes = today.getMinutes() % 60;
-        console.log("Hei" + minutes);
         // Adds date to string
         const dateString = today.getFullYear() + "." + month + "." + today.getDate() + "." + today.getHours() + "." + minutes;
 
@@ -105,10 +63,11 @@ function NewRecipe() {
         for (let cat of data.category.entries()) {
             category.push(cat[1].value)
         }
-        // uploads image if present and sets imageUrl accordingly, which will be stored with recipe.
-        if (image != null) {
-            await uploadImage()
-            imageUrl = image.name
+        // uploads image if present and sets imageUrl accordingly, which will be stored with recipe. data.image is passed
+        // as FileList so need to check data.image[0]
+        if (data.image[0] != null) {
+            await uploadImage(data.image[0])
+            imageUrl = data.image[0].name
         }
         // Adds recipeFeed to doc. All fields are marked as required so all fields should be filled.
         await addDoc(recipesCollectionRef, {
@@ -121,18 +80,19 @@ function NewRecipe() {
             imageUrl: imageUrl,
             date: dateString,
             userID: currentUser.uid,
-            nameOfUser: nameOfUser
+            nameOfUser: nameOfUser,
+            likes: [],
+            favoritedByUser: []
         });
         console.log("Recipe uploaded to database")
         navigate("/oppskrifter")
     }
 
-
     /**
      * Uploads image to storage in firebase
      * @return {Promise<void>}
      */
-    const uploadImage = async () => {
+    const uploadImage = async (image) => {
         const storage = getStorage();
         const storageRef = ref(storage, `/images/${image.name}`);
         uploadBytes(storageRef, image).then((snapshot) => {
@@ -140,121 +100,13 @@ function NewRecipe() {
         });
     }
 
-
-    /**
-     * Stores uploaded photo in image variable
-     */
-    const handleChosenImage = (e) => {
-        if (e.target.files[0]) {
-            setImage(e.target.files[0])
-        }
-    }
-
-
     return (
-
         <div className={"center"}>
-            <form
-                onSubmit={handleSubmit((data) => {
-                    submitData(data)
-                })}
-                className={"newRecipe"}
-            >
-                <h3 className={"input__label"}>Oppskriftens navn: </h3>
-                <input
-                    {...register("title", {
-                        required: "title is required",
-                        minLength: {
-                            value: 3,
-                            message: "Minimum title length is 3"
-                        }
-                    })}
-                    type={"text"}
-                    className={"input__field"}
+            <div className={"newRecipe"}>
+                <RecipeForm
+                    onSubmit={submitData}
                 />
-
-                <h5 className={"input__label"}>Tidsestimat: </h5>
-                <input
-                    {...register("timeEstimate", {
-                        required: "Time estimate is required",
-                        minLength: {
-                            value: 1,
-                            message: "Minimum time estimate is 1"
-                        }
-                    })}
-                    className={"input__field"}
-                />
-
-                <h5 className={"input__label"}>Antall Porsjoner: </h5>
-                <input
-                    {...register("portions", {
-                        required: "Portion count is required"
-                    })
-                    }
-                    type={"number"}
-                    className={"input__field"}/>
-
-
-                <h5 className={"input__label"}>Legg til bilde</h5>
-                <input
-                    type={"file"}
-                    onChange={handleChosenImage}
-                    className={"input__field"}
-                />
-
-                <h5 className={"input__label"}>Ingredienser: </h5>
-                <Controller
-                    // Name specifies key in register
-                    name="ingredients"
-                    control={control}
-                    render={({field}) => <CreatableSelect
-                        {...field}
-                        // Options form const declared earlier
-                        options={ingredients}
-                        // Allow multiple choices
-                        isMulti
-                        // defines css
-                        className={"input__field"}
-                    />}
-                    rules={{required: true}}
-
-                />
-
-                <h5 className={"input__label"}>Kategori: </h5>
-                <Controller
-                    // Name specifies key in register
-                    name="category"
-                    control={control}
-                    render={({field}) => <Select
-                        {...field}
-                        // Options form const declared earlier
-                        options={categories}
-
-                        isMulti
-                        // defines css
-                        className={"input__field"}
-                    />}
-                    rules={{required: true}}
-
-                />
-
-                <h5 className={"input__label"}>Fremgangsmåte: </h5>
-                <Textarea
-                    {...register("description", {
-                        required: "Description is required",
-                        minLength: {
-                            value: 1,
-                            message: "Minimum title length is 1"
-                        }
-                    })}
-                    type={"textarea"}
-                    className={"input__field__big"}/>
-                <button
-                    type={"submit"}
-                    className={"input__submit"}
-                >Publiser
-                </button>
-            </form>
+            </div>
         </div>
     )
 }
