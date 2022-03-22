@@ -67,10 +67,9 @@ function RecipePage() {
 
     return (
         <div>
-
             {recipe.map(recipe => {
                 return (
-                    <div key={recipe.id + "1"} className={"container-1"}>
+                    <div key={recipe.id + "1"} className={"container-2"}>
                         {/*Editor that loads all current values as props in the newRecipe element. Hidden until user
                         starts editing the current recipe.
                         */}
@@ -88,8 +87,10 @@ function RecipePage() {
                             imageUrl={recipe.imageUrl}
                             time={recipe.timeEstimate}
                             portions={recipe.portions}
+                            category = {recipe.category}
                             name={recipe.nameOfUser}
                             date={recipe.date}
+                            likes={recipe.likes}
                             style={{margin: "10rem"}}
                             key={recipe.id}
                         />
@@ -117,6 +118,7 @@ function RecipePage() {
 
         </div>
 
+       
     )
 }
 
