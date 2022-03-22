@@ -90,6 +90,7 @@ function RecipePage() {
                             category = {recipe.category}
                             name={recipe.nameOfUser}
                             date={recipe.date}
+                            likes={recipe.likes}
                             style={{margin: "10rem"}}
                             key={recipe.id}
                         />

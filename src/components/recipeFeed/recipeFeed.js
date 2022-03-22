@@ -39,6 +39,7 @@ function RecipeFeed(props) {
                             time={recipe.timeEstimate}
                             portions={recipe.portions}
                             date={recipe.date}
+                            likes={recipe.likes}
                             name={recipe.nameOfUser || "Ukjent"}
                             style={{margin: "10rem"}}
                             key={recipe.id}
