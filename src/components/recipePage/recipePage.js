@@ -112,6 +112,7 @@ function RecipePage() {
                             portions={recipe.portions}
                             nameOfUser={recipe.nameOfUser}
                             category={recipe.category}
+                            ratings={recipe.ratings}
                             imageUrl={recipe.imageUrl}
                             id={recipe.id}
                             date={recipe.date}

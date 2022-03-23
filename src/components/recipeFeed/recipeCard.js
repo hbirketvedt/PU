@@ -17,7 +17,7 @@ function RecipeCard(props) {
     const [title] = useState(props.title)
     const [timeEstimate] = useState(props.timeEstimate)
     const [portions] = useState(props.portions)
-    const [name] = useState(props.name)
+    const [name] = useState(props.nameOfUser)
     const [category] = useState(props.category)
     const [recipeId] = useState(props.id)
     const [date] = useState(props.date)
