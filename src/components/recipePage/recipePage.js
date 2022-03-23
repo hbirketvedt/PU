@@ -28,8 +28,9 @@ function RecipePage() {
      * Loads in current user
      */
     onAuthStateChanged(auth, (currentUser) => {
-        console.log(state.recipe.userID)
-        console.log(currentUser.uid)
+        //console.log(state.recipe.userID)
+        //console.log(currentUser.uid)
+        
         if (currentUser.uid.localeCompare(state.recipe.userID)) {
             setShowEditButton(true)
         }
@@ -42,6 +43,9 @@ function RecipePage() {
      */
     useEffect(() => {
         setRecipe([state.recipe])
+        console.log(recipe)
+        console.log(state.recipe)
+        console.log(state.recipe.userID)
     }, [])
 
     /**
@@ -51,12 +55,13 @@ function RecipePage() {
         setShowEditor(true)
     }
 
+
     const goToProfilePage = async () => {
         navigate("/profilePage")
     }
 
-    const goToSeeProfile = async (recipe) => {
-        navigate("/seeProfile", {state: {recipe: recipe}})
+    const goToSeeProfile = async (userID) => {
+        navigate("/seeProfile", {state: {userID: userID}})
     }
 
     const handleDelete = async () => {
@@ -69,7 +74,7 @@ function RecipePage() {
     }
 
     const handleVisit = async () => {
-        goToSeeProfile(state)
+        goToSeeProfile(state.recipe.userID)
     }
 
     const onCloseModal = () => {

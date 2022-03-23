@@ -22,29 +22,38 @@ function OthersProfilePage() {
     const [currentUser, setCurrentUser] = useState({});
     const {state} = useLocation()
     const [recipe, setRecipe] = useState([])
+    const [otherUser, setOtherUser] = useState({});
 
     
     //Denne setter til den nåværende brukeren, vi må sette den til brukeren vi vil se oppskriftene til
 
 
     useEffect(() => {
-        setRecipe(state.recipe)
+        setRecipe([state])
+        //setOtherUser(state.userID)
+        setOtherUser(state.userID)
+        console.log(state)
+        console.log(otherUser)
+        //console.log(state.uid)
+        loadUser();
     }, [])
 
-    const userFromRecipe = () => {
+
+    /*const userFromRecipe = () => {
         console.log(state.recipe)
         console.log("hei")
         const uid = recipe.uid
         const user = doc(db, "users", uid)
         setCurrentUser(user);
         loadUser();
-    }
+    } */
  
 
 
     const loadUser = async () => {
         const data = await getDocs(usersCollectionRef);
-        const user = data.docs.filter(doc => doc.id === currentUser.uid).reduce((a, b) => a).data();
+        const user = data.docs.filter(doc => doc.id === state.userID).reduce((a, b) => a).data();
+        console.log(user)
         setFirstname(user.firstName);
         setLastName(user.lastName);
         if (user.bio === "") {
@@ -61,7 +70,7 @@ function OthersProfilePage() {
     }
 
     const handleDownloadImage = async () => {
-        const imageRef = ref(getStorage(), 'profilePictures/' + currentUser.uid + '.png');
+        const imageRef = ref(getStorage(), 'profilePictures/' + otherUser.uid + '.png');
         getDownloadURL(imageRef)
             .then((url) => {
                 setImageURL(url)
