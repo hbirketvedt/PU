@@ -3,23 +3,27 @@ import {getDownloadURL, getStorage, ref} from "firebase/storage";
 import {Card} from "react-bootstrap";
 import "./recipeCard.scss"
 import {auth, db} from "../../firebase_config";
-import {collection, deleteDoc, doc, getDocs} from "firebase/firestore";
+import {collection, deleteDoc, doc, getDocs, setDoc} from "firebase/firestore";
 import {onAuthStateChanged} from "firebase/auth";
 import {useNavigate} from "react-router";
 import React from 'react';
+import { AiFillLike, AiOutlineLike } from 'react-icons/ai';
 import {Clock} from 'react-bootstrap-icons';
 import {Rating} from 'react-simple-star-rating'
 
 function RecipeCard(props) {
+    const recipe = props.recipe
     const [url, setUrl] = useState("")
     const [title] = useState(props.title)
     const [timeEstimate] = useState(props.timeEstimate)
     const [portions] = useState(props.portions)
-    const [name] = useState(props.nameOfUser || "Ukjent")
+    const [name] = useState(props.name)
     const [category] = useState(props.category)
     const [recipeId] = useState(props.id)
     const [date] = useState(props.date)
     const [cardDate, setCardDate] = useState("");
+    const [likes, setLikes] = useState("");
+    const [hasLiked, setHasLiked] = useState("");
     const imageRef = ref(getStorage(), `images/${props.imageUrl}`);
     const [rating, setRating] = useState(0)
 
@@ -40,7 +44,25 @@ function RecipeCard(props) {
         } else {
             setAdmin(false);
         }
+        if (likes === "") {
+            updateLikes();
+        }
+        if (hasLiked === "") {
+            setHasLiked(props.likes.includes(currentUser.uid))
+        }
     })
+
+
+    const updateLikes = async () => {
+        let n = 0;
+        console.log(1);
+        for (var i in props.likes) {
+            if (props.likes[i] === "") {
+                n += 1;
+            }
+        }
+        setLikes(props.likes.length - n)
+    }
 
     /**
      * Sets rating to average rating for recipeCard
@@ -129,6 +151,41 @@ function RecipeCard(props) {
         navigate("/oppskrifter")
     }
 
+    const liking = async (e) => {
+        const recipeDoc = doc(db, "recipes", props.id);
+
+        if (props.likes.includes(currentUser.uid)) {
+            let la = props.likes
+            const index = la.indexOf(currentUser.uid);
+            la.splice(index, 1)
+            setLikes(likes - 1);
+            await setDoc(recipeDoc, {
+                likes: la
+            },
+            {merge: true});
+        } else {
+            let la = props.likes
+            la.push(currentUser.uid)
+            setLikes(likes + 1);
+            await setDoc(recipeDoc, {
+                likes: la
+            },
+            {merge: true});
+        }
+        likeOrUnlike();
+        goToRecipes();
+        e.stopPropagation();
+    }
+
+    /**
+     *
+     * @returns True if user has liked recipe
+     */
+    const likeOrUnlike = async () => {
+        setHasLiked(props.likes.includes(currentUser.uid));
+    }
+
+
     /**
      * Loads correct url for image into url variable using relative path from variable imageRef. Include url in <img>
      *     component (found in return statement) to load image to page.
@@ -170,11 +227,15 @@ function RecipeCard(props) {
         }, []
     )
 
+
     return (
-        <Card className={"card recipeCard"} style={{maxWidth: '100%', maxHeight: "100%",}}>
-            <div>
-                <Card.Img style={{maxWidth: "30em", maxHeight: "20rem", objectFit: "cover"}} variant="top" src={url}/>
-                <Card.Body>
+        <Card className={"card recipeCard"} style={{maxWidth: '100%', maxHeight: "100%"}}>
+            <Card.Img
+                style={{maxWidth: "30em", maxHeight: "20rem", objectFit: "cover"}}
+                variant="top" src={url}
+            />
+            <div className="centerIcon">
+                <Card.Body style={{maxWidth: "26em"}}>
                     <Card.Title>{title}</Card.Title>
                     <Card.Subtitle> {timeEstimate}</Card.Subtitle>
                     <Card.Subtitle> {portions} porsjoner </Card.Subtitle>
@@ -183,20 +244,66 @@ function RecipeCard(props) {
                     <Card.Body>
                         <Rating ratingValue={rating} readonly={true}/>
                     </Card.Body>
-
-                    <div>
-                        <p style={{float: "left", marginLeft: "3%"}}>
-                            <Clock size={16} style={{marginRight: "0.5em"}}/>
-                            {cardDate}
-                        </p>
-                        {admin &&
-                            <p style={{color: "#960b0b", float: "right", marginRight: "3%"}}
-                               onClick={(e) => deleteRecipe(e)}>Slett oppskrift?</p>}
-                    </div>
                 </Card.Body>
+
+                {!hasLiked &&
+                    <div className="centerIcon" style={{marginTop: "1em"}}>
+                        <AiOutlineLike
+                            onClick={(e) => liking(e)}
+                            size={"1.5em"}
+                            style={{marginLeft: "2%", marginRight: "1%"}}
+                        />
+                        <p style={{padding: "0.05em"}}> {likes} </p>
+                    </div>}
+
+                {hasLiked &&
+                    <div className="centerIcon" style={{marginTop: "1em"}}>
+                        <AiFillLike
+                            onClick={(e) => liking(e)}
+                            size={"1.5em"}
+                            style={{marginLeft: "2%", marginRight: "%"}}
+                        />
+                        <p> {likes} </p>
+                    </div>}
+
             </div>
 
+
+            <div>
+                <p style={{float: "left", marginLeft: "3%"}}>
+                    <Clock size={16} style={{marginRight: "0.5em"}}/>
+                    {cardDate}
+                </p>
+                {admin &&
+                    <p style={{color: "#960b0b", float: "right", marginRight: "3%"}}
+                       onClick={(e) => deleteRecipe(e)}>Slett oppskrift?</p>}
+            </div>
+
+
         </Card>
+
+        /*
+        {!hasLiked && <p style={{padding:"70px"}}>
+                <AiOutlineLike
+                    onClick={(e) => liking(e)}
+                    size={"1.5em"}
+                    style={{marginLeft: "2%", marginRight:"1%"}}
+                />
+                {likes}
+            </p> }
+        */
+
+        // <div>
+        //     <img src={url} alt={""}/>
+        //     <body>
+        //     <title>{title}</title>
+        //         <sub> { timeEstimate }</sub>
+        //         <sub> { portions } porsjoner </sub>
+        //         <sub> Laget av { name }</sub>
+        //     </body>
+        // </div>
+
+
     )
 }
 

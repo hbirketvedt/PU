@@ -114,8 +114,7 @@ function RecipePage() {
                             category={recipe.category}
                             id={recipe.id}
                             date={recipe.date}
-                            imageUrl={recipe.imageUrl}
-                            ratings={recipe.ratings}
+                            likes={recipe.likes}
                             style={{margin: "10rem"}}
                             key={recipe.id}
                         />
