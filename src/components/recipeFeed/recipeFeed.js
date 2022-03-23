@@ -32,7 +32,16 @@ function RecipeFeed(props) {
                 return (
                     <div onClick={() => handleRecipeClicked(recipe)} key={recipe.id + "1"}>
                         <RecipeCard
-                            recipe={recipe}
+                            title={recipe.title}
+                            timeEstimate={recipe.timeEstimate}
+                            portions={recipe.portions}
+                            nameOfUser={recipe.nameOfUser}
+                            category={recipe.category}
+                            id={recipe.id}
+                            date={recipe.date}
+                            imageUrl={recipe.imageUrl}
+                            ratings={recipe.ratings}
+                            style={{margin: "10rem"}}
                             key={recipe.id}
                         />
                     </div>)

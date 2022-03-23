@@ -11,17 +11,16 @@ import {Clock} from 'react-bootstrap-icons';
 import {Rating} from 'react-simple-star-rating'
 
 function RecipeCard(props) {
-    const recipe = props.recipe
     const [url, setUrl] = useState("")
-    const [title] = useState(recipe.title)
-    const [timeEstimate] = useState(recipe.time)
-    const [portions] = useState(recipe.portions)
-    const [name] = useState(recipe.nameOfUser || "Ukjent")
+    const [title] = useState(props.title)
+    const [timeEstimate] = useState(props.timeEstimate)
+    const [portions] = useState(props.portions)
+    const [name] = useState(props.nameOfUser || "Ukjent")
     const [category] = useState(props.category)
-    const [recipeId] = useState(recipe.id)
-    const [date] = useState(recipe.date)
+    const [recipeId] = useState(props.id)
+    const [date] = useState(props.date)
     const [cardDate, setCardDate] = useState("");
-    const imageRef = ref(getStorage(), `images/${recipe.imageUrl}`);
+    const imageRef = ref(getStorage(), `images/${props.imageUrl}`);
     const [rating, setRating] = useState(0)
 
     const usersCollectionRef = collection(db, "users")
@@ -47,10 +46,10 @@ function RecipeCard(props) {
      * Sets rating to average rating for recipeCard
      */
     useEffect(() => {
-        if (typeof recipe.ratings !== "undefined") {
+        if (typeof props.ratings !== "undefined") {
             let sum = 0
             let count = 0
-            Object.values(recipe.ratings).forEach(rating => {
+            Object.values(props.ratings).forEach(rating => {
                 sum += rating
                 count += 1
             })
@@ -58,7 +57,7 @@ function RecipeCard(props) {
             setRating(avg)
 
         }
-    }, [recipe.ratings])
+    }, [props.ratings])
 
     const loadUser = async () => {
         const data = await getDocs(usersCollectionRef);

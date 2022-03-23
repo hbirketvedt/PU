@@ -107,9 +107,17 @@ function RecipePage() {
                             </div>
                         </Modal>
                         <RecipeCard
+                            title={recipe.title}
+                            timeEstimate={recipe.timeEstimate}
+                            portions={recipe.portions}
+                            nameOfUser={recipe.nameOfUser}
+                            category={recipe.category}
+                            id={recipe.id}
+                            date={recipe.date}
+                            imageUrl={recipe.imageUrl}
+                            ratings={recipe.ratings}
                             style={{margin: "10rem"}}
                             key={recipe.id}
-                            recipe={recipe}
                         />
                         <IngredientList
                             key={recipe.id + "ingredients"}
