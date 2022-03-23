@@ -12,7 +12,6 @@ import {Clock} from 'react-bootstrap-icons';
 import {Rating} from 'react-simple-star-rating'
 
 function RecipeCard(props) {
-    const recipe = props.recipe
     const [url, setUrl] = useState("")
     const [title] = useState(props.title)
     const [timeEstimate] = useState(props.timeEstimate)
