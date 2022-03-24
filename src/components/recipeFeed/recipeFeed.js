@@ -14,7 +14,7 @@ function RecipeFeed(props) {
      */
     useEffect(() => {
         setRecipes(props.recipes)
-        console.log(props.recipes)
+        //console.log(props.recipes)
     }, [props.recipes])
 
 
@@ -32,12 +32,14 @@ function RecipeFeed(props) {
                 return (
                     <div onClick={() => handleRecipeClicked(recipe)} key={recipe.id + "1"}>
                         <RecipeCard
-                            id={recipe.id}
                             title={recipe.title}
-                            description={recipe.description}
-                            imageUrl={recipe.imageUrl}
-                            time={recipe.timeEstimate}
+                            timeEstimate={recipe.timeEstimate}
                             portions={recipe.portions}
+                            nameOfUser={recipe.nameOfUser}
+                            category={recipe.category}
+                            ratings={recipe.ratings}
+                            imageUrl={recipe.imageUrl}
+                            id={recipe.id}
                             date={recipe.date}
                             likes={recipe.likes}
                             favoritedByUser={recipe.favoritedByUser}
