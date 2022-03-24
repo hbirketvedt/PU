@@ -74,13 +74,7 @@ function RecipeCard(props) {
     }
 
     const updateFavorites = async () => {
-        let n = 0;
-        for (var i in props.favoritedByUser) {
-            if (props.favoritedByUser[i] === "") {
-                n += 1;
-            }
-        }
-        setFavoritedByUser(props.favoritedByUser.length - n)
+        setFavoritedByUser()
     }
     /**
      * Sets rating to average rating for recipeCard
@@ -191,7 +185,7 @@ function RecipeCard(props) {
             {merge: true});
         }
         likeOrUnlike();
-        goToRecipes();
+        //goToRecipes();
         e.stopPropagation();
     }
 
@@ -210,7 +204,7 @@ function RecipeCard(props) {
             let la = props.favoritedByUser
             const index = la.indexOf(currentUser.uid);
             la.splice(index, 1)
-            setLikes(favoritedByUser - 1);
+            setFavoritedByUser(favoritedByUser);
             await setDoc(recipeDoc, {
                 favoritedByUser: la
             },
@@ -218,20 +212,20 @@ function RecipeCard(props) {
         } else {
             let la = props.favoritedByUser
             la.push(currentUser.uid)
-            setFavoritedByUser(favoritedByUser + 1);
+            setFavoritedByUser(favoritedByUser);
             await setDoc(recipeDoc, {
                 favoritedByUser: la
             },
             {merge: true});
         }
         favoriteOrUnfavorite();
-        goToRecipes();
+        //goToRecipes();
         e.stopPropagation();
     }
 
     /**
      * 
-     * @returns True if user has liked recipe
+     * @returns True if user has favorited recipe
      */
     const favoriteOrUnfavorite = async () => {
         setIsFavoritedByUser(props.favoritedByUser.includes(currentUser.uid));
@@ -311,13 +305,13 @@ function RecipeCard(props) {
                     <AiFillLike 
                         onClick={(e) => liking(e)}
                         size={"1.5em"} 
-                        style={{marginLeft: "2%", marginRight:"%"}}
+                        style={{marginLeft: "2%", marginRight:"1%"}}
                     />
                 <p> {likes} </p> 
                 </div>}
 
                 {!isFavoritedByUser && 
-                <div className="centerIcon" style={{marginTop:"1em"}}>
+                <div className="centerIcon" style={{marginTop:"1em", marginLeft:"0.8em", marginRight:"0.8em"}}>
                     <FiHeart 
                         onClick={(e) => favoriting(e)}
                         size={"1.5em"} 
@@ -327,11 +321,11 @@ function RecipeCard(props) {
                 </div>}
 
                 {isFavoritedByUser && 
-                <div className="centerIcon" style={{marginTop:"1em"}}>
+                <div className="centerIcon" style={{marginTop:"1em", marginLeft:"0.8em", marginRight:"0.8em"}}>
                     <FaHeart 
                         onClick={(e) => favoriting(e)}
                         size={"1.5em"} 
-                        style={{marginLeft: "2%", marginRight:"%"}}
+                        style={{marginLeft: "2%", marginRight:"1%"}}
                     />
                 <p> {favoritedByUser} </p> 
                 </div>}
