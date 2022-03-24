@@ -81,7 +81,7 @@ function RecipeCard(props) {
                 n += 1;
             }
         }
-        setIsFavoritedByUser(props.favoritedByUser.length - n)
+        setFavoritedByUser(props.favoritedByUser.length - n)
     }
 
     const loadUser = async () => {
