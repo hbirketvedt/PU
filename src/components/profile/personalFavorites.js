@@ -30,9 +30,9 @@ export default function PersonalFavorites() {
             console.log("innlogget bruker:", currentUser.uid)
             // const recipes = data.docs.filter(doc => doc.data().favoritedByUser == currentUser.uid).map(doc => ({...doc.data(), id: doc.id}))
             //const recipes = data.docs.filter(doc => doc.data().favoritedByUser.includes(currentUser.uid)).map(doc => ({...doc.data(), id: doc.id}))
-            const recipes = data.docs.filter(doc => doc.data().favoritedByUser,'array-contains', currentUser.uid).map(doc => ({...doc.data(), id: doc.id}))
+            //const recipes = data.docs.filter(doc => doc.data().favoritedByUser,'array-contains', currentUser.uid).map(doc => ({...doc.data(), id: doc.id}))
             
-            const favs = query(recipesCollectionRef, where("regions", "array-contains", "west_coast"));
+            //const favs = query(recipesCollectionRef, where("regions", "array-contains", "west_coast"));
             //const recipes = data.docs.filter(doc => doc.data().favoritedByUser, where(doc => doc.data().favoritedByUser,'array-contains', currentUser.uid) ).map(doc => ({...doc.data(), id: doc.id}));
             //const recipes = data.docs.filter(doc => doc.data().favoritedByUser.currentUser.uid).get().map(doc => ({...doc.data(), id: doc.id}));
             //const recipes = query(recipesCollectionRef, where(doc => doc.data().favoritedByUser, "array-contains", currentUser.uid).map(doc => ({...doc.data(), id: doc.id})));
