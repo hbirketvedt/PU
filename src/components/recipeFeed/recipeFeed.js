@@ -14,7 +14,7 @@ function RecipeFeed(props) {
      */
     useEffect(() => {
         setRecipes(props.recipes)
-        console.log(props.recipes)
+        //console.log(props.recipes)
     }, [props.recipes])
 
 
