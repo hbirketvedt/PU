@@ -132,9 +132,10 @@ button + button {
   height: 2cm;
   display: flex;
   align-items: center;
-  position: sticky;
-  top: 0;
+  top: 0px;
   z-index: 9999;
+  position: fixed;
+  right: 0;
 }
 
 a {
@@ -273,6 +274,11 @@ link {
 .centerButtons {
   display: flex;
   justify-content: center;
+  margin-bottom: 1em;
+}
+
+.centerIcon {
+  display: flex;
   margin-bottom: 1em;
 }
 

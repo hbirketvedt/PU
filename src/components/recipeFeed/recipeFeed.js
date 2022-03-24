@@ -27,19 +27,21 @@ function RecipeFeed(props) {
 
 
     return (
-        <div className={"container-1"}>
+        <div className = "container-1">
             {recipes.map((recipe) => {
                 return (
-                    <div onClick={() => handleRecipeClicked(recipe)} key={recipe.id + "1"} className={"container-1"}>
+                    <div onClick={() => handleRecipeClicked(recipe)} key={recipe.id + "1"}>
                         <RecipeCard
-                            id={recipe.id}
                             title={recipe.title}
-                            description={recipe.description}
-                            imageUrl={recipe.imageUrl}
-                            time={recipe.timeEstimate}
+                            timeEstimate={recipe.timeEstimate}
                             portions={recipe.portions}
+                            nameOfUser={recipe.nameOfUser}
+                            category={recipe.category}
+                            ratings={recipe.ratings}
+                            imageUrl={recipe.imageUrl}
+                            id={recipe.id}
                             date={recipe.date}
-                            name={recipe.nameOfUser || "Ukjent"}
+                            likes={recipe.likes}
                             style={{margin: "10rem"}}
                             key={recipe.id}
                         /></div>)

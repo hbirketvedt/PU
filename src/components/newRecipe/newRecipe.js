@@ -80,7 +80,8 @@ function NewRecipe() {
             imageUrl: imageUrl,
             date: dateString,
             userID: currentUser.uid,
-            nameOfUser: nameOfUser
+            nameOfUser: nameOfUser,
+            likes: []
         });
         console.log("Recipe uploaded to database")
         navigate("/oppskrifter")
