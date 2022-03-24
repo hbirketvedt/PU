@@ -42,6 +42,8 @@ function RecipeFeed(props) {
                             id={recipe.id}
                             date={recipe.date}
                             likes={recipe.likes}
+                            favoritedByUser={recipe.favoritedByUser}
+                            name={recipe.nameOfUser || "Ukjent"}
                             style={{margin: "10rem"}}
                             key={recipe.id}
                         /></div>)

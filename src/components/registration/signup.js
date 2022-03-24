@@ -84,6 +84,7 @@ function Signup() {
                 firstName: firstName,
                 lastName: lastName,
                 bio: "",
+                //favoriteRecipes: ["",],
                 profilePictureURL: "default.png"
             });
         } else {
@@ -94,6 +95,7 @@ function Signup() {
                 firstName: firstName,
                 lastName: lastName,
                 bio: "",
+                favoriteRecipes: ["",],
                 profilePictureURL: user.uid
             });
         }

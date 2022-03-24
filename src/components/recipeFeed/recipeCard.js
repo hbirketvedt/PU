@@ -8,6 +8,8 @@ import {onAuthStateChanged} from "firebase/auth";
 import {useNavigate} from "react-router";
 import React from 'react';
 import { AiFillLike, AiOutlineLike } from 'react-icons/ai';
+import { FaHeart } from 'react-icons/fa';
+import { FiHeart } from 'react-icons/fi';
 import {Clock} from 'react-bootstrap-icons';
 import {Rating} from 'react-simple-star-rating'
 
@@ -23,6 +25,8 @@ function RecipeCard(props) {
     const [cardDate, setCardDate] = useState("");
     const [likes, setLikes] = useState("");
     const [hasLiked, setHasLiked] = useState("");
+    const [favoritedByUser, setFavoritedByUser] = useState("");
+    const [isFavoritedByUser, setIsFavoritedByUser] = useState("");
     const imageRef = ref(getStorage(), `images/${props.imageUrl}`);
     const [rating, setRating] = useState(0)
 
@@ -49,7 +53,13 @@ function RecipeCard(props) {
         if (hasLiked === "") {
             setHasLiked(props.likes.includes(currentUser.uid))
         }
-    })
+        if (favoritedByUser === "") {
+            updateFavorites();
+        }
+        if (isFavoritedByUser === "") {
+            setIsFavoritedByUser(props.favoritedByUser.includes(currentUser.uid))
+        }
+    }) 
 
 
     const updateLikes = async () => {
@@ -63,6 +73,9 @@ function RecipeCard(props) {
         setLikes(props.likes.length - n)
     }
 
+    const updateFavorites = async () => {
+        setFavoritedByUser()
+    }
     /**
      * Sets rating to average rating for recipeCard
      */
@@ -172,7 +185,7 @@ function RecipeCard(props) {
             {merge: true});
         }
         likeOrUnlike();
-        goToRecipes();
+        //goToRecipes();
         e.stopPropagation();
     }
 
@@ -184,6 +197,39 @@ function RecipeCard(props) {
         setHasLiked(props.likes.includes(currentUser.uid));
     }
 
+    const favoriting = async (e) => {
+        const recipeDoc = doc(db, "recipes", props.id);
+
+        if (props.favoritedByUser.includes(currentUser.uid)) {
+            let la = props.favoritedByUser
+            const index = la.indexOf(currentUser.uid);
+            la.splice(index, 1)
+            setFavoritedByUser(favoritedByUser);
+            await setDoc(recipeDoc, {
+                favoritedByUser: la
+            },
+            {merge: true});
+        } else {
+            let la = props.favoritedByUser
+            la.push(currentUser.uid)
+            setFavoritedByUser(favoritedByUser);
+            await setDoc(recipeDoc, {
+                favoritedByUser: la
+            },
+            {merge: true});
+        }
+        favoriteOrUnfavorite();
+        //goToRecipes();
+        e.stopPropagation();
+    }
+
+    /**
+     * 
+     * @returns True if user has favorited recipe
+     */
+    const favoriteOrUnfavorite = async () => {
+        setIsFavoritedByUser(props.favoritedByUser.includes(currentUser.uid));
+    }
 
     /**
      * Loads correct url for image into url variable using relative path from variable imageRef. Include url in <img>
@@ -226,7 +272,6 @@ function RecipeCard(props) {
         }, []
     )
 
-
     return (
         <Card className={"card recipeCard"} style={{maxWidth: '100%', maxHeight: "100%"}}>
             <Card.Img
@@ -245,25 +290,46 @@ function RecipeCard(props) {
                     </Card.Body>
                 </Card.Body>
 
-                {!hasLiked &&
-                    <div className="centerIcon" style={{marginTop: "1em"}}>
-                        <AiOutlineLike
-                            onClick={(e) => liking(e)}
-                            size={"1.5em"}
-                            style={{marginLeft: "2%", marginRight: "1%"}}
-                        />
-                        <p style={{padding: "0.05em"}}> {likes} </p>
-                    </div>}
+                {!hasLiked && 
+                <div className="centerIcon" style={{marginTop:"1em"}}>
+                    <AiOutlineLike 
+                        onClick={(e) => liking(e)}
+                        size={"1.5em"} 
+                        style={{marginLeft: "2%", marginRight:"1%"}}
+                    />
+                    <p style={{padding:"0.05em"}}> {likes} </p>         
+                </div>}
 
-                {hasLiked &&
-                    <div className="centerIcon" style={{marginTop: "1em"}}>
-                        <AiFillLike
-                            onClick={(e) => liking(e)}
-                            size={"1.5em"}
-                            style={{marginLeft: "2%", marginRight: "%"}}
-                        />
-                        <p> {likes} </p>
-                    </div>}
+                {hasLiked && 
+                <div className="centerIcon" style={{marginTop:"1em"}}>
+                    <AiFillLike 
+                        onClick={(e) => liking(e)}
+                        size={"1.5em"} 
+                        style={{marginLeft: "2%", marginRight:"1%"}}
+                    />
+                <p> {likes} </p> 
+                </div>}
+
+                {!isFavoritedByUser && 
+                <div className="centerIcon" style={{marginTop:"1em", marginLeft:"0.8em", marginRight:"0.8em"}}>
+                    <FiHeart 
+                        onClick={(e) => favoriting(e)}
+                        size={"1.5em"} 
+                        style={{marginLeft: "2%", marginRight:"1%"}}
+                    />
+                    <p style={{padding:"0.05em"}}> {favoritedByUser} </p>         
+                </div>}
+
+                {isFavoritedByUser && 
+                <div className="centerIcon" style={{marginTop:"1em", marginLeft:"0.8em", marginRight:"0.8em"}}>
+                    <FaHeart 
+                        onClick={(e) => favoriting(e)}
+                        size={"1.5em"} 
+                        style={{marginLeft: "2%", marginRight:"1%"}}
+                    />
+                <p> {favoritedByUser} </p> 
+                </div>}
+
 
             </div>
 
@@ -273,6 +339,7 @@ function RecipeCard(props) {
                     <Clock size={16} style={{marginRight: "0.5em"}}/>
                     {cardDate}
                 </p>
+                
                 {admin &&
                     <p style={{color: "#960b0b", float: "right", marginRight: "3%"}}
                        onClick={(e) => deleteRecipe(e)}>Slett oppskrift?</p>}

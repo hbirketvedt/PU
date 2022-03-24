@@ -135,6 +135,7 @@ function RecipePage() {
                             id={recipe.id}
                             date={recipe.date}
                             likes={recipe.likes}
+                            favoritedByUser={recipe.favoritedByUser}
                             style={{margin: "10rem"}}
                             key={recipe.id}
                         />
