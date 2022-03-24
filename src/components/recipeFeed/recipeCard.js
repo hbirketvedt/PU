@@ -8,7 +8,6 @@ import {onAuthStateChanged} from "firebase/auth";
 import {useNavigate} from "react-router";
 import React from 'react';
 import { Clock } from 'react-bootstrap-icons';
-import Button from "react-bootstrap/Button";
 import { AiFillLike, AiOutlineLike } from 'react-icons/ai';
 import { FaHeart } from 'react-icons/fa';
 import { FiHeart } from 'react-icons/fi';
@@ -275,7 +274,6 @@ function RecipeCard(props) {
                     <Card.Subtitle> { timeEstimate}</Card.Subtitle>
                     <Card.Subtitle> { portions } porsjoner </Card.Subtitle>
                     <Card.Subtitle> Laget av { name } </Card.Subtitle>
-                    <Button className= "favorite" variant="outline-dark">Favoritt </Button>
                     <Card.Subtitle> {category}</Card.Subtitle>
                 </Card.Body>
 

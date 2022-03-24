@@ -109,7 +109,6 @@ function ProfilePage() {
                         <ListGroupItem>E-post: {email}</ListGroupItem>
                         <ListGroupItem>Fornavn: {firstname} </ListGroupItem>
                         <ListGroupItem>Etternavn: {lastName}</ListGroupItem>
-                        <ListGroupItem>(husk å fjerne)Test av favoritter: {favoriteRecipes}</ListGroupItem>
                     </ListGroup>
                 </Card>
             </div>
