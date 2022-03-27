@@ -20,7 +20,7 @@ function RecipePage() {
     const {state} = useLocation()
     const [showEditButton, setShowEditButton] = useState(false);
     const [showEditor, setShowEditor] = useState(false);
-    const [showVisitButton, setShowVisitButton] = useState(false);
+    const [showVisitButton, setShowVisitButton] = useState(true);
 
 
     const navigate = useNavigate();
@@ -30,18 +30,16 @@ function RecipePage() {
     /**
      * Loads in current user
      */
-    onAuthStateChanged(auth, (currentUser) => {
-        //console.log(state.recipe.userID)
-        //console.log(currentUser.uid)
-        
-        if (currentUser.uid.localeCompare(state.recipe.userID)) {
-            setShowEditButton(true)
-        }
-        if (!currentUser.uid.localeCompare(state.recipe.userID)) {
-            setShowVisitButton(true)
-        }
-        setCurrentUser(currentUser)
+    onAuthStateChanged(auth, (user) => {
+        setCurrentUser(user)
 
+
+        if (currentUser !== null) {
+            if (currentUser.uid === state.recipe.userID) {
+                setShowEditButton(true)
+                setShowVisitButton(false)
+            }
+        } 
     })
     /**
      * Sets recipe from received props value. Only runs once on first render.
@@ -159,11 +157,11 @@ function RecipePage() {
                             </Card.Body>
                         </Card>
                         <div>
-                            <div>{!showEditButton ?
+                            <div>{showEditButton ?
                                 <button onClick={handleEdit}>Rediger oppskrift</button> : null}</div>
-                            <div>{!showEditButton ?
+                            <div>{showEditButton ?
                                 <button onClick={handleDelete}>Slett oppskrift</button> : null}</div>
-                             <div>{!showVisitButton ?
+                             <div>{showVisitButton ?
                                 <button onClick={handleVisit}>Besøk profil</button> : null}</div>
                         </div>
                     </div>
