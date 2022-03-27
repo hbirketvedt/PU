@@ -1,10 +1,15 @@
 
 
 
-.container-1 {
+.container-2 {
   display: flex;
-  //flex-wrap: wrap;
+  flex-wrap: wrap;
   justify-content: space-evenly;
   column-count: 2;
   align-items: center;
+}
+
+
+.react-responsive-modal-modal {
+  width: 40%;
 }

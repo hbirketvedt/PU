@@ -1,55 +1,61 @@
 import {useState} from "react";
 import {auth, db} from "../../firebase_config";
-import {collection, getDocs} from "firebase/firestore";
+import {collection, doc, getDocs} from "firebase/firestore";
 import {getDownloadURL, getStorage, ref} from "firebase/storage";
 import {Card, ListGroup, ListGroupItem} from "react-bootstrap";
-import {onAuthStateChanged, signOut} from "firebase/auth";
+//import {onAuthStateChanged, signOut} from "firebase/auth";
 import {useNavigate} from "react-router";
-import PersonalRecipeFeed from "./personalRecipeFeed";
-import PersonalFavorites from "./personalFavorites";
-import "./profilePage.scss"
+import OtherRecipeFeed from "./othersRecipeFeed";
+import { useLocation } from "react-router";
+import { useEffect } from "react";
 
 
-function ProfilePage() {
+//Kan se siden på /seeProfile
+
+function OthersProfilePage() {
+
     const usersCollectionRef = collection(db, "users")
-    const [email, setEmail] = useState("")
     const [firstname, setFirstname] = useState("")
     const [lastName, setLastName] = useState("")
     const [bio, setBio] = useState("")
     const [imageURL, setImageURL] = useState("")
-    const [favoriteRecipes, setFavoriteRecipes] = useState("")
-
     const [currentUser, setCurrentUser] = useState({});
+    const {state} = useLocation()
+    const [recipe, setRecipe] = useState([])
+    const [otherUser, setOtherUser] = useState({});
 
-    onAuthStateChanged(auth, (currentUser) => {
-        setCurrentUser(currentUser);
+    
+    //Denne setter til den nåværende brukeren, vi må sette den til brukeren vi vil se oppskriftene til
+
+
+    useEffect(() => {
+        setRecipe([state])
+        //setOtherUser(state.userID)
+        setOtherUser(state.userID)
+        console.log(state)
+        console.log(otherUser)
+        //console.log(state.uid)
         loadUser();
-    })
+    }, [])
 
-    const logout = async () => {
-        if (window.confirm("Er du sikker på at ønsker å logge ut?")) {
-            await signOut(auth);
-            goToLogin();
-        }
-    }
 
-    const navigate = useNavigate();
+    /*const userFromRecipe = () => {
+        console.log(state.recipe)
+        console.log("hei")
+        const uid = recipe.uid
+        const user = doc(db, "users", uid)
+        setCurrentUser(user);
+        loadUser();
+    } */
+ 
 
-    const goToLogin = async () => {
-        navigate("../registration/login")
-    }
-
-    const goToEditProfile = async () => {
-        navigate("/editProfile")
-    }
 
     const loadUser = async () => {
         const data = await getDocs(usersCollectionRef);
-        const user = data.docs.filter(doc => doc.id === currentUser.uid).reduce((a, b) => a).data();
-        setEmail(user.email);
+        const user = data.docs.filter(doc => doc.id === state.userID).reduce((a, b) => a).data();
+        console.log(user)
         setFirstname(user.firstName);
         setLastName(user.lastName);
-        setFavoriteRecipes(user.favoriteRecipes);
         if (user.bio === "") {
             setBio("(Ingen bio)");
         } else {
@@ -64,7 +70,7 @@ function ProfilePage() {
     }
 
     const handleDownloadImage = async () => {
-        const imageRef = ref(getStorage(), 'profilePictures/' + currentUser.uid + '.png');
+        const imageRef = ref(getStorage(), 'profilePictures/' + otherUser.uid + '.png');
         getDownloadURL(imageRef)
             .then((url) => {
                 setImageURL(url)
@@ -85,17 +91,6 @@ function ProfilePage() {
             });
     }
 
-    // const handleFavoriteRecipes = async () => {
-    //     const data = await getDocs(usersCollectionRef);
-    //     const user = data.docs.filter(doc => doc.id === currentUser.uid).reduce((a, b) => a).data();  
-
-    //     if (user.favoriteRecipes === "") {
-    //         setFavoriteRecipes("Du har ikke valgt noen favorittoppskrifter enda.");
-    //     } else {
-    //         setFavoriteRecipes(user.favoriteRecipes);
-    //     };
-    // }
-
 
     return (
         <div>
@@ -106,26 +101,15 @@ function ProfilePage() {
                         <Card.Text> <em>{bio}</em> </Card.Text>
                     </Card.Body>
                     <ListGroup className="list-group-flush">
-                        <ListGroupItem>E-post: {email}</ListGroupItem>
                         <ListGroupItem>Fornavn: {firstname} </ListGroupItem>
                         <ListGroupItem>Etternavn: {lastName}</ListGroupItem>
                     </ListGroup>
                 </Card>
-            </div>
-            <div className="centerButtons">
-                <button onClick={goToEditProfile}>
-                    Endre profil
-                </button>
-                <button onClick={logout} type="signOut">
-                    Logg ut
-                </button>
-            </div>
-            <h1>Mine Oppskrifter: </h1>
-            <PersonalRecipeFeed/>
-            <h1>Mine Favoritter:</h1>
-            <PersonalFavorites/>
+                </div>
+            <h1>{firstname} {lastName} sine oppskrifter: </h1>
+            <OtherRecipeFeed/>
         </div>
     )
 }
 
-export default ProfilePage;
+export default OthersProfilePage;

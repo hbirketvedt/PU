@@ -1,8 +1,8 @@
-import { useState} from "react";
-import { useNavigate } from "react-router";
-import { Alert } from "react-bootstrap";
-import { onAuthStateChanged, updatePassword  } from "firebase/auth";
-import { auth } from "../../firebase_config";
+import {useState} from "react";
+import {useNavigate} from "react-router";
+import {Alert} from "react-bootstrap";
+import {onAuthStateChanged, updatePassword} from "firebase/auth";
+import {auth} from "../../firebase_config";
 
 function ChangePassword() {
 
@@ -46,7 +46,7 @@ function ChangePassword() {
         <div className="centered">
             <p>Nytt passord:</p>
             <input onChange={(event) => {setNewPassword(event.target.value)}} type="password"/>
-            <p>Bekreft nytt passord:</p>
+            <p style={{marginTop:"1em"}}>Bekreft nytt passord:</p>
             <input onChange={(event) => {setNewPassword2(event.target.value)}} type="password"/>
             <div > 
                 <h1></h1>

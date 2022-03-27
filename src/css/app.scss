@@ -132,8 +132,10 @@ button + button {
   height: 2cm;
   display: flex;
   align-items: center;
-  position: sticky;
-  top: 0;
+  top: 0px;
+  z-index: 9999;
+  position: fixed;
+  right: 0;
 }
 
 a {
@@ -232,6 +234,18 @@ link {
   margin-top: 1ch;
 }
 
+.profileImage2 {
+  max-height: 200px;
+  max-width: 200px;
+  border-radius: 4px;
+  display: block;
+  margin-left: auto;
+  margin-right: auto;
+  margin-top: 1ch;
+  border-color: gray;
+  border-style: solid;
+}
+
 .centered {
   position: absolute;
   top: 50%;
@@ -260,6 +274,11 @@ link {
 .centerButtons {
   display: flex;
   justify-content: center;
+  margin-bottom: 1em;
+}
+
+.centerIcon {
+  display: flex;
   margin-bottom: 1em;
 }
 

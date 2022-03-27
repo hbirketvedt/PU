@@ -8,8 +8,7 @@ import React from 'react';
 import { doc, deleteDoc } from "firebase/firestore";
 import { getStorage, ref, deleteObject } from "firebase/storage";
 import { useNavigate } from "react-router";
-import { deleteUser, getAuth } from "firebase/auth";
-//const { initializeApp } = require('firebase-admin/app');
+
 
 
 function Users() {
@@ -18,6 +17,10 @@ function Users() {
     const [currentUser, setCurrentUser] = useState({});
     const storage = getStorage();
     const navigate = useNavigate();
+
+    const recipesCollectionRef = collection(db, "recipes");
+    const [recipes, setRecipes] = useState([])
+    const [allRecipes, setAllRecipes] = useState([])
     
 
     onAuthStateChanged(auth, (currentUser) => {
@@ -27,7 +30,15 @@ function Users() {
 
       useEffect(() => {
         getAllDataOnce();
+        const loadRecipes = async () => {
+            const data = await getDocs(recipesCollectionRef);
+            const allRecipes = data.docs.map((doc) => ({...doc.data(), id: doc.id}));
+            setAllRecipes(allRecipes)
+            setRecipes(allRecipes)
+        };
+        loadRecipes();
     }, []);
+
 
 
     var number = 0
@@ -94,22 +105,15 @@ function Users() {
     }
 
     const deleteUser1 = async (email, firstName, lastName, id) => {
-        console.log("hei")
-        //const user = getAuth().getUserByEmail(email);
-        //console.log(user.email);
-        getAuth()
-            .getUser(id)
-            .then((userRecord) => {
-                // See the UserRecord reference doc for the contents of userRecord.
-                console.log(`Successfully fetched user data:`);
-            })
-            .catch((error) => {
-                console.log('Error fetching user data:', error);
-            });
 
-        /*
+
+        
         if (window.confirm("Er du sikker på at ønsker å slette brukeren? Denne handlingen kan ikke angres.")) {
+    
+            // Sletter bruker
             await deleteDoc(doc(db, "users", id));
+
+            // Sletter profilbilde
             const imageRef = ref(storage, "profilePictures/" + id + ".png");
             deleteObject(imageRef).then(() => {
                     console.log("Profilbildet ble slettet!")
@@ -117,16 +121,19 @@ function Users() {
                     console.log("Brukeren hadde ikke profilbilde")
                 });
 
-            // Slette oppskrifter
+            // Sletter oppskrifter
+            const data = await getDocs(recipesCollectionRef);
+            const alle = data.docs.map((doc) => ({...doc.data(), id: doc.id}));
+            console.log(alle.length)
+            for (let i = 0; i < alle.length; i++) {
+                if (alle[i].userID === id) {
+                    await deleteDoc(doc(db, "recipes", alle[i].id));
+            } 
+            window.location.reload();
+          } 
             
-            auth.deleteUser(id).then(() => {
-                console.log("Sletting vellykket!")
-              }).catch((error) => {
-                console.log("Sletting mislykket!")
-                console.log(error.message)
-              });
-            goToUsers();
-        } */
+        
+        } 
 
     }
 
@@ -141,7 +148,7 @@ function Users() {
                     <th style={{width:"25%"}}>E-post</th>
                     <th style={{width:"25%"}}>Fornavn</th>
                     <th style={{width:"25%"}}>Etternavn</th>
-                    <th style={{width:"15%"}}>Slett bruker</th>
+                    <th style={{width:"12%"}}>Slett bruker</th>
                 </tr>
             </thead>
             <tbody id="tbody1"></tbody>

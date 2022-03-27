@@ -1,21 +1,15 @@
-import {
-    Routes,
-    Route
-} from "react-router-dom";
-import Recipes from "./components/dummy/recipes";
+import {Route, Routes} from "react-router-dom";
 import ProfilePage from "./components/profile/profilePage";
 import EditProfile from "./components/profile/editProfile";
 import ChangeProfilePicture from "./components/profile/changeProfilePicture";
 import ChangePassword from "./components/profile/changePassword";
 import ChangeBio from "./components/profile/changeBio";
 import DeleteUser from "./components/profile/deleteUser";
-import NewRecipe from "./components/newRecipe/newRecipe";
 import Navbar from "./components/navbar/navbar";
 import SplashPage from "./components/dummy/splashPage";
 import Signup from "./components/registration/signup";
 import Login from "./components/registration/login";
 import ForgotPassword from "./components/registration/forgotPassword";
-import RecipeFeed from "./components/recipeFeed/recipeFeed";
 import ProtectedRoutes from "./ProtectedRoutes";
 import LoggedInRoutes from "./LoggedInRoutes";
 import FrontPage from "./components/registration/frontpage";
@@ -23,11 +17,17 @@ import "./css/app.scss"
 import RecipePage from "./components/recipePage/recipePage";
 import MainRecipeFeed from "./components/recipeFeed/mainRecipeFeed";
 import Users from "./components/admin/users";
+import NewRecipe from "./components/newRecipe/newRecipe";
+import OthersProfilePage from "./components/othersProfile/othersProfilepage";
 
 function App() {
     return (
         <div>
             <Navbar/>
+            <br></br>
+            <br></br>
+            <br></br>
+            <br></br>
             <Routes>
                 <Route path="/*" element={<SplashPage/>}/>
                 <Route element={<LoggedInRoutes/>}>
@@ -47,12 +47,15 @@ function App() {
                 <Route path="oppskrifter" element={<MainRecipeFeed/>}/>
                 <Route path="deleteUser" element={<DeleteUser/>}/>
                 <Route path="users" element={<Users/>}/>
+                <Route path="seeProfile" element={<OthersProfilePage/>}/>
                 <Route path={"*"} element={<h1> 404: not found</h1>}/>
                 <Route element={<ProtectedRoutes/>}>
                     <Route path="profilePage" element={<ProfilePage/>}/>
                     <Route path="newRecipe" element={<NewRecipe/>}/>
                 </Route>
             </Routes>
+
+        
         </div>
     )
 }

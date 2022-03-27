@@ -1,5 +1,4 @@
-import { Navigate, Outlet } from "react-router";
-import {useLocation} from "react-router";
+import {Outlet, useLocation} from "react-router";
 import {Test} from "./components/user/isUser";
 import FrontPage from "./components/registration/frontpage";
 

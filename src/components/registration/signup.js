@@ -1,11 +1,10 @@
-import { Alert } from "react-bootstrap";
-import { useState} from "react";
-import { useNavigate } from "react-router";
-import { auth } from "../../firebase_config";
-import { createUserWithEmailAndPassword } from "firebase/auth";
-import { getStorage, ref, uploadBytes } from "firebase/storage"
-import { doc, setDoc } from "firebase/firestore";
-import { db } from "../../firebase_config";
+import {Alert} from "react-bootstrap";
+import {useState} from "react";
+import {useNavigate} from "react-router";
+import {auth, db} from "../../firebase_config";
+import {createUserWithEmailAndPassword} from "firebase/auth";
+import {getStorage, ref, uploadBytes} from "firebase/storage"
+import {doc, setDoc} from "firebase/firestore";
 
 function Signup() {
 
@@ -85,6 +84,7 @@ function Signup() {
                 firstName: firstName,
                 lastName: lastName,
                 bio: "",
+                //favoriteRecipes: ["",],
                 profilePictureURL: "default.png"
             });
         } else {
@@ -95,6 +95,7 @@ function Signup() {
                 firstName: firstName,
                 lastName: lastName,
                 bio: "",
+                favoriteRecipes: ["",],
                 profilePictureURL: user.uid
             });
         }
@@ -111,7 +112,7 @@ function Signup() {
     }
 
     return(
-        <div>
+        <div className="centered" style={{marginTop:"3.5em", marginLeft:"5%"}}>
             <p>E-post:</p>
             <input onChange={(event) => {setRegisterEmail(event.target.value)}}/>
             <p>Fornavn:</p>
@@ -127,7 +128,6 @@ function Signup() {
                 <p>Profilbilde:</p>
                 <img src={photoURL} alt="Avatar" className="avatar" />
                 <input type="file" onChange={handleChange} />
-                <p/>
             </div>
             {signupError && <Alert variant="danger">{signupError}</Alert>}
             <div className="space">
