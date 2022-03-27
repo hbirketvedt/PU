@@ -30,27 +30,38 @@ function RecipePage() {
     /**
      * Loads in current user
      */
-    onAuthStateChanged(auth, (currentUser) => {
-        //console.log(state.recipe.userID)
-        //console.log(currentUser.uid)
-        
-        if (currentUser.uid.localeCompare(state.recipe.userID)) {
-            setShowEditButton(true)
+    onAuthStateChanged(auth, (user) => {
+        if (user) {
+            setCurrentUser(user)
+        } else {
+            setCurrentUser(null)
         }
-        if (!currentUser.uid.localeCompare(state.recipe.userID)) {
-            setShowVisitButton(true)
-        }
-        setCurrentUser(currentUser)
-
     })
+
     /**
      * Sets recipe from received props value. Only runs once on first render.
      */
     useEffect(() => {
+
+        console.log(showEditButton)
+        console.log(showVisitButton)
+
+
+        if (currentUser !== null) {
+            if (currentUser.uid.localeCompare(state.recipe.userID)) {
+                setShowEditButton(true)
+                console.log("Burde vises nå")
+            }
+            else {console.log("HMM")}
+        }
+        if (currentUser === null) {
+            setShowVisitButton(true)
+        }
+        else if (!currentUser.uid.localeCompare(state.recipe.userID)) {
+            setShowVisitButton(true)
+        }
+
         setRecipe([state.recipe])
-        console.log(recipe)
-        console.log(state.recipe)
-        console.log(state.recipe.userID)
     }, [])
 
     /**
@@ -159,12 +170,18 @@ function RecipePage() {
                             </Card.Body>
                         </Card>
                         <div>
-                            <div>{!showEditButton ?
-                                <button onClick={handleEdit}>Rediger oppskrift</button> : null}</div>
-                            <div>{!showEditButton ?
-                                <button onClick={handleDelete}>Slett oppskrift</button> : null}</div>
-                             <div>{!showVisitButton ?
-                                <button onClick={handleVisit}>Besøk profil</button> : null}</div>
+                            <div>
+                                {showEditButton ?
+                                <button onClick={handleEdit}>Rediger oppskrift</button> : null}
+                            </div>
+                            <div>
+                                {showEditButton ?
+                                <button onClick={handleDelete}>Slett oppskrift</button> : null}
+                            </div>
+                             <div>
+                                 {showVisitButton ?
+                                <button onClick={handleVisit}>Besøk profil</button> : null}
+                            </div>
                         </div>
                     </div>
                 )
