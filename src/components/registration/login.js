@@ -1,29 +1,44 @@
 import {useState} from "react";
 import {useLocation, useNavigate} from "react-router";
-import {auth} from "../../firebase_config";
+import {auth, db} from "../../firebase_config";
 import {signInWithEmailAndPassword} from "firebase/auth";
 import {Alert} from "react-bootstrap";
+import {collection, getDocs} from "firebase/firestore";
 
 function Login() {
 
     const [ loginEmail, setLoginEmail ] = useState("");
     const [ loginPassword, setLoginPassword ] = useState("");
-    const [ loginError, setLoginError] = useState(""); // bytt navn til loginError
+    const [ loginError, setLoginError] = useState(""); 
+
     const location = useLocation();
+    const usersCollectionRef = collection(db, "users")
 
     const login = async () => {
         try {
             setLoginError("");
             const user = await signInWithEmailAndPassword(auth, loginEmail, loginPassword);
-            console.log(user);
-            //adds to navigate u to where u came from if u where sent to login
-            if (location.state?.from) {
-                navigate(location.state.from);
-            } else {
-                goToHome();
-            } 
+
+            const data = await getDocs(usersCollectionRef);
+            try {
+                const dataUser = data.docs.filter(doc => doc.id === user.uid).reduce((a, b) => a);
+                console.log("Hei")
+                console.log(dataUser)
+
+                //adds to navigate u to where u came from if u where sent to login
+                if (location.state?.from) {
+                    navigate(location.state.from);
+                } else {
+                    goToHome();
+                } 
+            } catch (error) {
+                console.log(error)
+                console.log("Vi")
+                
+            }
+
         } catch (error) {
-            console.log(error.message);
+            console.log(error);
             if (error.message.includes("auth/invalid-email")) {
                 setLoginError("Ugyldig e-post!");
             } else {
