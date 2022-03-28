@@ -4,7 +4,7 @@ import { auth } from "../../firebase_config";
 import {getDownloadURL, getStorage, ref, uploadBytes} from "firebase/storage";
 import { useNavigate } from "react-router";
 import {db} from "../../firebase_config";
-import {collection, getDocs} from "firebase/firestore";
+import {collection, getDocs, doc, updateDoc} from "firebase/firestore";
 import {Card} from "react-bootstrap";
 import { Alert } from "react-bootstrap";
 
@@ -87,6 +87,11 @@ function ChangeProfilePicture() {
             setErrorMsg("")
             const fileRef = ref(storage, "profilePictures/" + user.uid + ".png");
             const snapshot = await uploadBytes(fileRef, photo);
+
+            const washingtonRef = doc(db, "users", user.uid);
+            await updateDoc(washingtonRef, {
+                profilePictureURL: user.uid
+            });
             
             navigate("/profilePage") 
         }
