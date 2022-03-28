@@ -45,6 +45,8 @@ export default function OthersRecipeFeed() {
 
 
     return (
+        <div className = "container-3">
         <RecipeFeed recipes={recipes}/>
+        </div>
     )
 }
