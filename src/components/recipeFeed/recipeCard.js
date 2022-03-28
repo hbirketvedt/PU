@@ -275,7 +275,7 @@ function RecipeCard(props) {
     return (
         <Card className={"card recipeCard"} style={{maxWidth: '100%', maxHeight: "34rem"}}>
             <Card.Img
-                style={{maxWidth: "30em", maxHeight: "20rem", objectFit: "cover"}}
+                style={{width: "30em", height: "20rem", objectFit: "cover"}}
                 variant="top" src={url}
             />
             <div className="centerIcon">
