@@ -42,6 +42,16 @@ export default function PersonalFavorites() {
 
 
     return (
-        <RecipeFeed recipes={recipes}/>
+        <div>
+            <div> {recipes.length !== 0 ? 
+                <div style={{marginTop:"3em", marginBottom:"2em", textAlign:"center"}}>
+                                <h2>Mine favoritter</h2>
+                                <hr style={{height:"1px", color:"black", backgroundColor:"black", width:"70%", marginLeft:"15%"}}/>
+                </div> : null}
+            </div>
+            <div className = "container-3">
+                <RecipeFeed recipes={recipes}/>
+            </div>
+        </div>
     )
 }

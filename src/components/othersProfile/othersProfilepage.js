@@ -106,8 +106,11 @@ function OthersProfilePage() {
                     </ListGroup>
                 </Card>
                 </div>
-            <h1>{firstname} {lastName} sine oppskrifter: </h1>
-            <OtherRecipeFeed/>
+                <div style={{marginTop:"3em", marginBottom:"2em", textAlign:"center"}}>
+                    <h2>Oppskrifter</h2>
+                    <hr style={{height:"1px", color:"black", backgroundColor:"black", width:"70%", marginLeft:"15%"}}/>
+                </div>
+            <OtherRecipeFeed />
         </div>
     )
 }

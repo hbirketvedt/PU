@@ -6,7 +6,7 @@ function IngredientList(props) {
     const [ingredients] = useState(props.ingredients)
 
     return (
-        <Card style={{width: '40rem'}}>
+        <Card style={{width: '35rem', marginTop:"1em"}}>
             <Card.Header>Ingredienser: </Card.Header>
             <ListGroup variant="flush">
                 { ingredients.map( ingredient => {
@@ -14,6 +14,7 @@ function IngredientList(props) {
                 })}
             </ListGroup>
         </Card>
+        
     )
 }
 
