@@ -348,27 +348,6 @@ function RecipeCard(props) {
 
         </Card>
 
-        /*
-        {!hasLiked && <p style={{padding:"70px"}}>
-                <AiOutlineLike
-                    onClick={(e) => liking(e)}
-                    size={"1.5em"}
-                    style={{marginLeft: "2%", marginRight:"1%"}}
-                />
-                {likes}
-            </p> }
-        */
-
-        // <div>
-        //     <img src={url} alt={""}/>
-        //     <body>
-        //     <title>{title}</title>
-        //         <sub> { timeEstimate }</sub>
-        //         <sub> { portions } porsjoner </sub>
-        //         <sub> Laget av { name }</sub>
-        //     </body>
-        // </div>
-
 
     )
 }
