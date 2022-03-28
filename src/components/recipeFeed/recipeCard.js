@@ -273,7 +273,7 @@ function RecipeCard(props) {
     )
 
     return (
-        <Card className={"card recipeCard"} style={{maxWidth: '100%', maxHeight: "100%"}}>
+        <Card className={"card recipeCard"} style={{maxWidth: '100%', maxHeight: "34rem"}}>
             <Card.Img
                 style={{maxWidth: "30em", maxHeight: "20rem", objectFit: "cover"}}
                 variant="top" src={url}
@@ -284,10 +284,6 @@ function RecipeCard(props) {
                     <Card.Subtitle> {timeEstimate}</Card.Subtitle>
                     <Card.Subtitle> {portions} porsjoner </Card.Subtitle>
                     <Card.Subtitle> Laget av {name} </Card.Subtitle>
-                    <Card.Subtitle> {category}</Card.Subtitle>
-                    <Card.Body>
-                        <Rating ratingValue={rating} readonly={true}/>
-                    </Card.Body>
                 </Card.Body>
 
                 {!hasLiked && 
@@ -334,22 +330,36 @@ function RecipeCard(props) {
             </div>
 
 
-            <div>
+            <div >
                 <p style={{float: "left", marginLeft: "3%"}}>
                     <Clock size={16} style={{marginRight: "0.5em"}}/>
                     {cardDate}
                 </p>
                 
-                {admin &&
-                    <p style={{color: "#960b0b", float: "right", marginRight: "3%"}}
-                       onClick={(e) => deleteRecipe(e)}>Slett oppskrift?</p>}
+                <div style={{float: "right", marginRight: "3%"}}>
+                    <Rating  ratingValue={rating} readonly={true} size={22}/>
+                    </div>
             </div>
 
-
+            <div style={{float: "left", marginLeft: "3%"}}>
+                {admin &&
+                    <p style={{color: "#960b0b"}}
+                    onClick={(e) => deleteRecipe(e)}>Slett oppskrift?</p>}
+            </div>
         </Card>
 
 
     )
 }
+
+
+/**
+ * <Card.Body >
+                <Rating ratingValue={rating} readonly={true} size={22}/>
+            </Card.Body>
+    {admin &&
+                    <p style={{color: "#960b0b", float: "right", marginRight: "3%"}}
+                       onClick={(e) => deleteRecipe(e)}>Slett oppskrift?</p>}
+ */
 
 export default RecipeCard;

@@ -122,7 +122,7 @@ function RecipePage() {
                                 /> : null}
                             </div>
                         </Modal>
-                        <RecipeCard
+                        <RecipeCard 
                             title={recipe.title}
                             timeEstimate={recipe.timeEstimate}
                             portions={recipe.portions}
@@ -137,32 +137,35 @@ function RecipePage() {
                             style={{margin: "10rem"}}
                             key={recipe.id}
                         />
-                        <IngredientList
-                            key={recipe.id + "ingredients"}
-                            ingredients={recipe.ingredients}
-                        />
-                        <Card>
-                            <Card.Body>
-
-                                <Card.Title>Vurder denne oppskriften</Card.Title>
-                                <Rating onClick={handleRating} ratingValue={rating}/>
-                            </Card.Body>
-                        </Card>
-                        <Card style={{width: "83rem"}}>
-                            <Card.Body>
-                                <Card.Title>Fremgangsmåte: </Card.Title>
-                                <Card.Text>
-                                    {recipe.description}
-                                </Card.Text>
-                            </Card.Body>
-                        </Card>
                         <div>
-                            <div>{showEditButton ?
-                                <button onClick={handleEdit}>Rediger oppskrift</button> : null}</div>
-                            <div>{showEditButton ?
-                                <button onClick={handleDelete}>Slett oppskrift</button> : null}</div>
-                             <div>{showVisitButton ?
-                                <button onClick={handleVisit}>Besøk profil</button> : null}</div>
+                            <IngredientList 
+                                key={recipe.id + "ingredients"}
+                                ingredients={recipe.ingredients}
+                                description={recipe.description}
+                            />
+                            <Card style={{width: "35rem", marginTop: "2em"}}>
+                                <Card.Body>
+                                    <Card.Title>Fremgangsmåte: </Card.Title>
+                                    <Card.Text>
+                                        {recipe.description}
+                                    </Card.Text>
+                                </Card.Body>
+                            </Card>
+                            <Card style={{width: "48%", marginTop: "2em", marginLeft:"26%"}}> 
+                                <Card.Body>
+                                    <Card.Title>Vurder denne oppskriften</Card.Title>
+                                    <Rating onClick={handleRating} ratingValue={rating}/>
+                                </Card.Body>
+                            </Card>
+                    
+                            <div className="centerButtons" style={{marginTop:"2em"}}>
+                                {showEditButton ?
+                                    <button onClick={handleEdit}>Rediger oppskrift</button> : null}
+                                {showEditButton ?
+                                    <button onClick={handleDelete}>Slett oppskrift</button> : null}
+                                {showVisitButton ?
+                                    <button onClick={handleVisit}>Besøk profil</button> : null}
+                            </div>
                         </div>
                     </div>
                 )
