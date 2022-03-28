@@ -61,7 +61,7 @@ function OthersProfilePage() {
         } else {
             setBio(user.bio);
         }
-        if (user.profilePictureURL === currentUser.uid) {
+        if (state.userID !== "default.png") {
             handleDownloadImage();
         } else {
             handleDownloadDefault();
@@ -70,7 +70,7 @@ function OthersProfilePage() {
     }
 
     const handleDownloadImage = async () => {
-        const imageRef = ref(getStorage(), 'profilePictures/' + otherUser.uid + '.png');
+        const imageRef = ref(getStorage(), 'profilePictures/' + state.userID + '.png');
         getDownloadURL(imageRef)
             .then((url) => {
                 setImageURL(url)
