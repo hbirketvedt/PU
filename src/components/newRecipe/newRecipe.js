@@ -82,7 +82,8 @@ function NewRecipe() {
             userID: currentUser.uid,
             nameOfUser: nameOfUser,
             likes: [],
-            favoritedByUser: []
+            favoritedByUser: [],
+            comments: []
         });
         console.log("Recipe uploaded to database")
         navigate("/oppskrifter")
