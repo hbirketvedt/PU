@@ -6,7 +6,7 @@
 
 #### Deretter må man lage en .env fil i hovedmappen PU og lime inn API nøklene som er skrevet under
 
-<pre><code> REACT_APP_FIREBASE_API_KEY = "AIzaSyCmBnDcTWcb7SFITjEoughr-SKb6IsMYtI"
+<pre><code>REACT_APP_FIREBASE_API_KEY = "AIzaSyCmBnDcTWcb7SFITjEoughr-SKb6IsMYtI"
 REACT_APP_FIREBASE_AUTH_DOMAIN = "programvareutvikling-ac29a.firebaseapp.com"
 REACT_APP_FIREBASE_PROJECT_ID = "programvareutvikling-ac29a"
 REACT_APP_FIREBASE_STORAGE_BUCKET = "programvareutvikling-ac29a.appspot.com"
