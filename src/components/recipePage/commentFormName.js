@@ -15,7 +15,7 @@ function CommentFormName(props) {
 
     useEffect(() => {
         loadName()
-    }, )
+    }, [])
 
     const loadName = async () => {
         const data = await getDocs(usersCollectionRef);
