@@ -1,6 +1,6 @@
 ## Velkommen til oppgaven vår i PU!
 
-### For å kjøre programmet må man først installere alle nødvedinge pakker ved å kjøre kommandoen under
+### For å kjøre programmet må man først installere alle nødvedinge pakker ved å kjøre kommandoen under i terminalen etter man har klonet repositoriet
 
 <pre><code>npm install</code></pre>
 
