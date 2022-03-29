@@ -1,6 +1,8 @@
 ## Velkommen til oppgaven vår i PU!
 
-### For å kjøre programmet må man først installere alle nødvedinge pakker ved å kjøre kommandoen under i terminalen etter man har klonet repositoriet
+### For å kjøre programmet må man først laste ned og installere node.js, som kan lastet ned herfra [](https://nodejs.org/en/download/)
+
+### Deretter kloner man repositoriet med Git og kjører kommandoen under i terminalen for å installere alle nødvendige pakker
 
 <pre><code>npm install</code></pre>
 
