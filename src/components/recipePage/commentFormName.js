@@ -14,10 +14,7 @@ function CommentFormName(props) {
 
 
     useEffect(() => {
-        loadName()
-    }, [])
-
-    const loadName = async () => {
+        const loadName = async () => {
         const data = await getDocs(usersCollectionRef);
         try {
             const d = data.docs.filter(doc => doc.id === props.id).reduce(a => a).data();
@@ -27,6 +24,11 @@ function CommentFormName(props) {
             console.log(error)
         }
     }
+        loadName().then(console.log("name loaded"))
+
+    }, [props.id, usersCollectionRef])
+
+
 
     return(
         <div>
